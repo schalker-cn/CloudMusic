@@ -1,5 +1,7 @@
 import qs from 'qs';
 import service from './request';
+import { DAILY_PLAYLIST_MOCK } from '@/mocks/playlistMock';
+import placeholder from '@/assets/img/placeholder.png';
 // 获取精品歌单
 export function getTopPlayList({ cat = '全部', limit = 10, before = '' }) {
   return service.get(`/top/playlist/highquality?cat=${cat}&limit=${limit}&before=${before}`);
@@ -10,7 +12,14 @@ export function getTopPlayListTags() {
 }
 // 推荐歌单
 export function getPersonalized() {
-  return service.get('/personalized?limit=15');
+      const modifiedData = {
+      ...DAILY_PLAYLIST_MOCK,
+      result: DAILY_PLAYLIST_MOCK.result.map(playlist => ({
+        ...playlist,
+        picUrl: placeholder
+      }))
+    };
+    return Promise.resolve(modifiedData);
 }
 // 获取歌单详情
 export function getPlaylistDetail(id: string) {
@@ -18,6 +27,7 @@ export function getPlaylistDetail(id: string) {
     id,
     timestamp: Date.now()
   });
+  console.log('list query is: ', query);
   return service.get('/playlist/detail?'+query);
 }
 // 获取歌单所有数据

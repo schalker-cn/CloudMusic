@@ -1,0 +1,1502 @@
+export const SONG_SEARCH_MOCK = {
+    "result": {
+        "searchQcReminder": null,
+        "songs": [
+            {
+                "name": "Road Trip",
+                "id": 34468943,
+                "pst": 0,
+                "t": 0,
+                "ar": [
+                    {
+                        "id": 1146061,
+                        "name": "Patrick Lite",
+                        "tns": [],
+                        "alias": []
+                    }
+                ],
+                "alia": [],
+                "pop": 85,
+                "st": 0,
+                "rt": null,
+                "fee": 8,
+                "v": 42,
+                "crbt": null,
+                "cf": "",
+                "al": {
+                    "id": 3286138,
+                    "name": "Road Trip (Original Mix)",
+                    "picUrl": "http://p2.music.126.net/lj78g8rVoEEEWLhlYYwJKw==/7980255396702715.jpg",
+                    "tns": [],
+                    "pic": 7980255396702715
+                },
+                "dt": 235441,
+                "h": null,
+                "m": {
+                    "br": 192000,
+                    "fid": 0,
+                    "size": 5651896,
+                    "vd": -40144,
+                    "sr": 44100
+                },
+                "l": {
+                    "br": 128000,
+                    "fid": 0,
+                    "size": 3767945,
+                    "vd": -38419,
+                    "sr": 44100
+                },
+                "sq": null,
+                "hr": null,
+                "a": null,
+                "cd": "1",
+                "no": 1,
+                "rtUrl": null,
+                "ftype": 0,
+                "rtUrls": [],
+                "djId": 0,
+                "copyright": 0,
+                "s_id": 0,
+                "mark": 17180008448,
+                "originCoverType": 0,
+                "originSongSimpleData": null,
+                "tagPicList": null,
+                "resourceState": true,
+                "version": 8,
+                "songJumpInfo": null,
+                "entertainmentTags": null,
+                "single": 0,
+                "noCopyrightRcmd": null,
+                "rtype": 0,
+                "rurl": null,
+                "mst": 9,
+                "cp": 0,
+                "mv": 0,
+                "publishTime": 1432310400007,
+                "privilege": {
+                    "id": 34468943,
+                    "fee": 8,
+                    "payed": 0,
+                    "st": 0,
+                    "pl": 320000,
+                    "dl": 0,
+                    "sp": 7,
+                    "cp": 1,
+                    "subp": 1,
+                    "cs": false,
+                    "maxbr": 192000,
+                    "fl": 320000,
+                    "toast": false,
+                    "flag": 1868036,
+                    "preSell": false,
+                    "playMaxbr": 192000,
+                    "downloadMaxbr": 192000,
+                    "maxBrLevel": "sky",
+                    "playMaxBrLevel": "sky",
+                    "downloadMaxBrLevel": "sky",
+                    "plLevel": "exhigh",
+                    "dlLevel": "none",
+                    "flLevel": "exhigh",
+                    "rscl": 10,
+                    "freeTrialPrivilege": {
+                        "resConsumable": false,
+                        "userConsumable": false,
+                        "listenType": null,
+                        "cannotListenReason": null,
+                        "playReason": null,
+                        "freeLimitTagType": null
+                    },
+                    "rightSource": 0,
+                    "chargeInfoList": [
+                        {
+                            "rate": 128000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 0
+                        },
+                        {
+                            "rate": 192000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 0
+                        },
+                        {
+                            "rate": 320000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 0
+                        },
+                        {
+                            "rate": 999000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 1
+                        }
+                    ],
+                    "code": 0,
+                    "message": null,
+                    "plLevels": null,
+                    "dlLevels": null,
+                    "ignoreCache": null
+                }
+            },
+            {
+                "name": "Autumn Dream",
+                "id": 1822290110,
+                "pst": 0,
+                "t": 0,
+                "ar": [
+                    {
+                        "id": 14831928,
+                        "name": "Victor Makarov",
+                        "tns": [],
+                        "alias": []
+                    },
+                    {
+                        "id": 13479378,
+                        "name": "Exemplary Orchestra of Interior Forces of USSR MOI",
+                        "tns": [],
+                        "alias": []
+                    }
+                ],
+                "alia": [],
+                "pop": 10,
+                "st": 0,
+                "rt": "",
+                "fee": 8,
+                "v": 43,
+                "crbt": null,
+                "cf": "",
+                "al": {
+                    "id": 123400474,
+                    "name": "Old Waltzes",
+                    "picUrl": "http://p1.music.126.net/WXANHPavb7AFm9jbgYWCeA==/109951165751310037.jpg",
+                    "tns": [],
+                    "pic_str": "109951165751310037",
+                    "pic": 109951165751310030
+                },
+                "dt": 310266,
+                "h": {
+                    "br": 320000,
+                    "fid": 0,
+                    "size": 12413431,
+                    "vd": 27894,
+                    "sr": 44100
+                },
+                "m": {
+                    "br": 192000,
+                    "fid": 0,
+                    "size": 7448076,
+                    "vd": 30514,
+                    "sr": 44100
+                },
+                "l": {
+                    "br": 128000,
+                    "fid": 0,
+                    "size": 4965399,
+                    "vd": 32246,
+                    "sr": 44100
+                },
+                "sq": {
+                    "br": 699736,
+                    "fid": 0,
+                    "size": 27143775,
+                    "vd": 27897,
+                    "sr": 44100
+                },
+                "hr": null,
+                "a": null,
+                "cd": "01",
+                "no": 9,
+                "rtUrl": null,
+                "ftype": 0,
+                "rtUrls": [],
+                "djId": 0,
+                "copyright": 1,
+                "s_id": 0,
+                "mark": 139392,
+                "originCoverType": 0,
+                "originSongSimpleData": null,
+                "tagPicList": null,
+                "resourceState": true,
+                "version": 9,
+                "songJumpInfo": null,
+                "entertainmentTags": null,
+                "single": 0,
+                "noCopyrightRcmd": null,
+                "rtype": 0,
+                "rurl": null,
+                "mv": 0,
+                "mst": 9,
+                "cp": 743010,
+                "publishTime": 1072886400000,
+                "privilege": {
+                    "id": 1822290110,
+                    "fee": 0,
+                    "payed": 0,
+                    "st": -100,
+                    "pl": 0,
+                    "dl": 0,
+                    "sp": 7,
+                    "cp": 1,
+                    "subp": 1,
+                    "cs": false,
+                    "maxbr": 999000,
+                    "fl": 0,
+                    "toast": false,
+                    "flag": 1802501,
+                    "preSell": false,
+                    "playMaxbr": 999000,
+                    "downloadMaxbr": 999000,
+                    "maxBrLevel": "jymaster",
+                    "playMaxBrLevel": "jymaster",
+                    "downloadMaxBrLevel": "jymaster",
+                    "plLevel": "none",
+                    "dlLevel": "none",
+                    "flLevel": "none",
+                    "rscl": 0,
+                    "freeTrialPrivilege": {
+                        "resConsumable": false,
+                        "userConsumable": false,
+                        "listenType": null,
+                        "cannotListenReason": 1,
+                        "playReason": null,
+                        "freeLimitTagType": null
+                    },
+                    "rightSource": 0,
+                    "chargeInfoList": [
+                        {
+                            "rate": 128000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 0
+                        },
+                        {
+                            "rate": 192000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 0
+                        },
+                        {
+                            "rate": 320000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 0
+                        },
+                        {
+                            "rate": 999000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 1
+                        }
+                    ],
+                    "code": 0,
+                    "message": null,
+                    "plLevels": null,
+                    "dlLevels": null,
+                    "ignoreCache": null
+                }
+            },
+            {
+                "name": "autumn dream",
+                "id": 691606,
+                "pst": 0,
+                "t": 0,
+                "ar": [
+                    {
+                        "id": 18594,
+                        "name": "Aftergrow",
+                        "tns": [],
+                        "alias": []
+                    }
+                ],
+                "alia": [],
+                "pop": 10,
+                "st": 0,
+                "rt": "",
+                "fee": 8,
+                "v": 49,
+                "crbt": null,
+                "cf": "",
+                "al": {
+                    "id": 67020,
+                    "name": "Seven lies from my Dystopia",
+                    "picUrl": "http://p1.music.126.net/HON4XW1vEe_5k7xYYZn4cw==/109951167553751006.jpg",
+                    "tns": [
+                        "Seven lies from my Dystopia."
+                    ],
+                    "pic_str": "109951167553751006",
+                    "pic": 109951167553751000
+                },
+                "dt": 291533,
+                "h": {
+                    "br": 320000,
+                    "fid": 0,
+                    "size": 11664240,
+                    "vd": -2,
+                    "sr": 44100
+                },
+                "m": {
+                    "br": 192000,
+                    "fid": 0,
+                    "size": 6998561,
+                    "vd": 238,
+                    "sr": 44100
+                },
+                "l": {
+                    "br": 128000,
+                    "fid": 0,
+                    "size": 4665722,
+                    "vd": -2,
+                    "sr": 44100
+                },
+                "sq": {
+                    "br": 975193,
+                    "fid": 0,
+                    "size": 35537678,
+                    "vd": 100,
+                    "sr": 44100
+                },
+                "hr": null,
+                "a": null,
+                "cd": "1",
+                "no": 6,
+                "rtUrl": null,
+                "ftype": 0,
+                "rtUrls": [],
+                "djId": 0,
+                "copyright": 2,
+                "s_id": 0,
+                "mark": 9007199255011456,
+                "originCoverType": 0,
+                "originSongSimpleData": null,
+                "tagPicList": null,
+                "resourceState": true,
+                "version": 15,
+                "songJumpInfo": null,
+                "entertainmentTags": null,
+                "single": 0,
+                "noCopyrightRcmd": null,
+                "rtype": 0,
+                "rurl": null,
+                "mv": 0,
+                "mst": 9,
+                "cp": 743010,
+                "publishTime": 1313424000000,
+                "tns": [
+                    "autumn dream"
+                ],
+                "privilege": {
+                    "id": 691606,
+                    "fee": 0,
+                    "payed": 0,
+                    "st": -100,
+                    "pl": 0,
+                    "dl": 0,
+                    "sp": 7,
+                    "cp": 1,
+                    "subp": 1,
+                    "cs": false,
+                    "maxbr": 999000,
+                    "fl": 0,
+                    "toast": false,
+                    "flag": 2064645,
+                    "preSell": false,
+                    "playMaxbr": 999000,
+                    "downloadMaxbr": 999000,
+                    "maxBrLevel": "sky",
+                    "playMaxBrLevel": "sky",
+                    "downloadMaxBrLevel": "sky",
+                    "plLevel": "none",
+                    "dlLevel": "none",
+                    "flLevel": "none",
+                    "rscl": 0,
+                    "freeTrialPrivilege": {
+                        "resConsumable": false,
+                        "userConsumable": false,
+                        "listenType": null,
+                        "cannotListenReason": 1,
+                        "playReason": null,
+                        "freeLimitTagType": null
+                    },
+                    "rightSource": 0,
+                    "chargeInfoList": [
+                        {
+                            "rate": 128000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 0
+                        },
+                        {
+                            "rate": 192000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 0
+                        },
+                        {
+                            "rate": 320000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 0
+                        },
+                        {
+                            "rate": 999000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 1
+                        }
+                    ],
+                    "code": 0,
+                    "message": null,
+                    "plLevels": null,
+                    "dlLevels": null,
+                    "ignoreCache": null
+                }
+            },
+            {
+                "name": "Rhythm Of The Rain",
+                "id": 228254,
+                "pst": 0,
+                "t": 0,
+                "ar": [
+                    {
+                        "id": 7570,
+                        "name": "邓丽君",
+                        "tns": [],
+                        "alias": [
+                            "Teresa Teng",
+                            "テレサ·テン"
+                        ],
+                        "alia": [
+                            "Teresa Teng",
+                            "テレサ·テン"
+                        ]
+                    }
+                ],
+                "alia": [],
+                "pop": 90,
+                "st": 0,
+                "rt": "",
+                "fee": 0,
+                "v": 72,
+                "crbt": null,
+                "cf": "",
+                "al": {
+                    "id": 22998,
+                    "name": "往日情怀",
+                    "picUrl": "http://p2.music.126.net/XzTdEHp_5L37H006z6aARA==/94557999989705.jpg",
+                    "tns": [],
+                    "pic": 94557999989705
+                },
+                "dt": 72426,
+                "h": {
+                    "br": 320000,
+                    "fid": 0,
+                    "size": 2899636,
+                    "vd": 57816,
+                    "sr": 44100
+                },
+                "m": {
+                    "br": 192000,
+                    "fid": 0,
+                    "size": 1739799,
+                    "vd": 60451,
+                    "sr": 44100
+                },
+                "l": {
+                    "br": 128000,
+                    "fid": 0,
+                    "size": 1159880,
+                    "vd": 62200,
+                    "sr": 44100
+                },
+                "sq": {
+                    "br": 689794,
+                    "fid": 0,
+                    "size": 6244970,
+                    "vd": 57817,
+                    "sr": 44100
+                },
+                "hr": null,
+                "a": null,
+                "cd": "1",
+                "no": 5,
+                "rtUrl": null,
+                "ftype": 0,
+                "rtUrls": [],
+                "djId": 0,
+                "copyright": 1,
+                "s_id": 0,
+                "mark": 262144,
+                "originCoverType": 2,
+                "originSongSimpleData": {
+                    "songId": 4370918,
+                    "name": "Rhythm Of The Rain",
+                    "artists": [
+                        {
+                            "id": 102400,
+                            "name": "The Cascades"
+                        }
+                    ],
+                    "albumMeta": {
+                        "id": 441117,
+                        "name": "Rhythm of the Rain"
+                    }
+                },
+                "tagPicList": null,
+                "resourceState": true,
+                "version": 38,
+                "songJumpInfo": null,
+                "entertainmentTags": null,
+                "single": 0,
+                "noCopyrightRcmd": null,
+                "rtype": 0,
+                "rurl": null,
+                "mst": 9,
+                "cp": 5003,
+                "mv": 0,
+                "publishTime": 867686400000,
+                "privilege": {
+                    "id": 228254,
+                    "fee": 0,
+                    "payed": 0,
+                    "st": -100,
+                    "pl": 0,
+                    "dl": 0,
+                    "sp": 7,
+                    "cp": 1,
+                    "subp": 1,
+                    "cs": false,
+                    "maxbr": 999000,
+                    "fl": 0,
+                    "toast": false,
+                    "flag": 2064640,
+                    "preSell": false,
+                    "playMaxbr": 999000,
+                    "downloadMaxbr": 999000,
+                    "maxBrLevel": "sky",
+                    "playMaxBrLevel": "sky",
+                    "downloadMaxBrLevel": "sky",
+                    "plLevel": "none",
+                    "dlLevel": "none",
+                    "flLevel": "none",
+                    "rscl": 0,
+                    "freeTrialPrivilege": {
+                        "resConsumable": false,
+                        "userConsumable": false,
+                        "listenType": null,
+                        "cannotListenReason": 1,
+                        "playReason": null,
+                        "freeLimitTagType": null
+                    },
+                    "rightSource": 0,
+                    "chargeInfoList": [
+                        {
+                            "rate": 128000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 0
+                        },
+                        {
+                            "rate": 192000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 0
+                        },
+                        {
+                            "rate": 320000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 0
+                        },
+                        {
+                            "rate": 999000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 1
+                        }
+                    ],
+                    "code": 0,
+                    "message": null,
+                    "plLevels": null,
+                    "dlLevels": null,
+                    "ignoreCache": null
+                }
+            },
+            {
+                "name": "Tirakbostan",
+                "id": 413812211,
+                "pst": 0,
+                "t": 0,
+                "ar": [
+                    {
+                        "id": 12049020,
+                        "name": "Nurmuhammat Tursun",
+                        "tns": [],
+                        "alias": []
+                    }
+                ],
+                "alia": [],
+                "pop": 80,
+                "st": 0,
+                "rt": null,
+                "fee": 0,
+                "v": 41,
+                "crbt": null,
+                "cf": "",
+                "al": {
+                    "id": 34701471,
+                    "name": "Nurmuhammat Turusn歌曲合集",
+                    "picUrl": "http://p1.music.126.net/c1otSc1m1NJ1xIdmz62yuA==/3300733910578953.jpg",
+                    "tns": [],
+                    "pic": 3300733910578953
+                },
+                "dt": 342429,
+                "h": null,
+                "m": null,
+                "l": {
+                    "br": 65000,
+                    "fid": 0,
+                    "size": 2739765,
+                    "vd": -17094,
+                    "sr": 44100
+                },
+                "sq": null,
+                "hr": null,
+                "a": null,
+                "cd": "1",
+                "no": 13,
+                "rtUrl": null,
+                "ftype": 0,
+                "rtUrls": [],
+                "djId": 0,
+                "copyright": 0,
+                "s_id": 0,
+                "mark": 131072,
+                "originCoverType": 0,
+                "originSongSimpleData": null,
+                "tagPicList": null,
+                "resourceState": true,
+                "version": 7,
+                "songJumpInfo": null,
+                "entertainmentTags": null,
+                "single": 0,
+                "noCopyrightRcmd": null,
+                "rtype": 0,
+                "rurl": null,
+                "mst": 9,
+                "cp": 0,
+                "mv": 0,
+                "publishTime": 1463623650811,
+                "privilege": {
+                    "id": 413812211,
+                    "fee": 0,
+                    "payed": 0,
+                    "st": 0,
+                    "pl": 96000,
+                    "dl": 96000,
+                    "sp": 7,
+                    "cp": 1,
+                    "subp": 1,
+                    "cs": false,
+                    "maxbr": 96000,
+                    "fl": 96000,
+                    "toast": false,
+                    "flag": 1867904,
+                    "preSell": false,
+                    "playMaxbr": 96000,
+                    "downloadMaxbr": 96000,
+                    "maxBrLevel": "sky",
+                    "playMaxBrLevel": "sky",
+                    "downloadMaxBrLevel": "sky",
+                    "plLevel": "standard",
+                    "dlLevel": "standard",
+                    "flLevel": "standard",
+                    "rscl": null,
+                    "freeTrialPrivilege": {
+                        "resConsumable": false,
+                        "userConsumable": false,
+                        "listenType": null,
+                        "cannotListenReason": null,
+                        "playReason": null,
+                        "freeLimitTagType": null
+                    },
+                    "rightSource": 0,
+                    "chargeInfoList": [
+                        {
+                            "rate": 128000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 0
+                        },
+                        {
+                            "rate": 192000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 0
+                        },
+                        {
+                            "rate": 320000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 0
+                        },
+                        {
+                            "rate": 999000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 1
+                        }
+                    ],
+                    "code": 0,
+                    "message": null,
+                    "plLevels": null,
+                    "dlLevels": null,
+                    "ignoreCache": null
+                }
+            },
+            {
+                "name": "Laughing With",
+                "id": 2705693702,
+                "pst": 0,
+                "t": 0,
+                "ar": [
+                    {
+                        "id": 72722,
+                        "name": "Regina Spektor",
+                        "tns": [
+                            "蕾吉娜.史派克特"
+                        ],
+                        "alias": []
+                    }
+                ],
+                "alia": [],
+                "pop": 10,
+                "st": 0,
+                "rt": "",
+                "fee": 8,
+                "v": 38,
+                "crbt": null,
+                "cf": "",
+                "al": {
+                    "id": 272241490,
+                    "name": "Far (Deluxe)",
+                    "picUrl": "http://p2.music.126.net/XFWRhEU1lR97_KTB9lzKGw==/109951170991855937.jpg",
+                    "tns": [],
+                    "pic_str": "109951170991855937",
+                    "pic": 109951170991855940
+                },
+                "dt": 194413,
+                "h": {
+                    "br": 320000,
+                    "fid": 0,
+                    "size": 7779309,
+                    "vd": -6604,
+                    "sr": 44100
+                },
+                "m": {
+                    "br": 192000,
+                    "fid": 0,
+                    "size": 4667603,
+                    "vd": -3963,
+                    "sr": 44100
+                },
+                "l": {
+                    "br": 128000,
+                    "fid": 0,
+                    "size": 3111750,
+                    "vd": -2209,
+                    "sr": 44100
+                },
+                "sq": {
+                    "br": 696897,
+                    "fid": 0,
+                    "size": 16939361,
+                    "vd": -6603,
+                    "sr": 44100
+                },
+                "hr": null,
+                "a": null,
+                "cd": "01",
+                "no": 6,
+                "rtUrl": null,
+                "ftype": 0,
+                "rtUrls": [],
+                "djId": 0,
+                "copyright": 1,
+                "s_id": 0,
+                "mark": 270336,
+                "originCoverType": 0,
+                "originSongSimpleData": null,
+                "tagPicList": null,
+                "resourceState": true,
+                "version": 4,
+                "songJumpInfo": null,
+                "entertainmentTags": null,
+                "single": 0,
+                "noCopyrightRcmd": null,
+                "rtype": 0,
+                "rurl": null,
+                "mst": 9,
+                "cp": 7002,
+                "mv": 0,
+                "publishTime": 1245340800000,
+                "privilege": {
+                    "id": 2705693702,
+                    "fee": 0,
+                    "payed": 0,
+                    "st": -100,
+                    "pl": 0,
+                    "dl": 0,
+                    "sp": 7,
+                    "cp": 1,
+                    "subp": 1,
+                    "cs": false,
+                    "maxbr": 999000,
+                    "fl": 0,
+                    "toast": false,
+                    "flag": 1605892,
+                    "preSell": false,
+                    "playMaxbr": 999000,
+                    "downloadMaxbr": 999000,
+                    "maxBrLevel": "lossless",
+                    "playMaxBrLevel": "lossless",
+                    "downloadMaxBrLevel": "lossless",
+                    "plLevel": "none",
+                    "dlLevel": "none",
+                    "flLevel": "none",
+                    "rscl": 0,
+                    "freeTrialPrivilege": {
+                        "resConsumable": false,
+                        "userConsumable": false,
+                        "listenType": null,
+                        "cannotListenReason": 1,
+                        "playReason": null,
+                        "freeLimitTagType": null
+                    },
+                    "rightSource": 0,
+                    "chargeInfoList": [
+                        {
+                            "rate": 128000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 0
+                        },
+                        {
+                            "rate": 192000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 0
+                        },
+                        {
+                            "rate": 320000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 0
+                        },
+                        {
+                            "rate": 999000,
+                            "chargeUrl": null,
+                            "chargeMessage": null,
+                            "chargeType": 1
+                        }
+                    ],
+                    "code": 0,
+                    "message": null,
+                    "plLevels": null,
+                    "dlLevels": null,
+                    "ignoreCache": null
+                }
+            },
+        ],
+        // 记得修改歌曲数量
+        "songCount": 6
+    },
+    "code": 200
+}
+
+
+export const DAILY_SONG_MOCK = {
+    "code": 200,
+    "data": {
+        "fromCache": false,
+        "dailySongs": [
+            {
+                "name": "no questions",
+                "mainTitle": null,
+                "additionalTitle": null,
+                "id": 525278524,
+                "pst": 0,
+                "t": 0,
+                "ar": [
+                    {
+                        "id": 12138269,
+                        "name": "Mao Buyi",
+                        "tns": [],
+                        "alias": []
+                    }
+                ],
+                "alia": [
+                    "song by Mao Buyi"
+                ],
+                "pop": 100,
+                "st": 0,
+                "rt": null,
+                "fee": 8,
+                "v": 103,
+                "crbt": null,
+                "cf": "",
+                "al": {
+                    "id": 36997221,
+                    "name": "no questions",
+                    "picUrl": "http://p1.music.126.net/SJLDel776uY6MEKEU5GbjA==/109951163099854364.jpg",
+                    "tns": [],
+                    "pic_str": "109951163099854364",
+                    "pic": 109951163099854370
+                },
+                "dt": 258976,
+                "h": {
+                    "br": 320000,
+                    "fid": 0,
+                    "size": 10361252,
+                    "vd": -13545,
+                    "sr": 44100
+                },
+                "m": {
+                    "br": 192000,
+                    "fid": 0,
+                    "size": 6216769,
+                    "vd": -10910,
+                    "sr": 44100
+                },
+                "l": {
+                    "br": 128000,
+                    "fid": 0,
+                    "size": 4144527,
+                    "vd": -9157,
+                    "sr": 44100
+                },
+                "sq": {
+                    "br": 773254,
+                    "fid": 0,
+                    "size": 25031800,
+                    "vd": -14112,
+                    "sr": 44100
+                },
+                "hr": null,
+                "a": null,
+                "cd": "1",
+                "no": 1,
+                "rtUrl": null,
+                "ftype": 0,
+                "rtUrls": [],
+                "djId": 0,
+                "copyright": 0,
+                "s_id": 0,
+                "mark": 17179942912,
+                "originCoverType": 1,
+                "originSongSimpleData": null,
+                "tagPicList": null,
+                "resourceState": true,
+                "version": 69,
+                "songJumpInfo": null,
+                "entertainmentTags": null,
+                "awardTags": null,
+                "displayTags": null,
+                "single": 0,
+                "noCopyrightRcmd": null,
+                "rtype": 0,
+                "rurl": null,
+                "mst": 9,
+                "cp": 636010,
+                "mv": 5795026,
+                "publishTime": 1514160000000,
+                "reason": "played by over 79%",
+                "recommendReason": "played by over 79%",
+                "alg": "alg-music-rec_cm_widgetDailyImage_ns"
+            },
+            {
+                "name": "high heels in red",
+                "mainTitle": null,
+                "additionalTitle": null,
+                "id": 208902,
+                "pst": 0,
+                "t": 0,
+                "ar": [
+                    {
+                        "id": 7214,
+                        "name": "Cai Jianya",
+                        "tns": [],
+                        "alias": []
+                    }
+                ],
+                "alia": [
+                    "song by Cai Jianya"
+                ],
+                "pop": 100,
+                "st": 0,
+                "rt": "600902000004801515",
+                "fee": 1,
+                "v": 177,
+                "crbt": null,
+                "cf": "",
+                "al": {
+                    "id": 21252,
+                    "name": "if you touch him",
+                    "picUrl": "http://p1.music.126.net/jJOaqlez9x5VofjgB7B_Bw==/109951166195459631.jpg",
+                    "tns": [],
+                    "pic_str": "109951166195459631",
+                    "pic": 109951166195459630
+                },
+                "dt": 206586,
+                "h": {
+                    "br": 320000,
+                    "fid": 0,
+                    "size": 8266231,
+                    "vd": -60092,
+                    "sr": 44100
+                },
+                "m": {
+                    "br": 192000,
+                    "fid": 0,
+                    "size": 4959756,
+                    "vd": -57523,
+                    "sr": 44100
+                },
+                "l": {
+                    "br": 128000,
+                    "fid": 0,
+                    "size": 3306519,
+                    "vd": -55812,
+                    "sr": 44100
+                },
+                "sq": {
+                    "br": 991147,
+                    "fid": 0,
+                    "size": 25594735,
+                    "vd": -60092,
+                    "sr": 44100
+                },
+                "hr": null,
+                "a": null,
+                "cd": "1",
+                "no": 4,
+                "rtUrl": null,
+                "ftype": 0,
+                "rtUrls": [],
+                "djId": 0,
+                "copyright": 2,
+                "s_id": 0,
+                "mark": 17179877376,
+                "originCoverType": 1,
+                "originSongSimpleData": null,
+                "tagPicList": null,
+                "resourceState": true,
+                "version": 143,
+                "songJumpInfo": null,
+                "entertainmentTags": null,
+                "awardTags": null,
+                "displayTags": null,
+                "single": 0,
+                "noCopyrightRcmd": null,
+                "rtype": 0,
+                "rurl": null,
+                "mst": 9,
+                "cp": 625015,
+                "mv": 5496541,
+                "publishTime": 1226678400000,
+                "reason": "one million plays yesterday",
+                "recommendReason": "one million plays yesterday",
+                "alg": "hot_toplist_fill"
+            },
+            {
+                "name": "a moment of romance",
+                "mainTitle": null,
+                "additionalTitle": null,
+                "id": 438204707,
+                "pst": 0,
+                "t": 0,
+                "ar": [
+                    {
+                        "id": 7063,
+                        "name": "Huang Liling",
+                        "tns": [],
+                        "alias": []
+                    }
+                ],
+                "alia": [
+                    "song by Huang Liling"
+                ],
+                "pop": 100,
+                "st": 0,
+                "rt": null,
+                "fee": 1,
+                "v": 58,
+                "crbt": null,
+                "cf": "",
+                "al": {
+                    "id": 34928767,
+                    "name": "a moment of romance",
+                    "picUrl": "http://p1.music.126.net/hzs4pVOxFKS5J64nY-rugA==/109951165958851914.jpg",
+                    "tns": [],
+                    "pic_str": "109951165958851914",
+                    "pic": 109951165958851920
+                },
+                "dt": 257254,
+                "h": {
+                    "br": 320000,
+                    "fid": 0,
+                    "size": 10293333,
+                    "vd": -28256,
+                    "sr": 44100
+                },
+                "m": {
+                    "br": 192000,
+                    "fid": 0,
+                    "size": 6176017,
+                    "vd": -25635,
+                    "sr": 44100
+                },
+                "l": {
+                    "br": 128000,
+                    "fid": 0,
+                    "size": 4117359,
+                    "vd": -23926,
+                    "sr": 44100
+                },
+                "sq": {
+                    "br": 787838,
+                    "fid": 0,
+                    "size": 25334355,
+                    "vd": -28060,
+                    "sr": 44100
+                },
+                "hr": null,
+                "a": null,
+                "cd": "1",
+                "no": 1,
+                "rtUrl": null,
+                "ftype": 0,
+                "rtUrls": [],
+                "djId": 0,
+                "copyright": 1,
+                "s_id": 0,
+                "mark": 17179877376,
+                "originCoverType": 1,
+                "originSongSimpleData": null,
+                "tagPicList": null,
+                "resourceState": true,
+                "version": 24,
+                "songJumpInfo": null,
+                "entertainmentTags": null,
+                "awardTags": null,
+                "displayTags": null,
+                "single": 0,
+                "noCopyrightRcmd": null,
+                "rtype": 0,
+                "rurl": null,
+                "mst": 9,
+                "cp": 7001,
+                "mv": 5381209,
+                "publishTime": 1477929600000,
+                "reason": null,
+                "recommendReason": null,
+                "alg": "hot_toplist_fill"
+            },
+            {
+                "name": "take everything you want",
+                "mainTitle": null,
+                "additionalTitle": null,
+                "id": 529668356,
+                "pst": 0,
+                "t": 0,
+                "ar": [
+                    {
+                        "id": 3066,
+                        "name": "Hu Yanbin",
+                        "tns": [],
+                        "alias": []
+                    }
+                ],
+                "alia": [
+                    "Take Everything You Want"
+                ],
+                "pop": 100,
+                "st": 0,
+                "rt": null,
+                "fee": 1,
+                "v": 116,
+                "crbt": null,
+                "cf": "",
+                "al": {
+                    "id": 37391092,
+                    "name": "don't be too nice",
+                    "picUrl": "http://p1.music.126.net/um599QnnJiNQhZgWLtgmXw==/109951168111322942.jpg",
+                    "tns": [],
+                    "pic_str": "109951168111322942",
+                    "pic": 109951168111322940
+                },
+                "dt": 299346,
+                "h": {
+                    "br": 320000,
+                    "fid": 0,
+                    "size": 11976664,
+                    "vd": -59794,
+                    "sr": 44100
+                },
+                "m": {
+                    "br": 192000,
+                    "fid": 0,
+                    "size": 7186016,
+                    "vd": -57283,
+                    "sr": 44100
+                },
+                "l": {
+                    "br": 128000,
+                    "fid": 0,
+                    "size": 4790692,
+                    "vd": -55985,
+                    "sr": 44100
+                },
+                "sq": {
+                    "br": 991996,
+                    "fid": 0,
+                    "size": 37118856,
+                    "vd": -59903,
+                    "sr": 44100
+                },
+                "hr": null,
+                "a": null,
+                "cd": "1",
+                "no": 3,
+                "rtUrl": null,
+                "ftype": 0,
+                "rtUrls": [],
+                "djId": 0,
+                "copyright": 1,
+                "s_id": 0,
+                "mark": 17179942912,
+                "originCoverType": 1,
+                "originSongSimpleData": null,
+                "tagPicList": null,
+                "resourceState": true,
+                "version": 82,
+                "songJumpInfo": null,
+                "entertainmentTags": null,
+                "awardTags": null,
+                "displayTags": null,
+                "single": 0,
+                "noCopyrightRcmd": null,
+                "rtype": 0,
+                "rurl": null,
+                "mst": 9,
+                "cp": 22036,
+                "mv": 5779938,
+                "publishTime": 1516896000000,
+                "reason": "one million plays yesterday",
+                "tns": [
+                    "Take Everything You Want"
+                ],
+                "recommendReason": "one million plays yesterday",
+                "alg": "hot_toplist_fill"
+            },
+            {
+                "name": "so many people in this world",
+                "mainTitle": null,
+                "additionalTitle": null,
+                "id": 1842025914,
+                "pst": 0,
+                "t": 0,
+                "ar": [
+                    {
+                        "id": 8926,
+                        "name": "Mo Wenwei",
+                        "tns": [],
+                        "alias": []
+                    }
+                ],
+                "alia": [
+                    "song by Mo Wenwei"
+                ],
+                "pop": 100,
+                "st": 0,
+                "rt": "",
+                "fee": 1,
+                "v": 56,
+                "crbt": null,
+                "cf": "",
+                "al": {
+                    "id": 126837556,
+                    "name": "so many people in this world",
+                    "picUrl": "http://p1.music.126.net/LOTxqRjFm03VJEOHJbUqMw==/109951165944804127.jpg",
+                    "tns": [],
+                    "pic_str": "109951165944804127",
+                    "pic": 109951165944804130
+                },
+                "dt": 285884,
+                "h": {
+                    "br": 320000,
+                    "fid": 0,
+                    "size": 11437497,
+                    "vd": -24076,
+                    "sr": 44100
+                },
+                "m": {
+                    "br": 192000,
+                    "fid": 0,
+                    "size": 6862515,
+                    "vd": -21437,
+                    "sr": 44100
+                },
+                "l": {
+                    "br": 128000,
+                    "fid": 0,
+                    "size": 4575025,
+                    "vd": -19655,
+                    "sr": 44100
+                },
+                "sq": {
+                    "br": 1352236,
+                    "fid": 0,
+                    "size": 48322850,
+                    "vd": -23795,
+                    "sr": 44100
+                },
+                "hr": null,
+                "a": null,
+                "cd": "01",
+                "no": 1,
+                "rtUrl": null,
+                "ftype": 0,
+                "rtUrls": [],
+                "djId": 0,
+                "copyright": 1,
+                "s_id": 0,
+                "mark": 17179877376,
+                "originCoverType": 1,
+                "originSongSimpleData": null,
+                "tagPicList": null,
+                "resourceState": true,
+                "version": 22,
+                "songJumpInfo": null,
+                "entertainmentTags": null,
+                "awardTags": null,
+                "displayTags": null,
+                "single": 0,
+                "noCopyrightRcmd": null,
+                "rtype": 0,
+                "rurl": null,
+                "mst": 9,
+                "cp": 7001,
+                "mv": 0,
+                "publishTime": 1620316800000,
+                "reason": "one million stars",
+                "recommendReason": "one million stars",
+                "alg": "hot_toplist_fill"
+            },
+            {
+                "name": "11",
+                "mainTitle": null,
+                "additionalTitle": null,
+                "id": 1907766514,
+                "pst": 0,
+                "t": 0,
+                "ar": [
+                    {
+                        "id": 1143033,
+                        "name": "captain",
+                        "tns": [],
+                        "alias": []
+                    },
+                    {
+                        "id": 1019154,
+                        "name": "Huang Lige",
+                        "tns": [],
+                        "alias": []
+                    }
+                ],
+                "alia": [],
+                "pop": 100,
+                "st": 0,
+                "rt": "",
+                "fee": 1,
+                "v": 57,
+                "crbt": null,
+                "cf": "",
+                "al": {
+                    "id": 138162415,
+                    "name": "11",
+                    "picUrl": "http://p1.music.126.net/DMJkxcW5QbeWg_DZMASfSw==/109951169494228942.jpg",
+                    "tns": [],
+                    "pic_str": "109951169494228942",
+                    "pic": 109951169494228940
+                },
+                "dt": 234817,
+                "h": {
+                    "br": 320000,
+                    "fid": 0,
+                    "size": 9395766,
+                    "vd": -64843,
+                    "sr": 44100
+                },
+                "m": {
+                    "br": 192000,
+                    "fid": 0,
+                    "size": 5637477,
+                    "vd": -61915,
+                    "sr": 44100
+                },
+                "l": {
+                    "br": 128000,
+                    "fid": 0,
+                    "size": 3758333,
+                    "vd": -59654,
+                    "sr": 44100
+                },
+                "sq": {
+                    "br": 965486,
+                    "fid": 0,
+                    "size": 28339100,
+                    "vd": -65042,
+                    "sr": 44100
+                },
+                "hr": null,
+                "a": null,
+                "cd": "01",
+                "no": 1,
+                "rtUrl": null,
+                "ftype": 0,
+                "rtUrls": [],
+                "djId": 0,
+                "copyright": 1,
+                "s_id": 0,
+                "mark": 8192,
+                "originCoverType": 1,
+                "originSongSimpleData": null,
+                "tagPicList": null,
+                "resourceState": true,
+                "version": 23,
+                "songJumpInfo": null,
+                "entertainmentTags": null,
+                "awardTags": null,
+                "displayTags": null,
+                "single": 0,
+                "noCopyrightRcmd": null,
+                "rtype": 0,
+                "rurl": null,
+                "mst": 9,
+                "cp": 7001,
+                "mv": 14487937,
+                "publishTime": 1640966400000,
+                "reason": null,
+                "recommendReason": null,
+                "alg": "hot_toplist_fill"
+            },
+        ],
+        "orderSongs": [],
+        "recommendReasons": [],
+        "mvResourceInfos": null,
+        "demote": false,
+        "dailyRecommendInfo": null
+    }
+}

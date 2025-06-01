@@ -1,5 +1,7 @@
 import qs from 'qs';
 import service from './request';
+import { PLAYLIST_SEARCH_MOCK } from '@/mocks/playlistMock';
+import { SONG_SEARCH_MOCK } from '@/mocks/songMock';
 // 默认搜索关键词
 export function getDefaultSearchKeyword() {
   return service.get('/search/default');
@@ -20,9 +22,32 @@ export interface SearchParams{
 }
 //搜索
 export function search(data:SearchParams) {
-  const query = qs.stringify({
-    ...data,
-    timestamp: Date.now()
-  });
-  return service.get('/cloudsearch?'+query);
+  if (data.type === '1000') {
+    const matchedPlaylists = PLAYLIST_SEARCH_MOCK.result.playlists.filter(playlist =>
+        playlist.name.toLowerCase().includes(data.keywords.toLowerCase())
+    );
+
+    return Promise.resolve({
+        data: {
+            code: PLAYLIST_SEARCH_MOCK.code,
+            result: {
+                playlistCount: matchedPlaylists.length,
+                playlists: matchedPlaylists
+            }
+        }
+    });
+  } else if (data.type === '1') {
+    const matchedSongs = SONG_SEARCH_MOCK.result.songs.filter(song =>
+        song.name.toLowerCase().includes(data.keywords.toLowerCase())
+    );
+    return Promise.resolve({
+        data: {
+            code: PLAYLIST_SEARCH_MOCK.code,
+            result: {
+                songCount: matchedSongs.length,
+                songs: matchedSongs
+            }
+        }
+    });
+  }
 }

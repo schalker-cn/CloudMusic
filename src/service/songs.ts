@@ -1,8 +1,23 @@
 import qs from 'qs';
 import service from './request';
+import { DAILY_SONG_MOCK } from '@/mocks/songMock';
+import placeholder from '@/assets/img/placeholder.png';
 // 推荐歌曲
 export function getRecommendSong() {
-  return service.get('/recommend/songs');
+    const modifiedData = {
+    ...DAILY_SONG_MOCK,
+    data: {
+      ...DAILY_SONG_MOCK.data,
+      dailySongs: DAILY_SONG_MOCK.data.dailySongs.map(song => ({
+        ...song,
+        al: {
+          ...song.al,
+          picUrl: placeholder
+        }
+      }))
+    }
+  };
+  return Promise.resolve(modifiedData);
 }
 // 新歌速递
 export function getTopSong(type: 0 | 7 | 96 |8 | 16=0) {

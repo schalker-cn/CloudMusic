@@ -23,15 +23,13 @@ const {
 const {
   state: SongsList,
   isLoading: SongsListIsLoading
-} = useAsyncState(getPersonalized().then(res => res.data.result), []);
+} = useAsyncState(getPersonalized().then(res => res.result), []);
 const {
   state: recommendSongList,
   isLoading: recommendSongListIsLoading
 } = useAsyncState(getRecommendSong().then(res => {
-  return mainStore.mapSongListAddLike(mapSongs(res.data.data.dailySongs)).slice(0, 9);
+  return mainStore.mapSongListAddLike(mapSongs(res.data.dailySongs)).slice(0, 9);
 }), []);
-const { state: MVList, isLoading: MVIsLoading }
-  = useAsyncState(getRecommendMv().then(res => res.data.data), []);
 const onlyId = nanoid();
 const isHovered = useElementHover(hoverRef);
 const mainStore = useMainStore();
@@ -90,15 +88,13 @@ fetch('https://musicapi-git-main-pathyus-projects.vercel.app/homepage/block/page
         </div>
       </div>
     </div>
-    <!-- 推荐歌单 -->
     <p class="pb-4 text-xl">
-      推荐歌单
+      Recommend Playlists
     </p>
     <SongListSkeleton v-if="SongsListIsLoading" />
     <SongList v-else :songs="SongsList" />
-    <!-- 推荐音乐 -->
     <p class="py-4 text-xl">
-      推荐音乐
+      Recommend Songs
     </p>
     <n-grid v-if="recommendSongListIsLoading" cols="3" x-gap="20" :y-gap="20">
       <n-grid-item v-for="(, index) in recommendSongList" :key="index">
@@ -131,11 +127,6 @@ fetch('https://musicapi-git-main-pathyus-projects.vercel.app/homepage/block/page
         </div>
       </n-grid-item>
     </n-grid>
-    <p class="py-4 text-xl">
-      最新MV
-    </p>
-    <MvListSkeleton v-if="MVIsLoading" :count="4" />
-    <mv-list v-else :list="MVList" />
   </div>
 </template>
 

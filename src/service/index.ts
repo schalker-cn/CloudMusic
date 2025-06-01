@@ -1,7 +1,18 @@
 import service from './request';
+import placeholder from '@/assets/img/placeholder.png';
+import subPlaceholder from '@/assets/img/sub-placeholder.png';
 // 获取轮播
 export function getBanner() {
-  return service.get('/banner');
+    const banners = Array.from({ length: 10 }, (_, i) => ({
+    imageUrl: i % 2 === 0 ? placeholder : subPlaceholder
+  }));
+
+  return Promise.resolve({
+    data: {
+      code: 200,
+      banners
+    }
+  });
 }
 // 批量请求接口
 export function batchRequest(data: {
