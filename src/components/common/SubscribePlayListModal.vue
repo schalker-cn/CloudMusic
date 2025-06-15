@@ -26,7 +26,7 @@ const modalStyle = computed(() => {
 });
 const handleItemClick = (item: any, index: number) => {
   if (!mainStore.isLogin) {
-    return window.$message.error('请先登录');
+    return window.$message.error('please log in first');
   }
   if (isLoad) return undefined;
   isLoad = true;
@@ -38,7 +38,7 @@ const handleItemClick = (item: any, index: number) => {
   window.$message.loading('加载中..', { duration: 0 });
   return updatePlaylistTracks(params).then((res) => {
     if (res.data?.body.code === 200) {
-      window.$message.success('已收藏到歌单');
+      window.$message.success('already added to the playlist');
       mainStore.mySubscribeSongList[index].trackCount = res.data.body.count;
     } else {
       window.$message.error(res.data.body.message);
@@ -49,7 +49,7 @@ const handleItemClick = (item: any, index: number) => {
 };
 const handleCreateClick = () => {
   if (!mainStore.isLogin) {
-    return window.$message.error('请先登录');
+    return window.$message.error('please log in first');
   }
   let params: { name: string, privacy?: string } = { name: playListTitle.value };
   if (isPrivate.value) {
@@ -92,9 +92,9 @@ watch(showModal, (val) => {
               <div class="line" />
               <div class="line" />
             </div>
-            <span class="pl-2 cursor-default">新建歌单</span>
+            <span class="pl-2 cursor-default">Create new playlist</span>
           </div>
-          <base-empty v-if="!mainStore.mySubscribeSongList.length" description="您还未创建歌单" />
+          <base-empty v-if="!mainStore.mySubscribeSongList.length" description="You haven't created any playlist yet." />
           <n-scrollbar style="max-height: 300px">
             <div v-for="(item, index) in mainStore.mySubscribeSongList" :key="item.id"
               class="flex items-center py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-200/20 transition-all cursor-pointer"
@@ -114,12 +114,12 @@ watch(showModal, (val) => {
         </div>
         <div v-else class="p-4">
           <n-space vertical>
-            <n-input v-model:value="playListTitle" placeholder="请输入新歌单标题" />
-            <n-checkbox v-model:checked="isPrivate" size="small" label="设置为隐私歌单" />
+            <n-input v-model:value="playListTitle" placeholder="name" />
+            <n-checkbox v-model:checked="isPrivate" size="small" label="Set as private" />
           </n-space>
           <div class="flex justify-center mt-4">
             <n-button :loading="btnLoading" :disabled="!playListTitle" type="primary" @click="handleCreateClick">
-              创建
+              Create
             </n-button>
           </div>
         </div>
@@ -130,7 +130,7 @@ watch(showModal, (val) => {
         <n-icon v-if="showCreatePlayList" :size="20" class="ml-4 cursor-pointer" :component="ArrowBackIosSharp"
           @click="showCreatePlayList = false" />
         <h4 class="flex-1 my-5 text-center">
-          {{ showCreatePlayList ? '新建歌单' : '收藏到歌单' }}
+          {{ showCreatePlayList ? 'Create new playlist' : 'Add to playlist' }}
         </h4>
       </div>
     </template>

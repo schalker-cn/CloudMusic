@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<{
   commentId?: number;
   t?: number;//评论类型1: 发送 2: 回复
   updateCommentList: (comment: any) => void;
-}>(), { commentPlaceholder: '请输入评论', title: '评论', type: 1, commentId: 0, t: 2 });
+}>(), { commentPlaceholder: 'share your comment', title: 'Comment', type: 1, commentId: 0, t: 2 });
 
 defineExpose({
   show() {
@@ -23,10 +23,10 @@ defineExpose({
 const mainStore = useMainStore();
 const handleSubmitCommitClick = () => {
   if (!mainStore.isLogin) {
-    return window.$message.error('请先登录!');
+    return window.$message.error('please log in first!');
   }
   if (!commentContent.value) {
-    return window.$message.error('评论不能为空!');
+    return window.$message.error('cannot send empty comment!');
   }
   let params: any = {
     t: props.t,
@@ -69,7 +69,7 @@ const handleSubmitCommitClick = () => {
       <template #action>
         <n-button :loading="commentBtnLoading" :disabled="!commentContent.length" type="primary" size="medium"
           @click="handleSubmitCommitClick">
-          评论
+          Post
         </n-button>
       </template>
       <n-modal />

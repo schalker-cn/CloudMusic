@@ -316,7 +316,7 @@ const handleFullscreenchange = () => {
               </div>
               <n-scrollbar style="max-height: 350px;" class="pt-10 ml-10 hidden md:block 3xl:ml-0">
                 <h3 v-if="similarPlaylist.length" class="m-0 text-left">
-                  包含这首歌的歌单
+                  related playlists
                 </h3>
                 <n-divider v-if="similarPlaylist.length" />
                 <n-spin :show="fetchSimiPlayListLoading" size="small">
@@ -324,7 +324,7 @@ const handleFullscreenchange = () => {
                   <!-- 相似歌单推荐 -->
                   <div v-for="item in similarPlaylist" v-show="!fetchSimiPlayListLoading" :key="item.id"
                     class="flex items-center p-2 hover:bg-neutral-50 dark:hover:bg-neutral-50/20 cursor-pointer"
-                    @click="handleSimiPlayListItem(item.id)">
+                    @click="handleSimiPlayListItem(item.id.toString())">
                     <img crossorigin="anonymous" width="45" height="45" class="rounded-md" :src="item.coverImgUrl" />
                     <div class="ml-4">
                       <p class="w-60 text-sm text-left truncate">
@@ -336,57 +336,11 @@ const handleFullscreenchange = () => {
                     </div>
                   </div>
                 </n-spin>
-                <div class="mt-2">
-                  <h3 v-if="similarMusicList.length" class="m-0 text-left">
-                    喜欢这首歌的也喜欢听
-                  </h3>
-                  <n-divider v-if="similarMusicList.length" />
-                </div>
-                <!-- 相似歌曲 -->
-                <n-spin :show="fetchSimilarSongIsLoading">
-                  <div v-show="fetchSimilarSongIsLoading" class="w-80 h-40" />
-                  <div v-for="item in similarMusicList" v-show="!fetchSimilarSongIsLoading" :key="item.id"
-                    class="flex items-center p-1 hover:bg-neutral-50 dark:hover:bg-neutral-50/20 cursor-pointer"
-                    @click="mainStore.insertPlay(item)">
-                    <img crossorigin="anonymous" width="45" height="45" class="rounded-md" :src="item.album.picUrl" />
-                    <div class="ml-4">
-                      <p class="w-60 text-sm text-left truncate">
-                        {{ item.name }}
-                      </p>
-                      <p class="mt-2 w-60 text-sm text-left truncate opacity-50">
-                        {{ formateSongsAuthor(item.artists) }}
-                      </p>
-                    </div>
-                  </div>
-                </n-spin>
               </n-scrollbar>
             </div>
           </div>
         </div>
         <div class="flex justify-center">
-          <!-- 评论-->
-          <div style="width:520px;height:300px;" class="mt-5">
-            <n-spin :show="commentLoading" description="加载中">
-              <div v-show="commentLoading" class="h-80" />
-              <comment-list :type="0" :comment-total-num="musicComment.total"
-                :resource-id="mainStore.currentPlaySong.id" title="精彩评论" :list="musicComment.hotComments || []"
-                @update-comment-list="updateCommentList"
-                @update-comment-liked="(data: any) => updateCommentLiked(data, true)" />
-              <!-- 最新评论 -->
-              <comment-list :resource-id="mainStore.currentPlaySong.id" :type="0"
-                :comment-total-num="musicComment.total" title="最新评论" :list="musicComment.comments || []"
-                @update-comment-list="updateCommentList"
-                @update-comment-liked="(data: any) => updateCommentLiked(data, false)" />
-            </n-spin>
-            <p v-if="!musicComment.comments?.length && !commentLoading" class="text-center opacity-50">
-              还没有评论, 快来抢沙发~
-            </p>
-            <div v-if="pageParams.pageCount > 1 && musicComment.comments" class="flex justify-end mt-6">
-              <n-pagination v-model:page="pageParams.page" v-model:page-size="pageParams.pageSize"
-                :page-count="pageParams.pageCount" show-size-picker :page-sizes="[10, 20, 30, 40, 50]" />
-            </div>
-            <div class="h-20" />
-          </div>
         </div>
       </div>
     </div>
@@ -400,14 +354,14 @@ const handleFullscreenchange = () => {
     <n-icon :component="BackToTop" />
   </n-back-top>
   <!-- 发表评论-->
-  <replied-comment-modal ref="commentModalRef" comment-placeholder="发表评论"
-    :title="'歌曲：' + mainStore.currentPlaySong.name" :update-comment-list="updateCommentList" :t="1" :type="0"
+  <replied-comment-modal ref="commentModalRef" comment-placeholder="Write your comment here"
+    :title="'Song: ' + mainStore.currentPlaySong.name" :update-comment-list="updateCommentList" :t="1" :type="0"
     :resource-id="mainStore.currentPlaySong.id" />
   <transition name="slide">
     <n-button v-show="!showBackTop && mainStore.showMusicDetail" class="fixed"
       style="z-index:9999;bottom: 90px;right:400px" round type="primary" @click="commentModalRef?.show()">
       <n-icon :component="Edit" />
-      写评论
+      Comment
     </n-button>
   </transition>
   <!-- 发表我的音乐评论 -->
@@ -415,7 +369,7 @@ const handleFullscreenchange = () => {
     <n-button v-show="showBackTop && mainStore.showMusicDetail" type="primary" class="fixed w-44"
       style="z-index:9999;bottom: 90px;right:0;left:0;margin:auto" round @click="commentModalRef?.show()">
       <n-icon :component="Edit" />
-      发表我的音乐评论
+      Post my comment
     </n-button>
   </transition>
 </template>

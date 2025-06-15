@@ -47,7 +47,7 @@ export default defineComponent({
     });
     const columns: DataTableColumns<RowData> = [
       {
-        title: '操作',
+        title: 'Index',
         key: 'row',
         width: 50,
         render(row, index) {
@@ -78,7 +78,7 @@ export default defineComponent({
         }
       },
       {
-        title: '标题',
+        title: 'Title',
         key: 'name',
         width: '200',
         render(row) {
@@ -90,7 +90,7 @@ export default defineComponent({
               ? <NTag onClick={() => router.push(`/mv/${row.mv}`)} size="small" color={tagColor.value} class="ml-2">MV</NTag>
               : null}
             {row.fee === 0
-              ? <NTag size="small" class="ml-2">无音源</NTag>
+              ? <NTag size="small" class="ml-2">No Audio</NTag>
               : null}
             {row.fee === 1
               ? <NTag size="small" color={tagColor.value} class="ml-2">VIP</NTag>
@@ -100,7 +100,7 @@ export default defineComponent({
         }
       },
       {
-        title: '歌手',
+        title: 'Singer',
         key: 'singer',
         width: '120',
         render(row) {
@@ -112,7 +112,7 @@ export default defineComponent({
         }
       },
       {
-        title: '专辑',
+        title: 'Album',
         key: 'album',
         width: '120',
         render(row) {
@@ -121,12 +121,12 @@ export default defineComponent({
               ? row.al.nameRichText
                 ? <span v-html={row.al.nameRichText}></span>
                 : row.al.name
-              : <span class="opacity-50">未知专辑</span>}
+              : <span class="opacity-50">unknown album</span>}
           </p>;
         }
       },
       {
-        title: '时间',
+        title: 'Time',
         key: 'time',
         width: 80,
         render(row) {

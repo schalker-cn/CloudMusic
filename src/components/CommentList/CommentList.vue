@@ -59,7 +59,7 @@ const handleLikedClick = (item: any, index: number) => {
 </script>
 <template>
   <!-- 回复评论模态框 -->
-  <replied-comment-modal ref="commentModalRef" :comment-placeholder="commentPlaceholder" title="回复评论"
+  <replied-comment-modal ref="commentModalRef" :comment-placeholder="commentPlaceholder" title="Reply"
     :update-comment-list="handleUpdateCommentList" :type="type" :resource-id="resourceId"
     :comment-id="currentClickedComment?.commentId" />
   <p v-if="list.length" class="mt-10 text-base font-bold">

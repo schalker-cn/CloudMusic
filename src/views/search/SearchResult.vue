@@ -9,6 +9,7 @@ import { useRoute, useRouter } from 'vue-router';
 import useThemeStyle from '@/hook/useThemeStyle';
 import { useNanoid } from '@/hook/useNanoid';
 import { markSearchKeyword } from '@/utils/markSearhKeyword';
+import placeholder from '@/assets/img/placeholder.png';
 
 let immediateCall = false;
 let backTopEle: HTMLElement;
@@ -108,16 +109,16 @@ watch([playListPageParams, songListPageParams], () => {
 <template>
   <div class="w-full">
     <h2 class="pl-8">
-      搜索 {{ route.query.keyword }}
+      Searching for {{ route.query.keyword }}
     </h2>
     <div class="flex px-8">
       <div :style="activeTabStyle(0)" class="px-4  pb-2 opacity-80 hover:opacity-100 transition-opacity cursor-pointer"
         @click="currentTabIndex = 0">
-        单曲
+        Songs
       </div>
       <div :style="activeTabStyle(1)" class="px-4 pb-2 ml-4 hover:opacity-100 transition-opacity cursor-pointer"
         @click="currentTabIndex = 1">
-        歌单
+        Playlists
       </div>
     </div>
     <transition name="fade">
@@ -126,7 +127,7 @@ watch([playListPageParams, songListPageParams], () => {
           <play-all-button v-show="songsSearchResult?.songs?.length" :song-list="songsSearchResult?.songs"
             :song-list-id="currentId" />
           <p v-if="songsSearchResult.songCount" class="my-2 ml-4 opacity-50">
-            共找到{{ songsSearchResult.songCount }}首单曲
+            find {{ songsSearchResult.songCount }} songs
           </p>
         </div>
         <div class="h-4" />
@@ -144,17 +145,17 @@ watch([playListPageParams, songListPageParams], () => {
         <n-spin :show="playListIsLoading" description="搜索中">
           <div v-show="playListIsLoading" class="h-80" />
           <p v-if="playListSearchResult.playlistCount" class="pl-8 mt-4 mb-2 opacity-50">
-            共找到{{ playListSearchResult.playlistCount }}个歌单
+            find {{ playListSearchResult.playlistCount }} playlists
           </p>
           <div v-for="(item, index) in playListSearchResult.playlists" :key="item.id"
             :class="'flex items-center py-4 px-8 cursor-pointer ' + stripedClass(index)"
             @click="router.push(`/songList/${item.id}`)">
-            <load-img loading-height="64px" class-name="w-16 h-16 rounded-md" :src="item.coverImgUrl" />
+            <load-img loading-height="64px" class-name="w-16 h-16 rounded-md" :src="placeholder" />
             <n-ellipsis :tooltip="false" class="pl-2" style="width:400px">
               <p v-html="item.nameRichText" />
             </n-ellipsis>
             <p class="w-20 opacity-50">
-              {{ item.trackCount }}首
+              {{ item.trackCount }} songs
             </p>
             <p class="w-80">
               <span class="opacity-50">by </span>

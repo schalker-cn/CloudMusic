@@ -24,7 +24,7 @@ type MenuOptionItem = {
 }
 const noLoginOption = {
   label: () => <div class="flex items-center" onClick={handleOpenLoginModalClick}>
-    <p >未登录</p>
+    <p >log in</p>
   </div>,
   key: 'login',
   icon: () => <NIcon class="mr-2" size={20} component={User} />
@@ -32,25 +32,25 @@ const noLoginOption = {
 
 const menuOptions = [
   {
-    label: () => <RouterLink to='/discovery'>发现音乐</RouterLink>,
+    label: () => <RouterLink to='/discovery'>Discover Music</RouterLink>,
     key: '/discovery',
     icon: () => <NIcon component={SparklesOutline} />
   },
+  // {
+  //   label: () => <RouterLink to='/songList'>推荐歌单</RouterLink>,
+  //   key: '/songList',
+  //   icon: () => <NIcon component={List} />
+  // },
   {
-    label: () => <RouterLink to='/songList'>推荐歌单</RouterLink>,
-    key: '/songList',
-    icon: () => <NIcon component={List} />
-  },
-  {
-    label: () => <RouterLink to='/latestMusic'>最新音乐</RouterLink>,
+    label: () => <RouterLink to='/latestMusic'>Newest Trend</RouterLink>,
     key: '/latestMusic',
     icon: () => <NIcon component={Music} />
   },
-  {
-    label: () => <RouterLink to='/latestMv'>最新MV</RouterLink>,
-    key: '/latestMv',
-    icon: () => <NIcon component={VideocamOutline} />
-  }
+  // {
+  //   label: () => <RouterLink to='/latestMv'>最新MV</RouterLink>,
+  //   key: '/latestMv',
+  //   icon: () => <NIcon component={VideocamOutline} />
+  // }
 ];
 
 const route = useRoute();
@@ -179,7 +179,7 @@ registerRouteHook((to) => {
     top: 0
   });
   if (to.meta.auth && !mainStore.isLogin) {
-    window.$message.error('请先登录');
+    window.$message.error('please log in first');
     return false;
   } else {
     loadingBar.start();

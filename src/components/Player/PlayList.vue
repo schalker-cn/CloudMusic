@@ -45,17 +45,17 @@ const handleGoHemeClick = () => {
     <n-drawer-content>
       <template #header>
         <div class="flex justify-between odd:" style="width:400px">
-          <span class="text-sm opacity-50">共 {{ mainStore.playListCount }} 首 </span>
+          <span class="text-sm opacity-50">{{ mainStore.playListCount }} songs in total </span>
           <n-button type="primary" text @click="handleRestClick">
-            清空列表
+            clear all
           </n-button>
         </div>
       </template>
       <!--  -->
-      <n-empty v-if="mainStore.playList.length === 0" class="mt-20" description="您还未添加任何歌曲">
+      <n-empty v-if="mainStore.playList.length === 0" class="mt-20" description="no song added yet">
         <template #extra>
           <n-button size="small" text type="primary" @click="handleGoHemeClick">
-            去首页发现音乐
+            discover music in home page
           </n-button>
         </template>
       </n-empty>
@@ -83,7 +83,7 @@ const handleGoHemeClick = () => {
                   VIP
                 </n-tag>
                 <n-tag v-if="item.fee === 0" size="small" class="ml-2">
-                  无音源
+                  No Audio
                 </n-tag>
               </div>
               <p class=" w-24 truncate">

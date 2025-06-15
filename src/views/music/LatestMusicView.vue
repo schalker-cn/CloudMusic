@@ -14,23 +14,23 @@ import { useNanoid } from '@/hook/useNanoid';
 const typeList = [
   {
     value: '0',
-    name: '全部'
+    name: 'All'
   },
   {
     value: '7',
-    name: '华语'
+    name: 'Chinese'
   },
   {
     value: '96',
-    name: '欧美'
+    name: 'American'
   },
   {
     value: '8',
-    name: '日本'
+    name: 'Japanese'
   },
   {
     value: '16',
-    name: '韩国'
+    name: 'Korean'
   }
 ];
 const router = useRouter();

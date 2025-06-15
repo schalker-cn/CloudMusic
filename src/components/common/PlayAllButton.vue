@@ -10,7 +10,7 @@ const props = withDefaults(defineProps<{
 const handleStartPlayAllClick = () => {
   if (mainStore.currentPlayListId === props.songListId) {
     if (mainStore.playing) {
-      return window.$message.warning('正在播放中');
+      return window.$message.warning('is already playing');
     } else {
       mainStore.changePlayIndex(0, props.songList[0]);
     }
@@ -27,7 +27,7 @@ const handleAddToAllPlayListClick = () => {
   if (!mainStore.playListIdList.includes(props.songListId)) {
     return mainStore.addPlaylist(props.songList, props.songListId);
   } else {
-    return window.$message.warning('已添加到播放列表');
+    return window.$message.warning('already in the queue');
   }
 };
 </script>
@@ -38,14 +38,14 @@ const handleAddToAllPlayListClick = () => {
       <n-icon :component="Play" />
     </template>
     <p @click="handleStartPlayAllClick">
-      播放全部
+      PLAY ALL
     </p>
     <div class="ml-4 ">
       <n-tooltip placement="bottom-start" trigger="hover">
         <template #trigger>
           <n-icon :component="AddOutline" size="20" @click="handleAddToAllPlayListClick" />
         </template>
-        <span>添加全部到播放列表</span>
+        <span>add all to the queue</span>
       </n-tooltip>
     </div>
   </n-button>

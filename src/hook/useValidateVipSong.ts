@@ -6,11 +6,11 @@ export default function useValidateVipSong(song: any) {
   if (song.fee === 1) {
     // 未登录下, 不能进行播放
     if (!mainStore.isLogin) {
-      return window.$message.warning('歌曲为vip专享,请先登录!');
+      return window.$message.warning('eligible for VIP, please log in first');
     } else {
       // 非vip不能播放
       if (mainStore.userProfile?.profile?.vipType === 0) {
-        return window.$message.warning('歌曲为会员专享');
+        return window.$message.warning('eligible for VIP');
       }
     }
   }

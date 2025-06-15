@@ -1,5 +1,5 @@
 import { useMainStore } from './../stores/main';
-export function userCheckLogin(callback:() => void, message='请先登录') {
+export function userCheckLogin(callback:() => void, message='please log in first') {
   const mainStore = useMainStore();
   if (!mainStore.isLogin) {
     window.$message.error(message);
