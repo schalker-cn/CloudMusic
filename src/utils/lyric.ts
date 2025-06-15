@@ -94,7 +94,7 @@ export function parseRangeLyric(lyricList: LyricItem[]) {
   let nextIndex = 1;
 
   // 如果第一项播放时间不为0，则手动插入一个
-  if (lyricList[currentIndex]?.time !== 0 && lyricList[currentIndex]?.content !== '纯音乐，请欣赏') {
+  if (lyricList[currentIndex]?.time !== 0 && lyricList[currentIndex]?.content !== 'No lyrics for this song') {
     lyricList.unshift({
       ...lyricList[currentIndex],
       time: 0

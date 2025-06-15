@@ -1,7 +1,12 @@
 import qs from 'qs';
 import service from './request';
 import { DAILY_SONG_MOCK } from '@/mocks/songMock';
+import { USA_SONG_MOCK } from '@/mocks/songMock';
+import { CHN_SONG_MOCK } from '@/mocks/songMock';
+import { SONG_CHECK_MOCK } from '@/mocks/songMock';
+import { LYRIC_MOCK } from '@/mocks/lyricMock';
 import placeholder from '@/assets/img/placeholder.png';
+import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 // 推荐歌曲
 export function getRecommendSong() {
     const modifiedData = {
@@ -20,8 +25,55 @@ export function getRecommendSong() {
   return Promise.resolve(modifiedData);
 }
 // 新歌速递
-export function getTopSong(type: 0 | 7 | 96 |8 | 16=0) {
-  return service.get(`/top/song?type=${type}`);
+export function getTopSong(type: 0 | 7 | 96 | 8 | 16 = 0) {
+  function withPlaceholder(data: typeof USA_SONG_MOCK | typeof CHN_SONG_MOCK) {
+    return {
+      ...data,
+      data: data.data.map(song => ({
+        ...song,
+        album: {
+          ...song.album,
+          picUrl: placeholder,
+          blurPicUrl: placeholder
+        }
+      }))
+    };
+  }
+
+  function mockAxiosResponse(data: any): Promise<AxiosResponse> {
+    const mockResponse: AxiosResponse = {
+      data,
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: {
+        headers: {},
+        method: 'get',
+        url: ``,
+      } as InternalAxiosRequestConfig,
+    };
+    return Promise.resolve(mockResponse);
+  }
+
+  if (type == 96) {
+    return mockAxiosResponse(withPlaceholder(USA_SONG_MOCK));
+  } else if (type == 7) {
+    return mockAxiosResponse(withPlaceholder(CHN_SONG_MOCK));
+  } else if (type == 0) {
+    const mockedUSAData = withPlaceholder(USA_SONG_MOCK);
+    const mockedCHNData = withPlaceholder(CHN_SONG_MOCK);
+    const mergedData = {
+      ...mockedCHNData,
+      data: [...mockedCHNData.data, ...mockedUSAData.data]
+    };
+    return mockAxiosResponse(mergedData);
+  } else {
+    const emptyData = {
+      data: [],
+      code: 200
+    };
+    return mockAxiosResponse(emptyData);
+  }
 }
 // 获取歌手单曲可 获得歌手部分信息和热门歌曲
 export function getSingerSong(id: number) {
@@ -50,11 +102,30 @@ export function getLyric(id:string) {
 }
 // 获取逐字歌词
 export function getNewLyric(id:string) {
-  return service.get('/lyric/new?id='+id);
+  return LYRIC_MOCK.lyrics[0];
 }
 // 检查音乐是否可用
-export function checkMusic(id:string) {
-  return service.get('/check/music?id='+id);
+export function checkMusic(id: string) {
+
+  const found = SONG_CHECK_MOCK.eligibleSongs.some(song => song.id === Number(id));
+
+  if (found) {
+    return Promise.resolve({
+      data: {
+        success: true,
+        message: 'ok',
+        code: 200
+      }
+    });
+  } else {
+    return Promise.resolve({
+      data: {
+        success: false,
+        message: '亲爱的,暂无版权',
+        code: 200
+      }
+    });
+  }
 }
 // 歌曲评论
 export function getMusicComment(data:{

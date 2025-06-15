@@ -1,7 +1,13 @@
 import qs from 'qs';
 import service from './request';
 import { DAILY_PLAYLIST_MOCK } from '@/mocks/playlistMock';
+import { PLAYLIST_DETAIL_MOCK } from '@/mocks/playlistMock';
+import { PLAYLIST_TRACK_MOCK } from '@/mocks/playlistMock';
+import { COMMENT_MOCK } from '@/mocks/commentMock';
+import { SIMILAR_PLAYLIST_MOCK } from '@/mocks/playlistMock';
 import placeholder from '@/assets/img/placeholder.png';
+import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import { match } from 'assert';
 // 获取精品歌单
 export function getTopPlayList({ cat = '全部', limit = 10, before = '' }) {
   return service.get(`/top/playlist/highquality?cat=${cat}&limit=${limit}&before=${before}`);
@@ -12,23 +18,39 @@ export function getTopPlayListTags() {
 }
 // 推荐歌单
 export function getPersonalized() {
-      const modifiedData = {
-      ...DAILY_PLAYLIST_MOCK,
-      result: DAILY_PLAYLIST_MOCK.result.map(playlist => ({
-        ...playlist,
-        picUrl: placeholder
-      }))
-    };
-    return Promise.resolve(modifiedData);
+  const modifiedData = {
+    ...DAILY_PLAYLIST_MOCK,
+    result: DAILY_PLAYLIST_MOCK.result.map(playlist => ({
+      ...playlist,
+      picUrl: placeholder
+    }))
+  };
+  return Promise.resolve(modifiedData);
 }
 // 获取歌单详情
 export function getPlaylistDetail(id: string) {
-  const query = qs.stringify({
-    id,
-    timestamp: Date.now()
-  });
-  console.log('list query is: ', query);
-  return service.get('/playlist/detail?'+query);
+  // !!直接取mock，不用判断id
+  const matched = PLAYLIST_DETAIL_MOCK.playlist.find(item => item.id.toString() == id);
+  matched.tracks.forEach(item => item.al.picUrl = placeholder);
+  console.log(matched.tracks[0].al.picUrl);
+  const mockResponse: AxiosResponse = {
+    data: {
+      code: PLAYLIST_DETAIL_MOCK.code,
+      relatedVideos: PLAYLIST_DETAIL_MOCK.relatedVideos,
+      playlist: matched || null,
+      urls: PLAYLIST_DETAIL_MOCK.urls
+    },
+    status: 200,
+    statusText: 'OK',
+    headers: {},
+    config: {
+      headers: {},
+      method: 'get',
+      url: ``,
+    } as InternalAxiosRequestConfig,
+  };
+  
+  return Promise.resolve(mockResponse);
 }
 // 获取歌单所有数据
 export function getPlaylistAllDetail(data:{
@@ -36,13 +58,25 @@ export function getPlaylistAllDetail(data:{
   limit?: number,
   offset?: number,
 }) {
-  const query = qs.stringify({
-    ...data,
-    timestamp: Date.now(),
-    limit:data.limit ? data.limit : 300,
-    offset:data.offset ? data.offset : 0,
-  });
-  return service.get('/playlist/track/all?'+query);
+  const matched = PLAYLIST_TRACK_MOCK.track.find(item => item.id.toString() == data.id);
+  matched.songs.forEach(item => item.al.picUrl = placeholder);
+  const mockResponse: AxiosResponse = {
+    data: {
+      code: PLAYLIST_TRACK_MOCK.code,
+      songs: matched.songs || [],
+      privileges: matched.privileges || []
+    },
+    status: 200,
+    statusText: 'OK',
+    headers: {},
+    config: {
+      headers: {},
+      method: 'get',
+      url: ``,
+    } as InternalAxiosRequestConfig,
+  };
+
+  return Promise.resolve(mockResponse);
 }
 // 更新歌单标签
 export function updatePlaylistTags(data: {
@@ -102,15 +136,40 @@ export function getPlaylistComment(data:{
   offset?:number;
   before?:string;
 }) {
-  const query = qs.stringify({
-    ...data,
-    timestamp:Date.now()
-  });
-  return service.get('/comment/playlist?'+query);
+
+  const matched = COMMENT_MOCK.songListComment.find(item => item.id.toString() == data.id);
+  console.log('matched comment is: ', matched);
+  const mockResponse: AxiosResponse = {
+    data: {
+      ...matched
+    },
+    status: 200,
+    statusText: 'OK',
+    headers: {},
+    config: {
+      headers: {},
+      method: 'get',
+      url: ``,
+    } as InternalAxiosRequestConfig,
+  };
+
+  return Promise.resolve(mockResponse);
 }
 // 相似歌单
-export function getSimilarPlaylist(id:string) {
-  return service.get('/simi/playlist?id='+id);
+export function getSimilarPlaylist(id: string) {
+  const updatedPlaylists = SIMILAR_PLAYLIST_MOCK.playlists.map(playlist => ({
+    ...playlist,
+    coverImgUrl: placeholder
+  }));
+
+  const response = {
+    data: {
+      ...SIMILAR_PLAYLIST_MOCK,
+      playlists: updatedPlaylists
+    }
+  };
+
+  return Promise.resolve(response);
 }
 // 相似歌曲
 export function getSimilarSong(id:string) {

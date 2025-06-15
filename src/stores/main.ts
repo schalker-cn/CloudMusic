@@ -111,11 +111,12 @@ export const useMainStore = defineStore({
     ) {
       // 如果没有获取url, 则获取歌曲url
       if (!data[index]?.url) {
+        console.log('init step: song ' + index + ' has no url');
         const res = await this.setMusicData({ data, id: data[index]?.id, index: index });
         if (!res.success) return;
       }
       // 过滤掉无音源歌曲
-      this.playList = data.filter(item => item.fee !== 0);
+      this.playList = data;
       this.initPlayListPrevAndNextIndex();
       localStorage.rawPlayList = JSON.stringify(cloneDeep(this.playList));
       this.currentPlayIndex = index;
@@ -150,12 +151,18 @@ export const useMainStore = defineStore({
     async changePlayIndex(index: number) {
       let target = this.playList[index];
       // 无音源 跳过
-      if (target['fee'] === 0) return;
+      console.log('process song with id: ' + target.id + ", the fee is: " + target.fee);
+      if (target['fee'] === 0) {
+        return window.$message.warning('No audio source for this song');
+      }
       
       // 如果没有获取url, 则获取歌曲url
       if (target && !target.url) {
+        console.log('no url for ' + target.id);
         const res = await this.setMusicData({ data: this.playList, id: target.id, index, });
         if (!res.success) return { success: false };
+      } else {
+        console.log('has url with id:' + target.id);
       }
       // find origin song
       if (this.playMode === 'random' && target.id) {
@@ -250,12 +257,13 @@ export const useMainStore = defineStore({
       data: any[], id: string, index: number, message?: string;
       showMessage?: boolean;
     }): Promise<any> {
-      const { data, id, index, message = '亲爱的,暂无版权!为你自动跳过此首歌曲', showMessage = true } = options;
+      const { data, id, index, message = 'no copyright, skip this song', showMessage = true } = options;
       const result: AnyObject = {};
-      showMessage && window.$message.loading('获取歌曲数据中...', { duration: 0 });
+      showMessage && window.$message.loading('fetching song data..', { duration: 0 });
       try {
         // 检查歌曲是否可用
         const checkRes = await checkMusic(id) as any;
+        console.log('check music result: ' + checkRes.data.code + ' , id: ' + id);
         if (!checkRes.musicSuccess && !checkRes?.data?.success) {
           window.$message.destroyAll();
           showMessage && window.$message.info(message);
@@ -266,34 +274,36 @@ export const useMainStore = defineStore({
         // 捕获错误
         if (error.response) {
           // 服务器响应的状态码不在 2xx 范围内
-          console.log('错误状态码:', error.response.status);
-          console.log('错误数据:', error.response.data);
+          console.log('wrong code:', error.response.status);
+          console.log('wrong data:', error.response.data);
           
           showMessage && window.$message.info(error.response.data.message);
         } else if (error.request) {
           // 请求已发出，但没有收到响应
-          console.log('请求没有收到响应:', error.request,showMessage);
-          showMessage && window.$message.info('获取数据异常');
+          console.log('the request has no response:', error.request,showMessage);
+          showMessage && window.$message.info('error fetching data');
         } else {
           // 其他错误
-          console.log('错误信息:', error.message);
-          showMessage && window.$message.info('亲爱的,暂无版权');
+          console.log('error log:', error.message);
+          showMessage && window.$message.info('no copyright');
         }
         return { success: false };
       }
       // 获取音乐url
       const res = await getMusicUrl(id);
+      console.log('result: ' + res.data.code + ' , id: ' + id);
       if (res.data.code === 200) {
         result.url = res.data.data[0].url + '?id=' + id;
       } else {
-        showMessage && window.$message.error('获取歌曲播放地址失败!');
+        showMessage && window.$message.error('cannot fetch song url!');
         return { success: false };
       }
       // 获取歌曲歌词
       const lyricRes = await getNewLyric(id);
+      console.log(lyricRes);
       if (res.data.code === 200) {
         result.lyric = lyricRes.data?.lrc?.lyric;
-        if (result.lyric.includes('纯音乐，请欣赏') || !result.lyric) {
+        if (result.lyric.includes('no lyrics') || !result.lyric) {
           result.isNotLyric = true;
         } else {
           result.isNotLyric = false;
@@ -303,12 +313,12 @@ export const useMainStore = defineStore({
           result.yrcLyric = lyricRes.data?.yrc?.lyric;
         }
       } else {
-        console.log('获取歌词失败');
-        window.$message.error('获取歌词失败!');
+        console.log('failed to fetch lyrics');
+        window.$message.error('failed to fetch lyrics');
       }
       result.isLoading = false;
       window.$message.destroyAll();
-      showMessage && window.$message.success('获取成功');
+      showMessage && window.$message.success('successfully fetched lyrics');
       data[index] = {
         ...data[index],
         ...result

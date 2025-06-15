@@ -1,14 +1,24 @@
 import qs from 'qs';
 import service from './request';
 import { PLAYLIST_SEARCH_MOCK } from '@/mocks/playlistMock';
+import { DEFAULT_KEYWORD_MOCK } from '@/mocks/searchMock';
 import { SONG_SEARCH_MOCK } from '@/mocks/songMock';
+import { SUGGEST_SEARCH_MOCK } from '@/mocks/searchMock';
 // 默认搜索关键词
 export function getDefaultSearchKeyword() {
-  return service.get('/search/default');
+  return Promise.resolve({
+    data: {
+      ...DEFAULT_KEYWORD_MOCK
+    }
+  });
 }
 // 热搜列表
 export function getHotSearchList() {
-  return service.get('/search/hot/detail');
+    return Promise.resolve({
+    data: {
+      ...SUGGEST_SEARCH_MOCK
+    }
+  });
 }
 // 搜索建议
 export function getSuggestSearchList(keyword: string) {
