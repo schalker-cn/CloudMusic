@@ -230,7 +230,7 @@ onMounted(() => {
     <n-layout :style="mainStyle">
       <router-view v-slot="{ Component }">
         <transition name="fade-transform" mode="out-in">
-          <keep-alive exclude="MvDetail">
+          <keep-alive>
             <div :key="route.name">
               <component :is="Component" />
             </div>

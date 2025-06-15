@@ -38,17 +38,6 @@ const router = createRouter({
       meta: { auth: false }
     },
     {
-      path: '/latestMv',
-      name: 'latestMv',
-      component: () => import('@/views/mv/LatestMvView.vue'),
-      meta: { auth: false }
-    },
-    {
-      path: '/mv/:id',
-      component: () => import('@/views/mv/MvDetail.vue'),
-      meta: { hidden: true, auth: false }
-    },
-    {
       path: '/userInfoEdit',
       name: 'userInfoEdit',
       component: () => import('@/views/user/UserInfoEdit.vue'),
