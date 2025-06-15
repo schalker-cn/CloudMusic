@@ -6,7 +6,7 @@ import { UserProfile } from '@vicons/carbon';
 import { ExitToAppRound } from '@vicons/material';
 import { ref, watch } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-import { getLoginStatus, getUserDetail, getUserInfo, logout, signIn } from '@/service';
+import { getLoginStatus, getUserDetail, getUserInfo, signIn } from '@/service';
 import type { AnyObject } from 'env';
 import { useRouter } from 'vue-router';
 
@@ -60,20 +60,6 @@ const checkLoginStatus = () => {
         localStorage.clear();
         mainStore.isLogin = false;
       }
-    }
-  });
-};
-const handlePositiveClick = () => {
-  window.$message.loading('退出登录中...', { duration: 0 });
-  logout().then(res => {
-    if (res.data.code === 200) {
-      mainStore.isLogin = false;
-      mainStore.userProfile = {};
-      localStorage.isLogin = false;
-      localStorage.clear();
-      mainStore.removeAllLikeList();
-      window.$message.destroyAll();
-      window.$message.success('退出登录成功!');
     }
   });
 };
@@ -161,7 +147,7 @@ if (mainStore.isLogin) {
               </div>
               <div
                 class="hover:bg-neutral-200/20 border-0 border-b border-gray-200  dark:border-gray-200/20 border-solid">
-                <n-popconfirm @positive-click="handlePositiveClick">
+                <n-popconfirm>
                   <template #trigger>
                     <!-- 个人信息设置 -->
                     <div class="flex justify-between items-center py-2 px-4 cursor-pointer">

@@ -23,7 +23,6 @@ export function batchRequest(data: {
 export * from './mv';
 export * from './playlist';
 export * from './songs';
-export * from './login';
 export * from './user';
 export * from './search';
 export * from './album';

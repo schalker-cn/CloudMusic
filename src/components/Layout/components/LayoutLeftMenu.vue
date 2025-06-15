@@ -8,7 +8,6 @@ import { List, SparklesOutline, VideocamOutline, StarOutline, Heart } from '@vic
 import { NIcon, useLoadingBar } from 'naive-ui';
 import { computed, onMounted, ref, watch, type CSSProperties, type VNodeChild, KeepAlive } from 'vue';
 import { RouterLink, useRoute, useRouter } from 'vue-router';
-import LoginModal, { type LoginModalExpose } from './LoginModal.vue';
 import obverser from '@/utils/obverser';
 
 const mainStore = useMainStore();
@@ -22,13 +21,6 @@ type MenuOptionItem = {
   icon?: () => VNodeChild,
   children?: childrenMenuOptionItem[]
 }
-const noLoginOption = {
-  label: () => <div class="flex items-center" onClick={handleOpenLoginModalClick}>
-    <p >log in</p>
-  </div>,
-  key: 'login',
-  icon: () => <NIcon class="mr-2" size={20} component={User} />
-};
 
 const menuOptions = [
   {
@@ -62,7 +54,6 @@ let scrollContainer: HTMLElement | null;
 let activeKey = ref<string | null>('');
 let hiddenLeftMenu = ref(false);
 const myMenuOptions = ref<MenuOptionItem[]>(menuOptions);
-const loginModalRef = ref<LoginModalExpose>();
 const mainStyle = computed<CSSProperties>(() => {
   return {
     height: route.meta.hidden
@@ -72,7 +63,7 @@ const mainStyle = computed<CSSProperties>(() => {
 });
 const changeMenuOption = (myCreatePlayList: any[] = [], collectPlayList: any[] = []) => {
   if (!mainStore.isLogin) {
-    myMenuOptions.value = [noLoginOption, ...menuOptions];
+    myMenuOptions.value = [...menuOptions];
   } else {
     myMenuOptions.value = [
       {
@@ -107,9 +98,6 @@ const changeMenuOption = (myCreatePlayList: any[] = [], collectPlayList: any[] =
     ];
 
   }
-};
-const handleOpenLoginModalClick = () => {
-  loginModalRef.value?.show();
 };
 const handlePlayListItemClick = (item: any) => {
   router.push(`/songList/${item.id}`);
@@ -236,7 +224,6 @@ onMounted(() => {
       <n-menu v-model:value="activeKey" :collapsed="collapsed" :collapsed-width="64" :collapsed-icon-size="22"
         :options="myMenuOptions" :default-expand-all="true" />
     </n-layout-sider>
-    <login-modal ref="loginModalRef" />
     <n-back-top :right="mainStore.backTopLeft" :bottom="220" :visibility-height="800">
       <n-icon :component="BackToTop" />
     </n-back-top>
