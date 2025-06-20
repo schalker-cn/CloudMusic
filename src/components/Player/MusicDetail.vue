@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, type Ref, watch, reactive, nextTick, type CSSProperties, onMounted, onBeforeUnmount } from 'vue';
 // @ts-ignore
-// import analyze from 'rgbaster';
 import { BackToTop, Edit } from '@vicons/carbon';
 import { debounce, formateSongsAuthor, getArrLast, throttle } from '@/utils';
 import { KeyboardArrowDownOutlined, FullscreenOutlined, FullscreenExitOutlined } from '@vicons/material';
@@ -47,7 +46,6 @@ const { isLoading: fetchSimiPlayListLoading, state: similarPlaylist, execute: ex
   }, [],
   { resetOnExecute: false, immediate: false }
 );
-// 相似歌曲数据
 const { isLoading: fetchSimilarSongIsLoading, state: similarMusicList, execute: executeGetSimiSong } = useAsyncState(
   (id: string) => {
     return getSimilarSong(id).then(res => {
@@ -104,7 +102,6 @@ const fillBackground = async (updateMask = true) => {
     updateFooterMaskColor(ctx);
   }
 };
-// 获取歌单评论
 const fetchMusicComment = (id: string) => {
   let params: {
     id: string; limit: number; offset: number; before?: string;
@@ -321,7 +318,6 @@ const handleFullscreenchange = () => {
                 <n-divider v-if="similarPlaylist.length" />
                 <n-spin :show="fetchSimiPlayListLoading" size="small">
                   <div v-show="fetchSimiPlayListLoading" class="w-80 h-32" />
-                  <!-- 相似歌单推荐 -->
                   <div v-for="item in similarPlaylist" v-show="!fetchSimiPlayListLoading" :key="item.id"
                     class="flex items-center p-2 hover:bg-neutral-50 dark:hover:bg-neutral-50/20 cursor-pointer"
                     @click="handleSimiPlayListItem(item.id.toString())">
@@ -353,7 +349,6 @@ const handleFullscreenchange = () => {
     :bottom="90" :right="400">
     <n-icon :component="BackToTop" />
   </n-back-top>
-  <!-- 发表评论-->
   <replied-comment-modal ref="commentModalRef" comment-placeholder="Write your comment here"
     :title="'Song: ' + mainStore.currentPlaySong.name" :update-comment-list="updateCommentList" :t="1" :type="0"
     :resource-id="mainStore.currentPlaySong.id" />
@@ -364,7 +359,6 @@ const handleFullscreenchange = () => {
       Comment
     </n-button>
   </transition>
-  <!-- 发表我的音乐评论 -->
   <transition name="slide">
     <n-button v-show="showBackTop && mainStore.showMusicDetail" type="primary" class="fixed w-44"
       style="z-index:9999;bottom: 90px;right:0;left:0;margin:auto" round @click="commentModalRef?.show()">
@@ -405,7 +399,6 @@ const handleFullscreenchange = () => {
   z-index: 8888 !important;
 }
 
-/* 从底部弹出或隐藏过渡 */
 .bottom-slide-transform-leave-active {
   transition: height .2s cubic-bezier(0.4, 0, 0.2, 1);
 }

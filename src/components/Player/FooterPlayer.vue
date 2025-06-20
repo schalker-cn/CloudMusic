@@ -23,29 +23,22 @@ import { useAudioLoadProgress } from './hook/useAudioLoadProgress';
 import { getOpusBlobDataByIdUsingIndex, openDatabase, saveSong } from '@/utils/initIndexDb'
 import { AudioIndexedData } from 'env';
 
-let slideValueChange = false;// 记录slider值是否手动发生了改变
+let slideValueChange = false;
 let triggerOriginalAudioTimeUpdate = true;
 const progressWidth = 500;
 const themeVars = useThemeVars();
 const mainStore = useMainStore();
-// 触发显示打开歌曲详情交互元素
 const triggerRef = ref();
 const isHover = useElementHover(triggerRef);
 const heardLikeRef = ref<HeartIconExpose>();
 const subscribeModalRef = ref<{ show: () => void }>();
 let isLoad = false;
-// audio元素
 const audioRef = ref<HTMLAudioElement>();
 const { updateBuffer, progressValue } = useAudioLoadProgress(audioRef, mainStore.currentPlaySong?.dt / 1000);
-// 进度条百分比
 const percentage = ref(0);
-// 当前播放时间
 const currentPlayTime = ref('00:00');
-// 音量大小
 const volume = ref(+localStorage.volume || 100);
-// 播放列表组件ref
 const playListRef = ref<PlayListExpose>();
-//computed
 const primaryColor = computed(() => themeVars.value.primaryColor);
 const currentSong = computed(() => mainStore.currentPlaySong);
 const isShow = computed(() => !!mainStore.playList.length);
@@ -69,7 +62,6 @@ const activeStyle = computed(() => {
 });
 const loadCurrentPrevAndNext = async (val: any) => {
   if (!val) return;
-  // 加载上一首和下一首的歌曲url
   let next = mainStore.playList[val.nextIndex];
   let prev = mainStore.playList[val.prevIndex];
   if (next && !next.url) {
@@ -96,29 +88,23 @@ watch(
     if (!val) return;
     loadCurrentPrevAndNext(val);
     if (oldVal && val.id !== oldVal.id) {
-      // 检测当前是否正在播放
       if (!audioRef.value?.paused) {
         mainStore.playing = false;
       }
-      // 重新加载媒体资源
       audioRef.value?.load();
       resetState();
       tryPlay();
     }
     document.title = val.name;
-    // 如果url 没有加载重新获取
     if (!val.url) {
       requestSongData();
     }
 
-    // // 读取缓存数据
     getOpusBlobDataByIdUsingIndex(mainStore.currentPlaySong?.id).then((res: AudioIndexedData) => {
-      // 创建一个指向 Blob 数据的临时 URL
       if (res) {
         const url = window.URL.createObjectURL(res.blob);
 
         if (res.id === mainStore.currentPlaySong.id) {
-          // 检测当前是否正在播放
           if (!audioRef.value?.paused) {
             mainStore.playing = false;
           }
@@ -143,14 +129,12 @@ watch(() => mainStore.playing, (val) => {
     audioRef.value?.pause();
   }
 });
-// 点击切换上一首
 const handlePrevClick = async () => {
   if (isLoad) return;
   isLoad = true;
   await mainStore.togglePrev();
   isLoad = false;
 };
-// 点击切换下一首
 const handleNextClick = async () => {
   if (isLoad) return;
   isLoad = true;
@@ -164,7 +148,6 @@ const resetState = () => {
   audioRef.value!.currentTime = 0;
   mainStore.playWaiting = true;
 };
-// 切换播放状态
 const togglePlayStatus = async () => {
   if (audioRef.value?.paused) {
     tryPlay();
@@ -180,7 +163,6 @@ const tryPlay = () => {
   mainStore.changePlaying(true);
 };
 const handleEnded = () => {
-  // 如果为单曲循环模式,则重新播放
   if (mainStore.playMode === 'singleLoop') {
     audioRef.value!.currentTime = 0;
     audioRef.value?.play();
@@ -189,7 +171,6 @@ const handleEnded = () => {
   }
   obverser.emit('ended');
 };
-// 播放进度变化
 const handleTimeupdate = (event: Event) => {
   if (triggerOriginalAudioTimeUpdate) {
     const target = event.target as HTMLAudioElement;
@@ -198,7 +179,6 @@ const handleTimeupdate = (event: Event) => {
 };
 
 const updatePlayTime = async (time: number, triggerPlay = false) => {
-  // 如果当前滑动条正在改变,则不设置对应的值, 避免冲突
   if (!slideValueChange) {
     currentPlayTime.value = dayjs(time * 1000).format('mm:ss');
     percentage.value = Math.round(((time * 1000) / currentSong.value?.dt) * 100);
@@ -213,17 +193,14 @@ const updatePlayTime = async (time: number, triggerPlay = false) => {
   }
   obverser.emit('timeUpdate', Math.round(time * 1000));
 };
-// 媒体的第一帧加载完成 url 可以正常播放
 const handleLoadeddata = () => {
   let data = {
     id: mainStore.currentPlaySong.id,
     url: mainStore.currentPlaySong.url,
     name: mainStore.currentPlaySong.name,
   };
-  // 判断url是为blob格式
   if (!mainStore.currentPlaySong.url?.startsWith('blob:')) {
     getOpusBlobDataByIdUsingIndex(data?.id).then((res) => {
-      // 没有则保存
       if (!res) {
         saveSong(data)
       }
@@ -233,22 +210,17 @@ const handleLoadeddata = () => {
     audioRef.value?.play();
   }
 };
-//处理数据还未加载完成时,播放暂停
 const handleWaiting = () => {
   mainStore.playWaiting = true;
 };
-// 因为缺少数据而暂停或延迟的状态结束，播放准备开始
 const handlePlaying = () => {
   mainStore.playWaiting = false;
 };
-const MAX_RETRY_COUNT = 1; // 最大重试次数 
-let retryCount = 0; // 当前重试次数
+const MAX_RETRY_COUNT = 1; 
+let retryCount = 0;
 const handleError = () => {
-  // 判断url 是否为blob格式 blob 
   if (mainStore.currentPlaySong.url?.startsWith('blob:')) {
-    // 读取缓存数据
     getOpusBlobDataByIdUsingIndex(mainStore.currentPlaySong?.id).then((res: AudioIndexedData) => {
-      // 创建一个指向 Blob 数据的临时 URL
       if (res) {
         const url = window.URL.createObjectURL(res.blob);
         if (res.id === mainStore.currentPlaySong.id) {
@@ -263,7 +235,6 @@ const handleError = () => {
   }
   if (audioRef.value?.error?.code === 4 || audioRef.value?.error?.code === 2) {
     if (retryCount >= MAX_RETRY_COUNT) {
-      // window.$message.error('重试次数已达上限，无法获取歌曲资源。');
       return;
     }
     window.$message.warning('歌曲资源过期,准备尝试重新获取');
@@ -274,7 +245,6 @@ const handleError = () => {
     mainStore.setMusicData({ data: mainStore.playList, id: mainStore.currentPlaySong.id, index: mainStore.currentPlayIndex }).then(res => {
       localStorage.playList = JSON.stringify(mainStore.playList);
       isLoad = false;
-      // 重新加载资源
       if (res.success) {
         audioRef.value?.load();
         resetState();
@@ -286,12 +256,11 @@ const handleError = () => {
       console.error('Error while setting music data:', error);
     });
 
-    retryCount++; // 增加重试次数
+    retryCount++;
   }
 };
 
 
-// 处理鼠标在进度条上抬起或者按下操作
 const handleSliderDone = () => {
   triggerOriginalAudioTimeUpdate = false;
   let currentClickTime = Math.round((currentSong.value?.dt * percentage.value) / 100);
@@ -307,13 +276,11 @@ const handleSliderChange = () => {
   let currentTime = (currentSong.value?.dt * percentage.value) / 100;
   currentPlayTime.value = dayjs(currentTime).format('mm:ss');
 };
-// 音量滑动选择器监听回调
 const handleVolumeChange = (value: number) => {
   localStorage.volume = value;
   volume.value = value;
   audioRef.value!.volume = volume.value / 100;
 };
-// 点击音量选择,切换静音
 const handleVolumeClick = () => {
   if (volume.value === 100) {
     volume.value = 0;
@@ -324,7 +291,6 @@ const handleVolumeClick = () => {
   }
   audioRef.value!.volume = volume.value / 100;
 };
-// 点击切换播放模式
 const handlePlayModeClick = () => {
   const playMode = mainStore.playMode;
   if (playMode === 'order') {
@@ -338,14 +304,12 @@ const handlePlayModeClick = () => {
     window.$message.info('顺序播放');
   }
 };
-// 点击空格播放
 const handlePressSpace = (e: KeyboardEvent) => {
   e.preventDefault();
   if (e.code === 'Space' && mainStore.currentPlaySong) {
     togglePlayStatus();
   }
 };
-// 点击箭头打开歌曲详情
 const handleArrowClick = () => {
   mainStore.toggleShowMusicDetail();
 };
@@ -475,8 +439,6 @@ onUnmounted(() => {
 <style scoped>
 .footer-player {
   height: 68px;
-  /* bottom:0px; */
-  /* box-sizing: border-box; */
 }
 
 :deep(.custom-icon:hover) {

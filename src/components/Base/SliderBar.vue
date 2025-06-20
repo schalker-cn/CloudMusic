@@ -18,8 +18,8 @@ const mainStore = useMainStore();
 let width = isWidthString ? 0 : props.width as number;
 let startWidth = width * (props.modelValue / 100);
 
-const mousePosition = { y: 0, x: 0 };// 鼠标坐标 
-const moveDiff = { x: 0, y: 0 };// 移动距离
+const mousePosition = { y: 0, x: 0 };
+const moveDiff = { x: 0, y: 0 };
 const themeVars = useThemeVars();
 const target = ref();
 const isHover = useElementHover(target);
@@ -47,13 +47,11 @@ const handleSliderMouseDown = async (e: MouseEvent) => {
   emit('change');
   emit('onDone');
 };
-// 在小圆点下按下鼠标
 const handleDotMouseDown = (e: MouseEvent) => {
   isTargetClick.value = true;
   mousePosition.x = e.clientX;
   moveDiff.x = 0;
 };
-// 移动鼠标
 const handleMouseMove = (e: MouseEvent) => {
   if (!isTargetClick.value) return;
   moveDiff.x += e.clientX - mousePosition.x;
@@ -75,7 +73,6 @@ const handleMouseMove = (e: MouseEvent) => {
   mousePosition.x = e.clientX;
 };
 
-// 鼠标抬起
 const handleMouseUp = (e: MouseEvent) => {
   if (!isTargetClick.value) return;
   isTargetClick.value = false;
@@ -112,13 +109,10 @@ onUnmounted(() => {
     <div
       :style="{ width: isString(props.width) ? props.width : width + 'px', height: isString(height) ? height : height + 'px', transform: `scaleY(${isTargetClick || isHover ? '1.5' : '1'})` }"
       class="relative bg-gray-200 dark:bg-gray-200/50 rounded-md transition-transform">
-      <!-- 加载进度条 -->
       <div class="absolute top-0 h-full bg-gray-300 dark:bg-gray-300/50 rounded-md transition-all"
         :style="{ width: loadValue + '%' }" />
-      <!-- 播放进度条 -->
       <div class="absolute top-0 h-full rounded-md  transition-all"
         :style="{ background: mainStore.showMusicDetail ? `linear-gradient(to right,${themeVars.bodyColor}, ${themeVars.primaryColor})` : `${themeVars.primaryColor}`, width: modelValue + '%' }" />
-      <!-- 小圆点 -->
       <div v-show="isHover || isTargetClick" class="dot"
         :style="{ 'background-color': themeVars.primaryColor, left: modelValue + '%' }"
         @mousedown="handleDotMouseDown" />

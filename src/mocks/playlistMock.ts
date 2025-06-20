@@ -16,7 +16,6 @@ export const PLAYLIST_SEARCH_MOCK = {
                     "experts": null
                 },
                 "subscribed": false,
-                // 记得修改歌单的歌曲数量！
                 "trackCount": 28,
                 "userId": 388996430,
                 "playCount": 8108,
@@ -31,7 +30,6 @@ export const PLAYLIST_SEARCH_MOCK = {
                 "highQuality": false
             }
         ],
-        // 记得修改歌单的数量！
         "playlistCount": 1
     },
     "code": 200

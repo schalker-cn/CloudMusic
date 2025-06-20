@@ -56,7 +56,6 @@ const starButtonDisabled = computed(() => {
 });
 const { wrapRequest: wrapFetchPlayList, requestLoading: isLoading, loadSuccess: loadPlayListSuccess, removeCache } = useMemorizeRequest(getPlaylistDetail, 'getPlaylistDetail');
 
-// 获取歌单详情
 const fetchSongListDetail = (id: string = route.params.id as string) => {
   wrapFetchPlayList(id).then((res: { data: { playlist: AnyObject }; }) => {
     let creator = res.data.playlist.creator;
@@ -71,7 +70,6 @@ const fetchSongListDetail = (id: string = route.params.id as string) => {
   }).finally(() => loadPlayListSuccess())
 };
 const { wrapRequest: wrapFetchPlayListComment, requestLoading: isCommentLoading, loadSuccess: loadPlayListCommentSuccess } = useMemorizeRequest(getPlaylistComment, 'getPlaylistComment');
-// 获取歌单评论
 const fetchSongListComment = (id: string = route.params.id as string) => {
   let params: {
     id: string; limit: number; offset: number; before?: string;
@@ -112,7 +110,6 @@ const getMoreMusicList = async () => {
     rawSongList.value.forEach((item: any, index: number) => {
       songListIndexMap.set(item.id, index);
     });
-    // mainStore.updatePlayList(toRaw(songList.value))
     hasLoadAllSongsFished.value = true;
   });
 }
@@ -188,7 +185,6 @@ const toSongListEdit = () => {
     });
   }
 };
-// 点击收藏/取消收藏事件
 const handleSubscribeClick = (subscribed: boolean) => {
   if (!mainStore.isLogin) {
     return window.$message.error('please log in first');
@@ -235,7 +231,6 @@ const handleSubscribeClick = (subscribed: boolean) => {
   }
   return undefined;
 };
-// 点击完成设置标签
 const handleCompleteClick = (selectTagList: any[]) => {
   let detail = songListDetail.value as AnyObject;
   let tags = selectTagList.map((item: { name: any; }) => item.name);
@@ -263,10 +258,8 @@ const handleShareClick = () => {
     window.$message.success('链接复制成功');
   });
 };
-// 点击评论
 const handleCommentClick = () => {
   userCheckLogin(() => {
-    // 评论不能为空
     if (!commentValue.value) {
       return window.$message.error('评论不能为空!');
     }
@@ -310,7 +303,6 @@ const updateCommentLiked = (data: { liked: boolean, index: number }, isHot: bool
 };
 const handleUpdateMusicListLike = (like: boolean, index: number) => {
   let target = songList.value[index];
-  // 更新元数据
   if (target.isSearch) {
     rawSongList.value[target.index].like = like;
   }
@@ -430,12 +422,10 @@ const handleUpdateMusicListLike = (like: boolean, index: number) => {
                 Post
               </n-button>
             </div>
-            <!-- 精彩评论 -->
             <n-spin :show="isCommentLoading">
               <comment-list :type="2" :resource-id="+songListId" title="精彩评论" :list="songListComment.hotComments || []"
                 @update-comment-list="updateCommentList"
                 @update-comment-liked="(data: any) => updateCommentLiked(data, true)" />
-              <!-- 最新评论 -->
               <comment-list :resource-id="+songListId" :type="2" :comment-total-num="songListComment.total" title="Newest Comments"
                 :list="songListComment.comments || []" @update-comment-list="updateCommentList"
                 @update-comment-liked="(data: any) => updateCommentLiked(data, false)" />
@@ -450,7 +440,6 @@ const handleUpdateMusicListLike = (like: boolean, index: number) => {
           </div>
         </div>
       </div>
-      <!-- 标签选择弹窗 -->
       <select-song-list-tag-modal ref="selectSongListTagRef" :handle-complete-click="handleCompleteClick"
         :btn-loading="btnLoading" />
     </n-spin>

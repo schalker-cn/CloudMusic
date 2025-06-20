@@ -7,7 +7,7 @@ import { computed, ref } from 'vue';
 export interface CommentListProps {
   list: any[],
   title: string;
-  resourceId: number;//资源id
+  resourceId: number;
   commentTotalNum?: string | number;
   type?: number;//资源类型0: 歌曲 1: mv2: 歌单3: 专辑4: 电台5: 视频6: 动态
 }
@@ -33,7 +33,6 @@ const handleUpdateCommentList = (comment: any) => {
   emit('updateCommentList', comment);
   currentClickedComment.value = null;
 };
-// 点赞
 const handleLikedClick = (item: any, index: number) => {
   userCheckLogin(() => {
     let t = item.liked
@@ -58,7 +57,6 @@ const handleLikedClick = (item: any, index: number) => {
 };
 </script>
 <template>
-  <!-- 回复评论模态框 -->
   <replied-comment-modal ref="commentModalRef" :comment-placeholder="commentPlaceholder" title="Reply"
     :update-comment-list="handleUpdateCommentList" :type="type" :resource-id="resourceId"
     :comment-id="currentClickedComment?.commentId" />

@@ -124,7 +124,6 @@ const handleFileChange = async (event: Event) => {
       </div>
     </div>
   </div>
-  <!-- 标签选择弹窗 -->
   <select-song-list-tag-modal ref="selectSongListTagRef" :handle-complete-click="handleCompleteClick" />
 </template>
 <style scoped>

@@ -65,7 +65,6 @@ const formate = (locationJson) => {
   );
 };
 
-// 获取对象第一个属性
 // eslint-disable-next-line consistent-return
 const getFirstKey = (obj) => {
   for (let key in obj) {

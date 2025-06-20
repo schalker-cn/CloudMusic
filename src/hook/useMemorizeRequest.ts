@@ -6,7 +6,6 @@ export const useMemorizeRequest = (
 ) => {
   const cacheResponseMap = new Map();
   const requestLoadingMaps = ref({ [requestKey]: true });
-  // 记录缓存时间 默认三分钟 1000 * 60 * 3 = 180000
   const cacheTimeMap = new Map();
   const requestLoading = computed(() => {
     return requestLoadingMaps.value[requestKey];
@@ -29,14 +28,12 @@ export const useMemorizeRequest = (
     if (!cacheResponseMap.has(key)) {
       return request();
     } else {
-      // 如果缓存时间超过了设置的时间 则重新请求
       if (Date.now() - cacheTimeMap.get(key) > cacheTime) {
         return request();
       } 
       return cacheResponseMap.get(key);
     }
   };
-  // 删除指定缓存
   const removeCache = (params?:any) => {
     const key = getKey(params);
     if (cacheResponseMap.has(key)) {

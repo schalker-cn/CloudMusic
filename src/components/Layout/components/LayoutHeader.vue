@@ -17,7 +17,6 @@ const userDetail = ref<AnyObject>();
 const showUserPopover = ref(false);
 const signBtnLoading = ref(false);
 
-// 监听登录状态 获取用户信息
 watch(() => mainStore.isLogin, (val) => {
   if (val) {
     getUserProfile();
@@ -25,14 +24,11 @@ watch(() => mainStore.isLogin, (val) => {
 });
 onClickOutside(popoverContainerRef, (event: MouseEvent) => {
   let target = event.target as HTMLElement;
-  // 如果点击的不是不是触发弹出选择的元素
   if (!target.classList.contains('trigger')) {
     showUserPopover.value = false;
   }
 });
-// 获取用户账号数据
 const getUserProfile = () => {
-  // 如果已经设置过,则从store读取userId
   if (mainStore.userProfile?.userId) {
     getUserDetailInfo(mainStore.userProfile.profile.userId);
   } else {
@@ -41,7 +37,6 @@ const getUserProfile = () => {
     });
   }
 };
-// 获取用户详情数据
 const getUserDetailInfo = (uid: string) => {
   getUserDetail(uid).then((res) => {
     if (res?.data?.code === 200) {
@@ -95,7 +90,6 @@ if (mainStore.isLogin) {
       <layout-header-search />
     </div>
     <div class="flex items-center">
-      <!-- 用户信息入口 -->
       <div v-if="mainStore.isLogin">
         <div v-if="mainStore.userProfile" class="flex items-center mr-2">
           <n-avatar :img-props="{ crossorigin: 'anonymous' }" round :size="30"
@@ -136,7 +130,6 @@ if (mainStore.isLogin) {
               </div>
               <div
                 class="mt-3 hover:bg-neutral-200/20 border-0 border-b border-gray-200  dark:border-gray-200/20 border-solid">
-                <!-- 个人信息设置 -->
                 <div class="flex justify-between items-center py-2 px-4 cursor-pointer" @click="handleInfoEditClick">
                   <div class="flex items-center text-base">
                     <n-icon :size="20" :component="UserProfile" />
@@ -149,7 +142,6 @@ if (mainStore.isLogin) {
                 class="hover:bg-neutral-200/20 border-0 border-b border-gray-200  dark:border-gray-200/20 border-solid">
                 <n-popconfirm>
                   <template #trigger>
-                    <!-- 个人信息设置 -->
                     <div class="flex justify-between items-center py-2 px-4 cursor-pointer">
                       <div class="flex items-center text-base">
                         <n-icon :size="20" :component="ExitToAppRound" />
@@ -164,7 +156,6 @@ if (mainStore.isLogin) {
             </div>
           </n-popover>
         </div>
-        <!-- 用户详情加载骨架屏 -->
         <div v-else class="flex items-center mr-2">
           <n-skeleton width="30px" height="30px" round />
           <n-skeleton text style="width:100px;margin-left: 8px;" />

@@ -28,21 +28,11 @@ const menuOptions = [
     key: '/discovery',
     icon: () => <NIcon component={SparklesOutline} />
   },
-  // {
-  //   label: () => <RouterLink to='/songList'>推荐歌单</RouterLink>,
-  //   key: '/songList',
-  //   icon: () => <NIcon component={List} />
-  // },
   {
     label: () => <RouterLink to='/latestMusic'>Newest Trend</RouterLink>,
     key: '/latestMusic',
     icon: () => <NIcon component={Music} />
   },
-  // {
-  //   label: () => <RouterLink to='/latestMv'>最新MV</RouterLink>,
-  //   key: '/latestMv',
-  //   icon: () => <NIcon component={VideocamOutline} />
-  // }
 ];
 
 const route = useRoute();
@@ -113,7 +103,6 @@ watch(() => route.path, (newVal) => {
 watch(() => mainStore.userProfile, (val) => {
   let userId = mainStore.userProfile?.profile?.userId;
   if (val && userId) {
-    // myMenuOptions.value.shift();
     fetchUserPlaylist(userId);
     fetchMyLikeMusicList(userId);
   } else {
@@ -130,7 +119,6 @@ const fetchUserPlaylist = (userId: number) => {
     myMenuOptions.value.shift();
   }
   getUserPlaylist(userId).then((res) => {
-    // 将歌单分类
     if (res.data.code === 200) {
       let { collectPlayList, myCreatePlayList } = classifySongsList(userId, res.data.playlist);
       mainStore.setMySubscribeSongList(myCreatePlayList);
@@ -142,7 +130,6 @@ const fetchUserPlaylist = (userId: number) => {
       window.$message.destroyAll();
     });
 };
-// 获取我喜欢的音乐
 const fetchMyLikeMusicList = (userId: number) => {
   getLikeList(userId).then(res => {
     mainStore.setLikeList(res.data.ids);
@@ -177,11 +164,9 @@ registerRouteHook((to) => {
 }, () => {
   loadingBar.finish();
 });
-//监听歌单收藏状态
 const watchUpdateCollectPlayList = () => {
   obverser.on('updateCollectPlayList', (data: any) => {
     let { subscribed } = data;
-    // 收藏 添加歌单
     if (subscribed) {
       let songListDetail = data.songListDetail;
       myMenuOptions.value[1].children?.unshift({
@@ -190,7 +175,7 @@ const watchUpdateCollectPlayList = () => {
         icon: () => <NIcon size={20} component={QueueMusicFilled}></NIcon>,
         id: songListDetail.id
       });
-    } else { //取消收藏. 删除歌单
+    } else {
       let id = data.id;
       let index = myMenuOptions.value[1].children?.findIndex((item: any) => item.id === +id);
       if (index) {

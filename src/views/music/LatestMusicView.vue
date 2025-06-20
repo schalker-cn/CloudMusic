@@ -92,7 +92,6 @@ fetchData();
       :style="activeStyle(item.value)" @mouseenter="handleMouseEnter($event, item.value)"
       @mouseleave="handleMouseLeave($event, item.value)" @click="handleTypeClick(item.value)">{{ item.name }}</span>
   </div>
-  <!-- 新歌速递列表 -->
   <div class="mt-4">
     <div v-show="isLoading">
       <div v-for="item in 9" :key="item" class="flex justify-between items-center p-2">

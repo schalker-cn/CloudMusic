@@ -8,7 +8,7 @@ const commentContent = ref('');
 const props = withDefaults(defineProps<{
   commentPlaceholder?: string;
   title: string;
-  resourceId: number;//资源id
+  resourceId: number;
   type?: number;//资源类型0: 歌曲 1: mv2: 歌单3: 专辑4: 电台5: 视频6: 动态
   commentId?: number;
   t?: number;//评论类型1: 发送 2: 回复
@@ -58,7 +58,6 @@ const handleSubmitCommitClick = () => {
 </script>
 
 <template>
-  <!-- 回复评论模态框 -->
   <teleport to="body">
     <n-modal v-model:show="showModal" preset="dialog" :title="title" positive-text="评论" transform-origin="center"
       :show-icon="false">

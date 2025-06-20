@@ -4,7 +4,6 @@ import { nextTick, onMounted, onUnmounted, onUpdated, type Ref } from 'vue';
 export function useMemoryScrollTop(ref:Ref<HTMLElement> | string) {
   let targetEle : HTMLElement | null | Window = null;
   let setScrollTopLock = false;
-  // 设置滚动位置
   const setScrollPosition = (key:string) => {
     setScrollTopLock = true;
     const scrollTop = sessionStorage.getItem(key);
@@ -30,7 +29,6 @@ export function useMemoryScrollTop(ref:Ref<HTMLElement> | string) {
     if (setScrollTopLock) return;
     
     let scrollTop;
-    // 是否为window
     if (targetEle instanceof Window) {
       scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     } else {

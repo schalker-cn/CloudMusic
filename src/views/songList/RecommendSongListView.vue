@@ -5,7 +5,6 @@ import { getArrLast } from '@/utils';
 import { useAsyncState } from '@vueuse/core';
 import { useLoadingBar, useThemeVars } from 'naive-ui';
 import { computed, nextTick, onBeforeMount, ref, watch } from 'vue';
-//精品歌单
 const tabsTabSelector = '.myTabs > .n-tabs-nav .n-tabs-wrapper > .n-tabs-tab-wrapper>.n-tabs-tab';
 const {
   state: songsTags,
@@ -67,7 +66,6 @@ const fetchSongList = async (
 };
 
 const findIndex = (val: string) => songsTags.value.findIndex((item) => item.name === val);
-//点击tab时移动滚动条位置
 const changeScrollBarPosition = async (oldIndex: number, newIndex: number) => {
   await nextTick();
   tabsNavEle = tabsNavEle === null

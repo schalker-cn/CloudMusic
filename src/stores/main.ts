@@ -51,7 +51,6 @@ export const useMainStore = defineStore({
         document.documentElement.classList.remove('dark');
         document.documentElement.style.colorScheme = '';
       }
-      // 设置网页的配色方案为dark 
       this.theme = theme;
       localStorage.theme = theme;
     },
@@ -100,22 +99,14 @@ export const useMainStore = defineStore({
         return item;
       });
     },
-    // updatePlayList(  data: any[]){
-    //   // this.playList = data.filter(item => item.fee !== 0);
-    //   //  localStorage.rawPlayList = JSON.stringify(cloneDeep(this.playList));
-    //   // localStorage.playList = JSON.stringify(this.playList);
-    // },
-    // 初始化播放 列表
     async initPlayList(
       data: any[], index = 0, playListId: string,message?:string
     ) {
-      // 如果没有获取url, 则获取歌曲url
       if (!data[index]?.url) {
         console.log('init step: song ' + index + ' has no url');
         const res = await this.setMusicData({ data, id: data[index]?.id, index: index });
         if (!res.success) return;
       }
-      // 过滤掉无音源歌曲
       this.playList = data;
       this.initPlayListPrevAndNextIndex();
       localStorage.rawPlayList = JSON.stringify(cloneDeep(this.playList));
@@ -147,16 +138,13 @@ export const useMainStore = defineStore({
       this.playListIdList.push(id);
       localStorage.playList = JSON.stringify(this.playList);
     },
-    // 切换播放音乐
     async changePlayIndex(index: number) {
       let target = this.playList[index];
-      // 无音源 跳过
       console.log('process song with id: ' + target.id + ", the fee is: " + target.fee);
       if (target['fee'] === 0) {
         return window.$message.warning('No audio source for this song');
       }
       
-      // 如果没有获取url, 则获取歌曲url
       if (target && !target.url) {
         console.log('no url for ' + target.id);
         const res = await this.setMusicData({ data: this.playList, id: target.id, index, });
@@ -164,7 +152,6 @@ export const useMainStore = defineStore({
       } else {
         console.log('has url with id:' + target.id);
       }
-      // find origin song
       if (this.playMode === 'random' && target.id) {
         let index = this.playList.findIndex(item => item.id === target.id);
         this.currentPlayIndex = index;
@@ -176,7 +163,6 @@ export const useMainStore = defineStore({
       localStorage.playList = JSON.stringify(this.playList);
       this.changePlaying(true);
     },
-    // 切换播放模式
     changePlayMode(mode: playMode) {
       this.playMode = mode;
       localStorage.playMode = mode;
@@ -194,11 +180,9 @@ export const useMainStore = defineStore({
         localStorage.playList = JSON.stringify(rawPlayList);
       }
     },
-    // 切换播放状态
     changePlaying(playing: boolean) {
       this.playing = playing;
     },
-    // 切换下一首
     async toggleNext(index?: number) {
       let nextIndex;
       if (!isUndefined(this.currentPlaySong.nextIndex)) {
@@ -212,7 +196,6 @@ export const useMainStore = defineStore({
       this.changePlaying(true);
      
     },
-    // 切换上一首
     async togglePrev(index?: number) {
       let prevIndex;
       if (!isUndefined(this.currentPlaySong.prevIndex)) {
@@ -227,18 +210,15 @@ export const useMainStore = defineStore({
       this.changePlaying(true);
       return { success: true };
     },
-    // 插入播放
     async insertPlay(value: any) {
       const index = this.playList.findIndex(item => item?.id === value.id);
       value.like = this.hasLikeSong(value.id);
-      // 未添加则插入
       if (index === -1) {
         this.playList.splice(
           this.currentPlayIndex + 1, 0, value
         );
         const insertIndex = this.playList.findIndex((item: any) => item.id === value.id);
         localStorage.playList = JSON.stringify(this.playList);
-        // change origin data
         localStorage.rawPlayList = JSON.stringify(cloneDeep(this.playList));
         this.changePlayIndex(insertIndex, value);
         this.initPlayListPrevAndNextIndex();
@@ -261,7 +241,6 @@ export const useMainStore = defineStore({
       const result: AnyObject = {};
       showMessage && window.$message.loading('fetching song data..', { duration: 0 });
       try {
-        // 检查歌曲是否可用
         const checkRes = await checkMusic(id) as any;
         console.log('check music result: ' + checkRes.data.code + ' , id: ' + id);
         if (!checkRes.musicSuccess && !checkRes?.data?.success) {
@@ -271,25 +250,20 @@ export const useMainStore = defineStore({
         }
       } catch (error: any) {
         window.$message.destroyAll();
-        // 捕获错误
         if (error.response) {
-          // 服务器响应的状态码不在 2xx 范围内
           console.log('wrong code:', error.response.status);
           console.log('wrong data:', error.response.data);
           
           showMessage && window.$message.info(error.response.data.message);
         } else if (error.request) {
-          // 请求已发出，但没有收到响应
           console.log('the request has no response:', error.request,showMessage);
           showMessage && window.$message.info('error fetching data');
         } else {
-          // 其他错误
           console.log('error log:', error.message);
           showMessage && window.$message.info('no copyright');
         }
         return { success: false };
       }
-      // 获取音乐url
       const res = await getMusicUrl(id);
       console.log('result: ' + res.data.code + ' , id: ' + id);
       if (res.data.code === 200) {
@@ -298,7 +272,6 @@ export const useMainStore = defineStore({
         showMessage && window.$message.error('cannot fetch song url!');
         return { success: false };
       }
-      // 获取歌曲歌词
       const lyricRes = await getNewLyric(id);
       console.log(lyricRes);
       if (res.data.code === 200) {

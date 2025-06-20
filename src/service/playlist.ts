@@ -7,16 +7,12 @@ import { COMMENT_MOCK } from '@/mocks/commentMock';
 import { SIMILAR_PLAYLIST_MOCK } from '@/mocks/playlistMock';
 import placeholder from '@/assets/img/placeholder.png';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { match } from 'assert';
-// 获取精品歌单
 export function getTopPlayList({ cat = '全部', limit = 10, before = '' }) {
   return service.get(`/top/playlist/highquality?cat=${cat}&limit=${limit}&before=${before}`);
 }
-// 精品歌单标签列表
 export function getTopPlayListTags() {
   return service.get('/playlist/highquality/tags');
 }
-// 推荐歌单
 export function getPersonalized() {
   const modifiedData = {
     ...DAILY_PLAYLIST_MOCK,
@@ -27,9 +23,7 @@ export function getPersonalized() {
   };
   return Promise.resolve(modifiedData);
 }
-// 获取歌单详情
 export function getPlaylistDetail(id: string) {
-  // !!直接取mock，不用判断id
   const matched = PLAYLIST_DETAIL_MOCK.playlist.find(item => item.id.toString() == id);
   matched.tracks.forEach(item => item.al.picUrl = placeholder);
   console.log(matched.tracks[0].al.picUrl);
@@ -52,7 +46,6 @@ export function getPlaylistDetail(id: string) {
   
   return Promise.resolve(mockResponse);
 }
-// 获取歌单所有数据
 export function getPlaylistAllDetail(data:{
   id: string,
   limit?: number,
@@ -78,7 +71,6 @@ export function getPlaylistAllDetail(data:{
 
   return Promise.resolve(mockResponse);
 }
-// 更新歌单标签
 export function updatePlaylistTags(data: {
   id: string,
   tags: string
@@ -89,7 +81,6 @@ export function updatePlaylistTags(data: {
   });
   return service.get('/playlist/tags/update?'+query);
 }
-// 编辑歌单
 export function updatePlayListInfo(data:{
   id:string;
   name:string;
@@ -105,7 +96,6 @@ export function updatePlayListInfo(data:{
   });
   return service.get('/playlist/update?'+query);
 }
-// 更新歌单封面
 export function updatePlayListCover(
   file: File, imgSize:number, id:string
 ) {
@@ -117,7 +107,6 @@ export function updatePlayListCover(
     url, formData, { headers: { 'Content-Type': 'multipart/form-data' } }
   );  
 }
-// 收藏/取消收藏歌单
 export function updatePlayListSubscribe(data:{
   id:string;
   t:number;// 1:收藏，2:取消收藏
@@ -129,7 +118,6 @@ export function updatePlayListSubscribe(data:{
   });
   return service.get('/playlist/subscribe?'+query);
 }
-// 歌单评论
 export function getPlaylistComment(data:{
   id:string;
   limit?:number;
@@ -155,7 +143,6 @@ export function getPlaylistComment(data:{
 
   return Promise.resolve(mockResponse);
 }
-// 相似歌单
 export function getSimilarPlaylist(id: string) {
   const updatedPlaylists = SIMILAR_PLAYLIST_MOCK.playlists.map(playlist => ({
     ...playlist,
@@ -171,14 +158,12 @@ export function getSimilarPlaylist(id: string) {
 
   return Promise.resolve(response);
 }
-// 相似歌曲
 export function getSimilarSong(id:string) {
   return service.get('/simi/song?id='+id);
 }
-//对歌单添加或删除歌曲
 export function updatePlaylistTracks(data:{
-  tracks:number;//歌曲id
-  pid:number;// 歌单id
+  tracks:number;
+  pid:number;
   op:'add'|'del';// 1:添加，2:删除
 }) {
   const query = qs.stringify({
@@ -189,7 +174,6 @@ export function updatePlaylistTracks(data:{
   });
   return service.get('/playlist/tracks?'+query);
 }
-// 新建歌单
 export function createPlaylist(data:{
   name:string;
   privacy?:string;// 默认否，传'10'则设置成隐私歌单

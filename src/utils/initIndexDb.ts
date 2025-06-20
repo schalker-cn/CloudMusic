@@ -1,15 +1,12 @@
 
 
-// 打开或创建 IndexedDB 数据库
 let request = indexedDB.open('audioDB', 1);
 const baseURL = 'https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/esm'
 import { FFmpeg } from '@ffmpeg/ffmpeg'
 
 import { fetchFile, toBlobURL } from '@ffmpeg/util'
 const ffmpeg = new FFmpeg();
-// 保存当前需要操作的回调函数
 let currentResolve: () => void;
-// 是否初始化
 let isInit = false;
 
 ffmpeg.on('log', ({ message: msg }: { message: string }) => {
@@ -42,11 +39,8 @@ export function openDatabase(): Promise<IDBDatabase> {
 request.onupgradeneeded = function (event) {
   const db = (event.target! as IDBRequest).result as IDBDatabase;
 
-  // 创建 ObjectStore 用于存储 Blob 数据，设置 'id' 为主键
   const store = db.createObjectStore('audioFiles', { keyPath: 'id' });
-  // 为 id 字段创建索引
   store.createIndex('idIndex', 'id', { unique: true });
-  // 可选：为 ObjectStore 添加索引（比如按文件名索引）
   store.createIndex('name', 'name', { unique: false });
 };
 export async function saveSong(data: { id: number, name: string, url: string }) {
@@ -70,7 +64,6 @@ request.onsuccess = async function () {
   try {
     console.log('open db succeed');
   
-  // 直接使用 db 对象
   await ffmpeg.load({
     coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
     wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
@@ -89,21 +82,19 @@ request.onerror = function (event) {
   console.error('Database error:', target.error);
 };
 
-// 存储 OPUS 格式的 Blob 数据
 function storeOpusBlobData(data: { blob: Uint8Array, id: number, name: string }) {
   const transaction = dbInstance!.transaction(['audioFiles'], 'readwrite');
   const store = transaction.objectStore('audioFiles');
 
-  // 假设你已经有了一个 OPUS 格式的 Blob 数据
   const opusBlob = new Blob([data.blob], { type: 'audio/opus' });
 
   const audioData = {
-    id: data.id,  // 使用时间戳作为唯一 id
+    id: data.id,
     name: data.name,
     blob: opusBlob
   };
 
-  const requestResult = store.put(audioData);  // 将数据添加到 ObjectStore
+  const requestResult = store.put(audioData);
 
   requestResult.onsuccess = function () {
     console.log('OPUS audio data added to IndexedDB successfully');

@@ -1,7 +1,6 @@
 export function getPixelColor(
   context:CanvasRenderingContext2D, x:number, y:number
 ) {
-  // x轴坐标 ， y轴坐标， 1，1取色的范围像素值
   const imageData = context.getImageData(
     x, y, 1, 1
   ); 

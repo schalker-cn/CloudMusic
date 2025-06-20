@@ -6,7 +6,6 @@ const props = withDefaults(defineProps<{
   songList?: any[] | undefined;
   songListId: string;
 }>(), { songList: () => [] });
-// 点击播放全部
 const handleStartPlayAllClick = () => {
   if (mainStore.currentPlayListId === props.songListId) {
     if (mainStore.playing) {
@@ -21,9 +20,7 @@ const handleStartPlayAllClick = () => {
   }
   return null;
 };
-// 点击添加到全部歌单
 const handleAddToAllPlayListClick = () => {
-  // 搜索单曲歌单id
   if (!mainStore.playListIdList.includes(props.songListId)) {
     return mainStore.addPlaylist(props.songList, props.songListId);
   } else {

@@ -173,7 +173,6 @@ watch(() => birthday.value.month, (val) => {
 });
 watch(
   model, (val) => {
-    // 对比是否发生了变化
     if (rawModel) {
       btnSaveDisabled.value = compareObject(toRaw(val), rawModel);
     }
@@ -201,7 +200,6 @@ const initData = () => {
   isInit = false;
 };
 const changeModelBirthday = () => {
-  // 将日期转为时间戳
   let date = new Date(
     +birthday.value.year,
     +birthday.value.month - 1,
@@ -217,7 +215,6 @@ const handleValidateButtonClick = (e: MouseEvent) => {
   formRef.value?.validate((errors: any) => {
     if (!errors) {
       let params = { ...toRaw(model.value) };
-      // 如果为直辖市或者特别行政区
       if (params.province === 1 || params.province === 2) {
         let target = regionList[indexMap.get(params.province)];
         let provinceList = target.provinceList as [];
@@ -229,7 +226,6 @@ const handleValidateButtonClick = (e: MouseEvent) => {
       updateUserInfo(params).then((res) => {
         if (res.data.code === 200) {
           window.$message.success('修改个人资料成功!');
-          // 保存成功更新原始数据
           rawModel = JSON.parse(JSON.stringify(toRaw(model.value)));
           mainStore.userProfile!.profile = {
             ...mainStore.userProfile!.profile,
@@ -246,11 +242,9 @@ const handleValidateButtonClick = (e: MouseEvent) => {
     }
   });
 };
-// 点击修改头像
 const handleAvatarButtonClick = () => {
   fileRef.value?.click();
 };
-// 选择文件回调
 const handleFileChange = async (event: Event) => {
   let target = event.target as HTMLInputElement;
   if (target.files) {

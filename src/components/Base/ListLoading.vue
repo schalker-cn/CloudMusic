@@ -21,11 +21,10 @@ const props = withDefaults(defineProps<ListLoadingProps>(), {
   loadMore: () => {}
 });
 const loadingTarget = ref<HTMLElement | null>(null);
-let loadStatus:'pending' | 'loading' | 'done' = 'pending';// 当前加载状态锁
-let firstVisible = ref<boolean | undefined>(); // 首次显示的值
+let loadStatus:'pending' | 'loading' | 'done' = 'pending';
+let firstVisible = ref<boolean | undefined>();
 
 let observerCallback = (entries:IntersectionObserverEntry[]) => {
-  // 没有更多数据加载 打断!
   if (props.noMore) {
     loadingTarget.value && observer.disconnect();
     return; 
@@ -38,7 +37,6 @@ let observerCallback = (entries:IntersectionObserverEntry[]) => {
 
   if (firstVisible.value === false) {
     if (visible) {
-      // 当前正在load,打断!
       if (loadStatus === 'loading') return;
       loadStatus = 'loading';
       props.loadMore(() => {

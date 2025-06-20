@@ -1,10 +1,8 @@
-import qs from 'qs';
 import service from './request';
 import { PLAYLIST_SEARCH_MOCK } from '@/mocks/playlistMock';
 import { DEFAULT_KEYWORD_MOCK } from '@/mocks/searchMock';
 import { SONG_SEARCH_MOCK } from '@/mocks/songMock';
 import { SUGGEST_SEARCH_MOCK } from '@/mocks/searchMock';
-// 默认搜索关键词
 export function getDefaultSearchKeyword() {
   return Promise.resolve({
     data: {
@@ -12,7 +10,6 @@ export function getDefaultSearchKeyword() {
     }
   });
 }
-// 热搜列表
 export function getHotSearchList() {
     return Promise.resolve({
     data: {
@@ -20,17 +17,15 @@ export function getHotSearchList() {
     }
   });
 }
-// 搜索建议
 export function getSuggestSearchList(keyword: string) {
   return service.get(`/search/suggest?keywords=${keyword}`);
 }
 export interface SearchParams{
-  keywords:string;// 关键词
+  keywords:string;
   type:string;//1 单曲 1000歌单
-  limit:number;// 返回数量
+  limit:number;
   offset?:number
 }
-//搜索
 export function search(data:SearchParams) {
   if (data.type === '1000') {
     const matchedPlaylists = PLAYLIST_SEARCH_MOCK.result.playlists.filter(playlist =>

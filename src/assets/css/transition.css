@@ -46,7 +46,6 @@
 .breadcrumb-leave-active {
   position: absolute;
 }
-/* 从底部弹出渐变 */
 .slide-enter-active,
 .slide-leave-active {
   transition: all cubic-bezier(0.165, 0.84, 0.44, 1) 0.6s;
@@ -77,7 +76,6 @@
   opacity: 0;
   transform: scale(1);
 }
-/*  */
 .fade-in-scale-up-enter-active {
   transition: all cubic-bezier(.4, 0, .2, 1) .4s;
 }

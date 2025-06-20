@@ -24,7 +24,6 @@ module.exports = {
   darkMode: 'class',
   plugins: [],
   corePlugins: {
-    // 解决组件库中的组件样式冲突
     preflight: false
   }
 };

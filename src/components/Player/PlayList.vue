@@ -21,7 +21,6 @@ defineExpose({
     active.value = true;
   }
 });
-// 双击播放
 const handleDoubleClick = async (index: number, item: any) => {
   const value = useValidateVipSong(mainStore.playList[index]);
   if (value) return;
@@ -30,7 +29,6 @@ const handleDoubleClick = async (index: number, item: any) => {
   await mainStore.changePlayIndex(index, item);
   isLoad = false;
 };
-// 点击清空播放列表
 const handleRestClick = () => {
   mainStore.resetPlayList();
 };
@@ -51,7 +49,6 @@ const handleGoHemeClick = () => {
           </n-button>
         </div>
       </template>
-      <!--  -->
       <n-empty v-if="mainStore.playList.length === 0" class="mt-20" description="no song added yet">
         <template #extra>
           <n-button size="small" text type="primary" @click="handleGoHemeClick">

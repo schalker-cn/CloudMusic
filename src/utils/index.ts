@@ -1,4 +1,3 @@
-// 格式化数字
 export function formateNumber(num:number) {
   if (num < 999) return num.toString();
   if (num < 1000000) return Math.round(num / 10000) + 'K';
@@ -6,12 +5,10 @@ export function formateNumber(num:number) {
  
   return num.toString();
 }
-// 获取数组最后一位
 export const getArrLast = (arr:any[]) => {
   return arr[arr.length - 1];
 };
 
-// 节流
 export const throttle = (fn:Function, delay:number) => {
   let timer:any = null;
   return function () {
@@ -22,7 +19,6 @@ export const throttle = (fn:Function, delay:number) => {
     }, delay);
   };
 };
-// 防抖
 export const debounce = (fn:Function, delay:number) => {
   let timer:any = null;
   return function (...rest: any) {
@@ -33,7 +29,6 @@ export const debounce = (fn:Function, delay:number) => {
     }, delay);
   };
 };
-// 根据不同类型记忆函数
 export const memorize = (fn:Function) => {
   const cache = new Map();
   return (...args:any[]) => {
@@ -49,7 +44,6 @@ export const memorize = (fn:Function) => {
 export const formateSongsAuthor = (attr: any[]) => {
   return attr.map(item => item.name).join(' / ');
 };
-// 根据指定的数量将数组切片
 export const sliceArr = (count=20, list:any[]) => {
   const arr = [];
   let index = 0;
@@ -87,7 +81,6 @@ export const getDayOptions = (month:number, year:number=new Date().getFullYear()
   ].includes(month)) {
     day = 30;
   }
-  // 如果此时为闰年 并且是2月
   if (month === 2) {
     if (year % 4 === 0) {
       day = 29;
@@ -99,7 +92,6 @@ export const getDayOptions = (month:number, year:number=new Date().getFullYear()
     1, day as number, '日'
   );
 }; 
-// 对比两个对象是否相等
 export const compareObject = (obj1:any, obj2:any) => {
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);
@@ -128,10 +120,7 @@ export function getImgSize(file: File):Promise<{width:number, height:number}> {
     };
   });
 }
-//记录下标所对应的生成随机下标
 const cacheRandomNumMap = new Map();
-// 得到一个两数之间的随机整数，包括两个数在内, 不包括指定下标
-// 并对指定下标生成的随机下标进行缓存
 export function getRandomIntInclusive(
   min:number, max:number, index:number
 ) {
@@ -140,38 +129,32 @@ export function getRandomIntInclusive(
   }
   min = Math.ceil(min);
   max = Math.floor(max);
-  let randomIndex = Math.floor(Math.random() * (max - min + 1)) + min; //含最大值，含最小值 
+  let randomIndex = Math.floor(Math.random() * (max - min + 1)) + min;
   while (randomIndex === index) {
     randomIndex = Math.floor(Math.random() * (max - min + 1)) + min;
   }
   cacheRandomNumMap.set(index, randomIndex);
   return randomIndex;
 }
-// 重置
 export function restRandomNumMap() {
   cacheRandomNumMap.clear();
 }
-// 当值等于最大值时,返回0,否则+1
 export function getNextIndex(index:number, max:number) {
   return index === max
     ? 0
     : index + 1;
 }
-// 当值等于0时,返回最大值,否则-1
 export function getPrevIndex(index:number, max:number) {
   return index === 0
     ? max
     : index - 1;
 }
-// 是否为偶数
 export function isEven(num:number) {
   return num % 2 === 0;
 }
-// 对象是否为空
 export function isEmptyObject(obj:any) {
   return Object.keys(obj).length === 0;
 }
-// sleep function with promise
 export function sleep(ms:number) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);

@@ -32,7 +32,7 @@ const loopSetRotate = (timestamp: number) => {
     start = timestamp;
   }
   const elapsed = timestamp - start;
-  if (elapsed > 1000) { // 在两秒后停止动画
+  if (elapsed > 1000) {
     rotate.value = rotate.value + 12;
     start = timestamp;
   }

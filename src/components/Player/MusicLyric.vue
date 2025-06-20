@@ -7,8 +7,8 @@ import { useMainStore } from '@/stores/main';
 import { ref } from 'vue';
 import { parseLyric, parseRangeLyric, type LyricItem, parseBaseLyric, type RangeLyricItem } from '@/utils/lyric';
 import { useElementHover } from '@vueuse/core';
-let timeId: any;// 回退滚动位置延时器
-let clearTriggerScrollTimer: any;// 设置滚动是否触发延时器
+let timeId: any;
+let clearTriggerScrollTimer: any;
 let triggerScroll = true;
 let triggerPlayLyric = true;
 let selectLyricLineIndex = 0;
@@ -16,8 +16,8 @@ let pendingSetScrollFn: (() => void) | null = null;
 const mainStore = useMainStore();
 const themeVars = useThemeVars();
 const currentPlayLine = ref(0);
-const eleScrollTopMap = new Map();// 歌词元素对应的scrollTop 集合
-const selectLyricLine = ref<{ time: number; index: number, middleTop: number } | null>();// 当前滚动选择的歌词
+const eleScrollTopMap = new Map();
+const selectLyricLine = ref<{ time: number; index: number, middleTop: number } | null>();
 const showSelectLyric = ref(false);
 const lyricContainer = ref<HTMLDivElement>();
 const scrollBarRef = ref<{ scrollTo: (data: { left?: number, top?: number, behavior: string }) => void }>();
@@ -62,7 +62,6 @@ const lyricData = computed(() => {
   } else {
     let lyric = parseLyric(mainStore.currentPlaySong?.lyric, mainStore.currentPlaySong?.yrcLyric);
     if (tlyricData) {
-      // 过滤掉歌词中的[]部分
       lyric.filter((item) => !/^\[[^\d\]]+\]$/.test(item.content) && item.index != undefined).forEach((item, index) => {
         if (tlyricData[index]) {
           item.translateContent = tlyricData[index].content;
@@ -100,7 +99,6 @@ const currentLyricStyle = computed(() => {
   };
 });
 function handlePlayLyric(time: number, listenScroll = false) {
-  // 如果当前鼠标正在滚动歌词
   if (selectLyricLine.value) return;
   if (!triggerPlayLyric) return;
   triggerLyricChange(time, listenScroll);
@@ -117,7 +115,6 @@ const triggerLyricChange = (time: number, listenScroll = false) => {
   if (mainStore.currentPlaySong.isNotLyric) return;
   if (!lyricData.value.length) return;
 
-  //匹配最后一个歌词
   if (time > lyricData.value[lyricData.value.length - 1].time) {
     let currentLyric = lyricData.value[lyricData.value.length - 1];
     currentPlayLine.value = lyricData.value.length - 1;
@@ -172,7 +169,6 @@ const handlePlayIconClick = () => {
   obverser.emit('selectLyricPlay', time / 1000);
 };
 const handleWheel = (event: WheelEvent) => {
-  // disabled default scroll 
   event.preventDefault();
   let deltaY = event.deltaY;
   triggerScroll = true;
@@ -216,11 +212,9 @@ const initEleScrollTopMap = () => {
   });
 
 };
-// 二分查找辅助函数
 const findLyricByScrollTop = (scrollTop: number) => {
   if (!lyricChildrenValueList.length) return null;
 
-  // 二分查找当前 scrollTop 对应的歌词行
   let left = 0;
   let right = lyricChildrenValueList.length - 1;
 
@@ -238,7 +232,6 @@ const findLyricByScrollTop = (scrollTop: number) => {
     }
   }
 
-  // 如果没有精确匹配，返回最接近的行（通常是最后一行）
   const lastItem = lyricChildrenValueList[lyricChildrenValueList.length - 1];
   return scrollTop >= lastItem.offsetTop ? { index: lastItem.index, time: lastItem.time, middleTop: lastItem.middleTop } : null;
 };
@@ -397,11 +390,9 @@ onMounted(() => {
       </div>
       <div :style="{ height: gapHeight + 'px' }" />
     </n-scrollbar>
-    <!-- 歌词滚动选择  -->
     <div v-if="showSelectLyric" class="selectLyricContainer"
       :style="{ top: selectLyricLine.middleTop + 'px', height: lyricItemHeight + 'px' }">
       <div class="flex items-center">
-        <!-- -->
         <n-time v-if="selectLyricLine" format="mm:ss" :time="selectLyricLine?.time" />
         <div class="ml-2  bg-gradient-to-r from-gray-300 dark:from-gray-500 line" />
       </div>

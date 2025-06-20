@@ -58,7 +58,6 @@ const handleCompleteOnClick = () => {
 </script>
 
 <template>
-  <!-- 标签选择弹窗 -->
   <n-modal v-model:show="showSelectTagModal" transform-origin="center">
     <n-card
       style="width: 600px"

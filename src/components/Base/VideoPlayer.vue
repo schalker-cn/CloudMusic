@@ -34,7 +34,6 @@ const initPlayer = () => {
       ]
     });
     player.crossOrigin = 'anonymous';
-    // on error
     player.on('error', (event) => {
       console.log('error', event);
 

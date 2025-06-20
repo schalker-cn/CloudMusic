@@ -133,7 +133,6 @@ watch([playListPageParams, songListPageParams], () => {
         <div class="h-4" />
         <music-list :song-list="songsSearchResult.songs" :loading="songListIsLoading" :play-list-id="currentId"
           @update-music-list-like="handleUpdateMusicListLike" />
-        <!-- 分页 -->
         <div v-if="songListPageParams.pageCount > 1" class="flex justify-center my-6">
           <n-pagination v-model:page="songListPageParams.page" v-model:page-size="songListPageParams.pageSize"
             :page-count="songListPageParams.pageCount" show-size-picker :page-sizes="[10, 20, 30, 40, 50]" />
@@ -166,7 +165,6 @@ watch([playListPageParams, songListPageParams], () => {
               <span class="pl-2"> {{ formateNumber(item.playCount) }}</span>
             </p>
           </div>
-          <!-- 分页 -->
           <div v-if="playListPageParams.pageCount > 1" class="flex justify-center my-6">
             <n-pagination v-model:page="playListPageParams.page" v-model:page-size="playListPageParams.pageSize"
               :page-count="playListPageParams.pageCount" show-size-picker :page-sizes="[10, 20, 30, 40, 50]" />
