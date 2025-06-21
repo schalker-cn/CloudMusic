@@ -8,7 +8,7 @@ export default defineComponent({
     },
     description: {
       type: String,
-      default: '暂无数据'
+      default: 'no data'
     }
   }
 });

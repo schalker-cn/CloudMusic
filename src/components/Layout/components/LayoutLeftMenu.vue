@@ -1,11 +1,11 @@
 <script setup lang="tsx">
 import { registerRouteHook } from '@/router';
 import { useMainStore } from '@/stores/main';
-import { BackToTop, Music, User } from '@vicons/carbon';
+import { BackToTop, Music } from '@vicons/carbon';
 import { QueueMusicFilled } from '@vicons/material';
 import { SparklesOutline} from '@vicons/ionicons5';
 import { NIcon, useLoadingBar } from 'naive-ui';
-import { computed, onMounted, ref, watch, type CSSProperties, type VNodeChild, KeepAlive } from 'vue';
+import { computed, onMounted, ref, watch, type CSSProperties, type VNodeChild } from 'vue';
 import { RouterLink, useRoute, useRouter } from 'vue-router';
 import obverser from '@/utils/obverser';
 

@@ -55,19 +55,19 @@ const BackToDiscovery = () => {
                   <p class="text-lg font-bold">
                     {{ mainStore.userProfile?.profile.eventCount }}
                   </p>
-                  动态
+                  Activities
                 </div>
                 <div>
                   <p class="text-lg font-bold">
                     {{ mainStore.userProfile?.profile?.follows }}
                   </p>
-                  关注
+                  Friends
                 </div>
                 <div>
                   <p class="text-lg font-bold">
                     {{ mainStore.userProfile?.profile?.followeds }}
                   </p>
-                  粉丝
+                  Fans
                 </div>
               </div>
               <div
@@ -75,7 +75,7 @@ const BackToDiscovery = () => {
                 <div class="flex justify-between items-center py-2 px-4 cursor-pointer" @click="handleInfoEditClick">
                   <div class="flex items-center text-base">
                     <n-icon :size="20" :component="UserProfile" />
-                    <span class="ml-2">个人信息设置</span>
+                    <span class="ml-2">Personal Information Settings</span>
                   </div>
                   <n-icon :component="ArrowForwardIosRound" />
                 </div>
@@ -87,12 +87,12 @@ const BackToDiscovery = () => {
                     <div class="flex justify-between items-center py-2 px-4 cursor-pointer">
                       <div class="flex items-center text-base">
                         <n-icon :size="20" :component="ExitToAppRound" />
-                        <span class="ml-2">退出登录</span>
+                        <span class="ml-2">Logout</span>
                       </div>
                       <n-icon :component="ArrowForwardIosRound" />
                     </div>
                   </template>
-                  确认退出登录吗?
+                  Are you sure to logout?
                 </n-popconfirm>
               </div>
             </div>
