@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import { checkMusic, getMusicUrl, getNewLyric } from '@/service';
 import { formateSongsAuthor, getNextIndex, getPrevIndex } from '@/utils';
 import type { AnyObject } from 'env';

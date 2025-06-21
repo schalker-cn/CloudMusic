@@ -1,6 +1,5 @@
 import type { MessageApiInjection } from 'naive-ui/lib/message/src/MessageProvider';
 /// <reference types="vite/client" />
-// naive-ui组件库全局类型声明 给编辑器提供更好的类型提示
 export * from 'naive-ui/volar';
 export { };
 
@@ -18,7 +17,6 @@ declare module 'vue' {
     $message: MessageApiInjection;
   }
 }
-// 任意键值对对象类型
 export type AnyObject = {
   [key: string]: any;
 };
@@ -35,7 +33,6 @@ declare module 'rgbaster' {
   }[]>;
   export { };
 };
-// audio data
 export type AudioIndexedData = {
   id: number;
   name: string;

@@ -65,7 +65,6 @@ const formate = (locationJson) => {
   );
 };
 
-// eslint-disable-next-line consistent-return
 const getFirstKey = (obj) => {
   for (let key in obj) {
     return key;

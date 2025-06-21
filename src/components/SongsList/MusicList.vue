@@ -1,5 +1,4 @@
 <script lang="tsx">
-/* eslint-disable consistent-return */
 import { useDbClickPlay } from '@/hook/useDbClickPlay';
 import { useMainStore } from '@/stores/main';
 import { formateSongsAuthor } from '@/utils';
