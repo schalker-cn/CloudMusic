@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useMainStore } from '@/stores/main';
-import { sendComment } from '@/service';
 const showModal = ref(false);
 const commentBtnLoading = ref(false);
 const commentContent = ref('');
@@ -37,23 +36,7 @@ const handleSubmitCommitClick = () => {
   if (props.commentId) {
     params.commentId = props.commentId;
   }
-  commentBtnLoading.value = true;
-  return sendComment(params).then(res => {
-    if (res.data.code === 200) {
-      window.$message.success('评论成功');
-      showModal.value = false;
-      commentContent.value = '';
-      if (res.data.comment.beRepliedUser) {
-        res.data.comment.beReplied = [{ user: res.data.comment.beRepliedUser }];
-      } else {
-        res.data.comment.beReplied = [];
-      }
-      props.updateCommentList(res.data.comment);
-    }
-  })
-    .finally(() => {
-      commentBtnLoading.value = false;
-    });
+
 };
 </script>
 

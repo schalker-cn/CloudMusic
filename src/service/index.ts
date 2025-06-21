@@ -18,9 +18,6 @@ export function batchRequest(data: {
 }) {
   return service.post('/batch', data);
 }
-export * from './mv';
 export * from './playlist';
 export * from './songs';
-export * from './user';
 export * from './search';
-export * from './album';

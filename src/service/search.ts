@@ -17,9 +17,6 @@ export function getHotSearchList() {
     }
   });
 }
-export function getSuggestSearchList(keyword: string) {
-  return service.get(`/search/suggest?keywords=${keyword}`);
-}
 export interface SearchParams{
   keywords:string;
   type:string;//1 单曲 1000歌单

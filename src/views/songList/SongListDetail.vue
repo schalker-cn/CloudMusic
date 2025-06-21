@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getPlaylistAllDetail, getPlaylistComment, getPlaylistDetail, sendComment, updatePlayListSubscribe, updatePlaylistTags } from '@/service';
+import { getPlaylistAllDetail, getPlaylistComment, getPlaylistDetail } from '@/service';
 import type { AnyObject } from 'env';
 import { formateNumber, getArrLast } from '@/utils';
 import { computed, reactive, ref, toRaw, watch } from 'vue';
@@ -10,7 +10,6 @@ import { Edit } from '@vicons/carbon';
 import { useMainStore } from '@/stores/main';
 import type { SelectSongListTagModalExpose } from '@/components/SongsList/SelectSongListTagModal.vue';
 import { useDialog, useThemeVars } from 'naive-ui';
-import obverser from '@/utils/obverser';
 import { userCheckLogin } from '@/hook/useCheckLogin';
 import { useMemorizeRequest } from '@/hook/useMemorizeRequest';
 import { cloneDeep } from 'lodash';
@@ -42,7 +41,6 @@ const btnLoading = ref(false);
 const commentBtnLoading = ref(false);
 const subscribeBtnLoading = ref(false);
 const searchKeyword = ref('');
-const dialog = useDialog();
 const songListId = ref(route.params.id as string);
 const isMySongList = computed(() => {
   return songListDetail.value
@@ -189,46 +187,6 @@ const handleSubscribeClick = (subscribed: boolean) => {
   if (!mainStore.isLogin) {
     return window.$message.error('please log in first');
   }
-  let params = {
-    id: route.params.id as string,
-    t: subscribed
-      ? 2
-      : 1
-  };
-  if (params.t === 2) {
-    dialog.warning({
-      title: '警告',
-      content: '确定不在收藏该歌单?',
-      positiveText: '确定',
-      onPositiveClick: () => {
-        subscribeBtnLoading.value = true;
-        updatePlayListSubscribe(params).then((res) => {
-          if (res.data.code === 200) {
-            window.$message.success('取消收藏成功');
-            (songListDetail.value as AnyObject).subscribed = false;
-            (songListDetail.value as AnyObject).subscribedCount -= 1;
-            obverser.emit('updateCollectPlayList', { subscribed: false, id: route.params.id });
-          } else {
-            window.$message.error('取消收藏失败');
-          }
-        })
-          .finally(() => subscribeBtnLoading.value = false);
-      }
-    });
-  } else {
-    subscribeBtnLoading.value = true;
-    updatePlayListSubscribe(params).then((res) => {
-      if (res.data.code === 200) {
-        window.$message.success('收藏成功!');
-        (songListDetail.value as AnyObject).subscribed = true;
-        (songListDetail.value as AnyObject).subscribedCount += 1;
-        obverser.emit('updateCollectPlayList', { subscribed: true, songListDetail: toRaw(songListDetail.value) });
-      } else {
-        window.$message.error('收藏失败');
-      }
-    })
-      .finally(() => subscribeBtnLoading.value = false);
-  }
   return undefined;
 };
 const handleCompleteClick = (selectTagList: any[]) => {
@@ -242,16 +200,6 @@ const handleCompleteClick = (selectTagList: any[]) => {
     tags: tags.join(';')
   };
   btnLoading.value = true;
-  return updatePlaylistTags(params).then(res => {
-    if (res.data.code === 200) {
-      window.$message.success('标签设置成功');
-      (songListDetail.value as AnyObject).tags = tags;
-      selectSongListTagRef.value?.close();
-    } else {
-      window.$message.error('标签设置失败');
-    }
-    btnLoading.value = false;
-  });
 };
 const handleShareClick = () => {
   navigator.clipboard.writeText(window.location.href).then(() => {
@@ -269,18 +217,6 @@ const handleCommentClick = () => {
       id: +songListId.value,
       type: 2
     };
-    commentBtnLoading.value = true;
-    return sendComment(params).then(res => {
-      if (res.data.code === 200) {
-        window.$message.success('评论成功');
-        commentValue.value = '';
-        res.data.comment.beReplied = [];
-        updateCommentList(res.data.comment);
-      }
-    })
-      .finally(() => {
-        commentBtnLoading.value = false;
-      });
   });
 };
 const updateCommentList = (value: any) => {
@@ -440,8 +376,6 @@ const handleUpdateMusicListLike = (like: boolean, index: number) => {
           </div>
         </div>
       </div>
-      <select-song-list-tag-modal ref="selectSongListTagRef" :handle-complete-click="handleCompleteClick"
-        :btn-loading="btnLoading" />
     </n-spin>
   </div>
 </template>

@@ -1,17 +1,14 @@
 <script setup lang="ts">
-import { getDefaultSearchKeyword, getHotSearchList, getSuggestSearchList} from '@/service';
+import { getDefaultSearchKeyword, getHotSearchList } from '@/service';
 import { useMainStore } from '@/stores/main';
 import { Search} from '@vicons/ionicons5';
 import { Delete} from '@vicons/carbon';
 import { ArrowBackIosSharp, ArrowForwardIosRound } from '@vicons/material';
 import { useAsyncState, useElementHover } from '@vueuse/core';
-import { throttle } from 'lodash';
 import { useThemeVars } from 'naive-ui';
 import { computed, nextTick, onMounted, onUnmounted, ref, watch, type CSSProperties } from 'vue';
 import { useRouter } from 'vue-router';
 import { userHistory } from '../hook/useHistoryRoutePath';
-import { mapSongs } from '@/utils/arr-map';
-import { markSearchKeyword } from '@/utils/markSearhKeyword';
 
 const backIconRef = ref();
 const forwardIconRef = ref();
@@ -45,20 +42,6 @@ const containerStyle = computed(() => {
   }
   return style;
 });
-const { state: suggestResult, isLoading: suggestLoading, execute } = useAsyncState(
-  (val) => getSuggestSearchList(val).then(async res => {
-    let result = res.data.result;
-    let primaryColor = themeVars.value.primaryColor;
-    res.data.result.songs = mapSongs(res.data.result.songs);
-    res.data.result.songs = markSearchKeyword(
-      result.songs, ['name', 'formatAuthor', 'alias'], mainStore.searchKeyword, primaryColor
-    );
-    res.data.result.playlists = markSearchKeyword(
-      result.playlists || [], ['name'], mainStore.searchKeyword, primaryColor
-    );
-    return res.data.result;
-  }), {}, { resetOnExecute: false, immediate: false }
-);
 
 const arrowIconClass = (value: string) => {
   return value
@@ -127,11 +110,6 @@ const toSearchResult = (val?: string) => {
   });
 
 };
-const getSearchSuggest = (val: string, oldVal: string) => {
-  if (val === oldVal) return;
-  suggestResult.value = {};
-  execute(0, val);
-};
 const handleKeyDown = (e: KeyboardEvent) => {
   if (showPopover.value && e.code === 'Enter') {
     toSearchResult();
@@ -147,7 +125,6 @@ const handleClearClick = (e: MouseEvent, index: number) => {
   e.stopPropagation();
   mainStore.removeSearchHistory(index);
 };
-watch(() => mainStore.searchKeyword, throttle(getSearchSuggest, 300));
 watch(showPopover, async (val) => {
   if (val && defaultHeight.value === '100%') {
     await nextTick();

@@ -4,9 +4,8 @@ import { Moon, SunnySharp } from '@vicons/ionicons5';
 import { ArrowForwardIosRound } from '@vicons/material';
 import { UserProfile } from '@vicons/carbon';
 import { ExitToAppRound } from '@vicons/material';
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-import { getLoginStatus, getUserDetail, getUserInfo, signIn } from '@/service';
 import type { AnyObject } from 'env';
 import { useRouter } from 'vue-router';
 
@@ -15,72 +14,21 @@ const router = useRouter();
 const popoverContainerRef = ref();
 const userDetail = ref<AnyObject>();
 const showUserPopover = ref(false);
-const signBtnLoading = ref(false);
 
-watch(() => mainStore.isLogin, (val) => {
-  if (val) {
-    getUserProfile();
-  }
-});
 onClickOutside(popoverContainerRef, (event: MouseEvent) => {
   let target = event.target as HTMLElement;
   if (!target.classList.contains('trigger')) {
     showUserPopover.value = false;
   }
 });
-const getUserProfile = () => {
-  if (mainStore.userProfile?.userId) {
-    getUserDetailInfo(mainStore.userProfile.profile.userId);
-  } else {
-    getUserInfo().then(res => {
-      getUserDetailInfo(res.data.account?.id);
-    });
-  }
-};
-const getUserDetailInfo = (uid: string) => {
-  getUserDetail(uid).then((res) => {
-    if (res?.data?.code === 200) {
-      mainStore.userProfile = res.data;
-      localStorage.userProfile = JSON.stringify(res.data);
-      userDetail.value = res.data;
-    }
-  });
-};
-const checkLoginStatus = () => {
-  getLoginStatus().then(res => {
-    if (res.data?.data?.code === 200) {
-      if (!res.data.data.account) {
-        window.$message.warning('登录状态过期,请重新登录');
-        mainStore.userProfile = {};
-        localStorage.clear();
-        mainStore.isLogin = false;
-      }
-    }
-  });
-};
 const handleInfoEditClick = () => {
-  showUserPopover.value = false;
-  router.push('/userInfoEdit');
-};
-const handleSignInClick = () => {
-  signBtnLoading.value = true;
-  signIn().then(() => {
-    if (userDetail.value) {
-      signBtnLoading.value = false;
-      userDetail.value.pcSign = true;
-      window.$message.success('签到成功!');
-    }
-  });
+  console.log("edit button clicked.")
 };
 const handleThemeSwitchUpdateChange = () => {
   mainStore.toggleTheme();
 };
 const BackToDiscovery = () => {
   router.push('/discovery');
-}
-if (mainStore.isLogin) {
-  getUserProfile();
-  checkLoginStatus();
 }
 </script>
 <template>
@@ -121,12 +69,6 @@ if (mainStore.isLogin) {
                   </p>
                   粉丝
                 </div>
-              </div>
-              <div class="flex justify-center">
-                <n-button :loading="signBtnLoading" :disabled="mainStore.userProfile.pcSign" round
-                  @click="handleSignInClick">
-                  {{ mainStore.userProfile.pcSign ? '已签到' : ' 签到' }}
-                </n-button>
               </div>
               <div
                 class="mt-3 hover:bg-neutral-200/20 border-0 border-b border-gray-200  dark:border-gray-200/20 border-solid">

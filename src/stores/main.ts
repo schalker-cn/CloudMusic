@@ -264,7 +264,6 @@ export const useMainStore = defineStore({
         return { success: false };
       }
       const res = await getMusicUrl(id);
-      console.log('result: ' + res.data.code + ' , id: ' + id);
       if (res.data.code === 200) {
         result.url = res.data.data[0].url + '?id=' + id;
       } else {
@@ -272,7 +271,6 @@ export const useMainStore = defineStore({
         return { success: false };
       }
       const lyricRes = await getNewLyric(id);
-      console.log(lyricRes);
       if (res.data.code === 200) {
         result.lyric = lyricRes.data?.lrc?.lyric;
         if (result.lyric.includes('no lyrics') || !result.lyric) {

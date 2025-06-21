@@ -2,21 +2,17 @@
 import { ref, type Ref, watch, reactive, nextTick, type CSSProperties, onMounted, onBeforeUnmount } from 'vue';
 // @ts-ignore
 import { BackToTop, Edit } from '@vicons/carbon';
-import { debounce, formateSongsAuthor, getArrLast, throttle } from '@/utils';
+import { formateSongsAuthor, getArrLast, throttle } from '@/utils';
 import { KeyboardArrowDownOutlined, FullscreenOutlined, FullscreenExitOutlined } from '@vicons/material';
 import color from 'color';
 import { useMainStore } from '@/stores/main';
 import useThemeStyle from '@/hook/useThemeStyle';
 import { useRouter } from 'vue-router';
 import type { AnyObject } from 'env';
-import { getMusicComment } from '@/service/songs';
-import { getSimilarPlaylist, getSimilarSong } from '@/service/playlist';
+import { getSimilarPlaylist } from '@/service/playlist';
 import { useAsyncState } from '@vueuse/core';
-import { mapSongs } from '@/utils/arr-map';
 import { useBlurLineGradient } from './hook/useBlurLineGradient';
-import ColorThief from 'colorthief';
 import { analyze } from '@/utils/image';
-const colorThief = new ColorThief();
 
 export interface MusicDetailExpose {
   show: () => void;
@@ -43,14 +39,6 @@ const fullScreen = ref(false);
 const { isLoading: fetchSimiPlayListLoading, state: similarPlaylist, execute: executeGetSimiPlayList } = useAsyncState(
   (id: string) => {
     return getSimilarPlaylist(id).then(res => res.data.playlists);
-  }, [],
-  { resetOnExecute: false, immediate: false }
-);
-const { isLoading: fetchSimilarSongIsLoading, state: similarMusicList, execute: executeGetSimiSong } = useAsyncState(
-  (id: string) => {
-    return getSimilarSong(id).then(res => {
-      return mapSongs(res.data.songs);
-    });
   }, [],
   { resetOnExecute: false, immediate: false }
 );
@@ -115,11 +103,6 @@ const fetchMusicComment = (id: string) => {
   }
   commentLoading.value = true;
   musicComment.value = [];
-  getMusicComment(params).then(res => {
-    pageParams.pageCount = Math.round(res.data?.total || 1 / pageParams.pageSize) || 1;
-    musicComment.value = res.data;
-    commentLoading.value = false;
-  });
 };
 const handleSimiPlayListItem = (id: string) => {
   router.push(`/songList/${id}`);
@@ -203,7 +186,6 @@ watch(
     if (oldVal && val.id === oldVal.id) return;
     fetchMusicComment(val.id);
     executeGetSimiPlayList(0, val.id);
-    executeGetSimiSong(0, val.id);
     if (oldVal && val.id !== oldVal.id) {
       resetBackground();
     }

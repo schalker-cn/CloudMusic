@@ -1,17 +1,15 @@
 <script setup lang="tsx">
 import { registerRouteHook } from '@/router';
-import { getLikeList, getUserPlaylist } from '@/service';
 import { useMainStore } from '@/stores/main';
 import { BackToTop, Music, User } from '@vicons/carbon';
 import { QueueMusicFilled } from '@vicons/material';
-import { List, SparklesOutline, VideocamOutline, StarOutline, Heart } from '@vicons/ionicons5';
+import { SparklesOutline} from '@vicons/ionicons5';
 import { NIcon, useLoadingBar } from 'naive-ui';
 import { computed, onMounted, ref, watch, type CSSProperties, type VNodeChild, KeepAlive } from 'vue';
 import { RouterLink, useRoute, useRouter } from 'vue-router';
 import obverser from '@/utils/obverser';
 
 const mainStore = useMainStore();
-type MySongsList = { myCreatePlayList: any[], collectPlayList: any[] };
 interface childrenMenuOptionItem extends MenuOptionItem {
   id: number;
 }
@@ -54,39 +52,6 @@ const mainStyle = computed<CSSProperties>(() => {
 const changeMenuOption = (myCreatePlayList: any[] = [], collectPlayList: any[] = []) => {
   if (!mainStore.isLogin) {
     myMenuOptions.value = [...menuOptions];
-  } else {
-    myMenuOptions.value = [
-      {
-        label: '我创建的歌单',
-        key: 'create',
-        icon: () => <NIcon class="mr-2" size={20} component={User} />,
-        children: myCreatePlayList.map((item: any, index: number) => {
-          return {
-            label: () => <span onClick={() => handlePlayListItemClick(item)}>{item.name}</span>,
-            key: item.name,
-            icon: () => <NIcon size={20} component={index === 0
-              ? Heart
-              : QueueMusicFilled}></NIcon>,
-            id: item.id
-          };
-        })
-      },
-      {
-        label: '收藏的歌单',
-        key: 'collect',
-        icon: () => <NIcon component={StarOutline} />,
-        children: collectPlayList.map((item: any) => {
-          return {
-            label: () => <span onClick={() => handlePlayListItemClick(item)}>{item.name}</span>,
-            key: item.name,
-            icon: () => <NIcon size={20} component={QueueMusicFilled}></NIcon>,
-            id: item.id
-          };
-        })
-      },
-      ...menuOptions
-    ];
-
   }
 };
 const handlePlayListItemClick = (item: any) => {
@@ -114,39 +79,10 @@ if (!mainStore.isLogin) {
 }
 
 const fetchUserPlaylist = (userId: number) => {
-  window.$message.loading('加载用户歌单中...');
-  if (myMenuOptions.value[0].key === 'login') {
-    myMenuOptions.value.shift();
-  }
-  getUserPlaylist(userId).then((res) => {
-    if (res.data.code === 200) {
-      let { collectPlayList, myCreatePlayList } = classifySongsList(userId, res.data.playlist);
-      mainStore.setMySubscribeSongList(myCreatePlayList);
-      changeMenuOption(myCreatePlayList, collectPlayList);
-
-    }
-  })
-    .finally(() => {
-      window.$message.destroyAll();
-    });
+  window.$message.loading('loading playlist...');
 };
 const fetchMyLikeMusicList = (userId: number) => {
-  getLikeList(userId).then(res => {
-    mainStore.setLikeList(res.data.ids);
-  });
-};
-const classifySongsList = (userId: number, playList: any[]) => {
-  return playList.reduce((
-    prev, currentValue, index
-  ) => {
-    if (index === 0) currentValue.name = '我喜欢的音乐';
-    if (currentValue.creator.userId === userId) {
-      prev.myCreatePlayList.push(currentValue);
-    } else {
-      prev.collectPlayList.push(currentValue);
-    }
-    return prev;
-  }, { myCreatePlayList: [], collectPlayList: [] }) as MySongsList;
+
 };
 registerRouteHook((to) => {
   scrollContainer?.scrollTo({

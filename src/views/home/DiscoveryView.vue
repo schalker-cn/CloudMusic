@@ -3,10 +3,8 @@ import { useMemoryScrollTop } from '@/hook/useMemoryScrollTop';
 import {
   getBanner,
   getRecommendSong,
-  getPersonalized,
-  getRecommendMv
+  getPersonalized
 } from '@/service';
-import { formateSongsAuthor } from '@/utils';
 import { useAsyncState, useElementHover } from '@vueuse/core';
 import { computed, ref } from 'vue';
 import { ArrowBackIosSharp, ArrowForwardIosRound } from '@vicons/material';

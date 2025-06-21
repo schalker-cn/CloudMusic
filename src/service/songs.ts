@@ -73,15 +73,6 @@ export function getTopSong(type: 0 | 7 | 96 | 8 | 16 = 0) {
     return mockAxiosResponse(emptyData);
   }
 }
-export function getSingerSong(id: number) {
-  return service.get(`/artists?id=${id}`);
-}
-export function getLikeList(uid: number) {
-  const query = qs.stringify({
-    uid,
-  });
-  return service.get(`/likelist?${query}`);
-}
 export function getMusicUrl(id:string) {
   // 音乐evel standard => 标准,higher => 较高, exhigh=>极高, lossless=>无损, 
   //hires=>Hi-Res, jyeffect => 高清环绕声, sky => 沉浸环绕声, dolby => 杜比全景声, jymaster => 超清母带
@@ -90,9 +81,6 @@ export function getMusicUrl(id:string) {
     id
   });
   return service.get('/song/url/v1?'+query);
-}
-export function getLyric(id:string) {
-  return service.get('/lyric?id='+id);
 }
 export function getNewLyric(id:string) {
   return LYRIC_MOCK.lyrics[0];
@@ -118,17 +106,4 @@ export function checkMusic(id: string) {
       }
     });
   }
-}
-export function getMusicComment(data:{
-  id:string;
-  limit?:number;
-  offset?:number;
-  before?:string;}) {
-  const query = qs.stringify({
-    ...data,
-  });
-  return service.get('/comment/music?'+query);
-}
-export function likeMusic(id:number, like:boolean) {
-  return service.get(`/like?id=${id}&like=${like}`); 
 }

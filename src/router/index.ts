@@ -8,22 +8,10 @@ const router = createRouter({
       meta: { auth: false }
     },
     {
-      path: '/songList',
-      name: 'songs',
-      component: () => import('@/views/songList/RecommendSongListView.vue'),
-      meta: { auth: false }
-    },
-    {
       path: '/songList/:id',
       name: 'songListDetail',
       component: () => import('@/views/songList/SongListDetail.vue'),
       meta: { auth: false }
-    },
-    {
-      path: '/songList/edit/:id',
-      name: 'songListEdit',
-      component: () => import('@/views/songList/EditSongList.vue'),
-      meta: { auth: true }
     },
     {
       path: '/discovery',
@@ -36,12 +24,6 @@ const router = createRouter({
       name: 'latestMusic',
       component: () => import('@/views/music/LatestMusicView.vue'),
       meta: { auth: false }
-    },
-    {
-      path: '/userInfoEdit',
-      name: 'userInfoEdit',
-      component: () => import('@/views/user/UserInfoEdit.vue'),
-      meta: { auth: true }
     },
     {
       path: '/searchResult',

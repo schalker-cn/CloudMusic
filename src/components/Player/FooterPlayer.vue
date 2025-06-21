@@ -432,8 +432,6 @@ onUnmounted(() => {
     </div>
   </div>
   <music-detail v-if="mainStore.currentPlaySong?.id" ref="musicDetailRef" />
-  <subscribe-play-list-modal v-if="mainStore.currentPlaySong?.id" ref="subscribeModalRef"
-    :tracks="mainStore.currentPlaySong?.id" />
   <play-list ref="playListRef" />
 </template>
 <style scoped>

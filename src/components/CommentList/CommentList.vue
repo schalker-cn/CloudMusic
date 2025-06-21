@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { userCheckLogin } from '@/hook/useCheckLogin';
-import { likeComment, sendComment } from '@/service';
 import { ThumbsUp, ThumbsUpFilled } from '@vicons/carbon';
 import { CommentOutlined } from '@vicons/material';
 import { computed, ref } from 'vue';
@@ -35,24 +34,7 @@ const handleUpdateCommentList = (comment: any) => {
 };
 const handleLikedClick = (item: any, index: number) => {
   userCheckLogin(() => {
-    let t = item.liked
-      ? 0
-      : 1;
-    let params = {
-      type: props.type,
-      id: props.resourceId,
-      t,
-      cid: item.commentId
-    };
-    likeComment(params).then((res) => {
-      if (res.data.code === 200) {
-        let message = t === 0
-          ? '取消点赞成功'
-          : ' 点赞成功';
-        window.$message.success(message);
-        emit('updateCommentLiked', { index, liked: t });
-      }
-    });
+    window.$message.success("you liked this comment!");
   });
 };
 </script>
