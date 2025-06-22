@@ -1,0 +1,39 @@
+alias.config.js
+components.d.ts
+env.d.ts
+index.html
+package.json
+pnpm-lock.yaml
+postcss.config.cjs
+tailwind.config.cjs
+tsconfig.app.json
+tsconfig.json
+tsconfig.node.json
+vite.config.ts
+public/favicon.ico
+vite-env.d.ts
+main.ts
+index.css
+App.vue
+src/utils/index.ts
+src/utils/lyric.ts
+src/utils/arr-map.ts
+src/utils/obverser.ts
+src/utils/initIndexDb.ts
+src/router/index.ts
+src/hook/useLazyLoad.ts
+src/hook/useNanoid.ts
+src/hook/useDbClickPlay.ts
+src/hook/useThemeStyle.ts
+src/hook/useValidateVipSong.ts
+src/hook/useMemorizeRequest.ts
+src/views/music/LatestMusicView.vue
+src/components/common/HeartIcon.vue
+all files in src/assets
+all files in src/service
+all files in src/stores
+all files in src/mocks
+all files in src/components/Icon
+all files in src/components/Layout
+all files in src/components/Base
+all files in src/components/Player
