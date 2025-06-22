@@ -1,4 +1,3 @@
-import service from './request';
 import { PLAYLIST_SEARCH_MOCK } from '@/mocks/playlistMock';
 import { DEFAULT_KEYWORD_MOCK } from '@/mocks/searchMock';
 import { SONG_SEARCH_MOCK } from '@/mocks/songMock';

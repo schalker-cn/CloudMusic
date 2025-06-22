@@ -141,7 +141,7 @@ watch([playListPageParams, songListPageParams], () => {
     </transition>
     <transition name="fade">
       <div v-show="currentTabIndex === 1" style="margin-right:-5px">
-        <n-spin :show="playListIsLoading" description="搜索中">
+        <n-spin :show="playListIsLoading" description="Loading...">
           <div v-show="playListIsLoading" class="h-80" />
           <p v-if="playListSearchResult.playlistCount" class="pl-8 mt-4 mb-2 opacity-50">
             find {{ playListSearchResult.playlistCount }} playlists

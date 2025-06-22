@@ -12,7 +12,7 @@ class Observer {
     this.subscribes[name].push(callback);
   }
   emit(name:string, ...data: any[]) {
-    if (!this.subscribes[name]) throw new Error('未找到订阅者');
+    if (!this.subscribes[name]) throw new Error('no subscriber found');
     this.subscribes[name].forEach(fn => fn(...data));
   }
 }

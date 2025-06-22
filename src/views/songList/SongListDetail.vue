@@ -9,7 +9,7 @@ import { StarOutline, Star, ShareSocialOutline, Search } from '@vicons/ionicons5
 import { Edit } from '@vicons/carbon';
 import { useMainStore } from '@/stores/main';
 import type { SelectSongListTagModalExpose } from '@/components/SongsList/SelectSongListTagModal.vue';
-import { useDialog, useThemeVars } from 'naive-ui';
+import { useThemeVars } from 'naive-ui';
 import { userCheckLogin } from '@/hook/useCheckLogin';
 import { useMemorizeRequest } from '@/hook/useMemorizeRequest';
 import { cloneDeep } from 'lodash';
@@ -203,13 +203,13 @@ const handleCompleteClick = (selectTagList: any[]) => {
 };
 const handleShareClick = () => {
   navigator.clipboard.writeText(window.location.href).then(() => {
-    window.$message.success('链接复制成功');
+    window.$message.success('Share link copied to clipboard!');
   });
 };
 const handleCommentClick = () => {
   userCheckLogin(() => {
     if (!commentValue.value) {
-      return window.$message.error('评论不能为空!');
+      return window.$message.error('Comment cannot be empty!');
     }
     let params = {
       t: 1,
@@ -359,7 +359,7 @@ const handleUpdateMusicListLike = (like: boolean, index: number) => {
               </n-button>
             </div>
             <n-spin :show="isCommentLoading">
-              <comment-list :type="2" :resource-id="+songListId" title="精彩评论" :list="songListComment.hotComments || []"
+              <comment-list :type="2" :resource-id="+songListId" title="Top Comments" :list="songListComment.hotComments || []"
                 @update-comment-list="updateCommentList"
                 @update-comment-liked="(data: any) => updateCommentLiked(data, true)" />
               <comment-list :resource-id="+songListId" :type="2" :comment-total-num="songListComment.total" title="Newest Comments"
