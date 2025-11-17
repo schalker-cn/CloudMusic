@@ -21,3 +21,4 @@ export function batchRequest(data: {
 export * from './playlist';
 export * from './songs';
 export * from './search';
+export * from './login';
