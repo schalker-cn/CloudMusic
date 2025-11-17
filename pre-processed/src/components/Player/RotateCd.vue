@@ -32,7 +32,7 @@ const loopSetRotate = (timestamp: number) => {
     start = timestamp;
   }
   const elapsed = timestamp - start;
-  if (elapsed > 1000) {
+  if (elapsed > 1000) { // stop animation after 2 seconds
     rotate.value = rotate.value + 12;
     start = timestamp;
   }

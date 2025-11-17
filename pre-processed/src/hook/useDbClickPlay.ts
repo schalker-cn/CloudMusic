@@ -19,6 +19,7 @@ export function useDbClickPlay() {
     }
     isLoad = true;
     const message = 'no copyright';
+    // init playlist
     if (!mainStore.playList.length) {
       await mainStore.initPlayList(
         songList, index, playListId, message

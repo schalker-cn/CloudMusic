@@ -28,6 +28,7 @@ let triggerOriginalAudioTimeUpdate = true;
 const progressWidth = 500;
 const themeVars = useThemeVars();
 const mainStore = useMainStore();
+// trigger to show music detail
 const triggerRef = ref();
 const isHover = useElementHover(triggerRef);
 const heardLikeRef = ref<HeartIconExpose>();
@@ -35,6 +36,7 @@ const subscribeModalRef = ref<{ show: () => void }>();
 let isLoad = false;
 const audioRef = ref<HTMLAudioElement>();
 const { updateBuffer, progressValue } = useAudioLoadProgress(audioRef, mainStore.currentPlaySong?.dt / 1000);
+// percentage of playing bar
 const percentage = ref(0);
 const currentPlayTime = ref('00:00');
 const volume = ref(+localStorage.volume || 100);
@@ -62,6 +64,7 @@ const activeStyle = computed(() => {
 });
 const loadCurrentPrevAndNext = async (val: any) => {
   if (!val) return;
+  // load url for next and prev song
   let next = mainStore.playList[val.nextIndex];
   let prev = mainStore.playList[val.prevIndex];
   if (next && !next.url) {
@@ -75,6 +78,7 @@ const loadCurrentPrevAndNext = async (val: any) => {
 const requestSongData = async () => {
   const res = await mainStore.setMusicData({ data: mainStore.playList, id: mainStore.currentPlaySong.id, index: mainStore.currentPlayIndex });
   if (res.success) {
+    // reload media resource
     audioRef.value?.load();
     localStorage.playList = JSON.stringify(mainStore.playList);
     resetState();
@@ -99,7 +103,7 @@ watch(
     if (!val.url) {
       requestSongData();
     }
-
+    // create a temp url from blob data
     getOpusBlobDataByIdUsingIndex(mainStore.currentPlaySong?.id).then((res: AudioIndexedData) => {
       if (res) {
         const url = window.URL.createObjectURL(res.blob);
@@ -179,6 +183,7 @@ const handleTimeupdate = (event: Event) => {
 };
 
 const updatePlayTime = async (time: number, triggerPlay = false) => {
+  // if the slider is being changed by user, do not update time to avoid conflict
   if (!slideValueChange) {
     currentPlayTime.value = dayjs(time * 1000).format('mm:ss');
     percentage.value = Math.round(((time * 1000) / currentSong.value?.dt) * 100);
@@ -193,6 +198,7 @@ const updatePlayTime = async (time: number, triggerPlay = false) => {
   }
   obverser.emit('timeUpdate', Math.round(time * 1000));
 };
+// first frame loaded, ready to play
 const handleLoadeddata = () => {
   let data = {
     id: mainStore.currentPlaySong.id,
@@ -220,6 +226,7 @@ const MAX_RETRY_COUNT = 1;
 let retryCount = 0;
 const handleError = () => {
   if (mainStore.currentPlaySong.url?.startsWith('blob:')) {
+    // create a temp url from blob data
     getOpusBlobDataByIdUsingIndex(mainStore.currentPlaySong?.id).then((res: AudioIndexedData) => {
       if (res) {
         const url = window.URL.createObjectURL(res.blob);
@@ -310,6 +317,7 @@ const handlePressSpace = (e: KeyboardEvent) => {
     togglePlayStatus();
   }
 };
+// handle click to show music detail
 const handleArrowClick = () => {
   mainStore.toggleShowMusicDetail();
 };

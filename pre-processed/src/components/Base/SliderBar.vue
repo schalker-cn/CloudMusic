@@ -109,8 +109,10 @@ onUnmounted(() => {
     <div
       :style="{ width: isString(props.width) ? props.width : width + 'px', height: isString(height) ? height : height + 'px', transform: `scaleY(${isTargetClick || isHover ? '1.5' : '1'})` }"
       class="relative bg-gray-200 dark:bg-gray-200/50 rounded-md transition-transform">
+      <!-- loading bar -->
       <div class="absolute top-0 h-full bg-gray-300 dark:bg-gray-300/50 rounded-md transition-all"
         :style="{ width: loadValue + '%' }" />
+      <!-- playing bar -->
       <div class="absolute top-0 h-full rounded-md  transition-all"
         :style="{ background: mainStore.showMusicDetail ? `linear-gradient(to right,${themeVars.bodyColor}, ${themeVars.primaryColor})` : `${themeVars.primaryColor}`, width: modelValue + '%' }" />
       <div v-show="isHover || isTargetClick" class="dot"

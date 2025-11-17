@@ -103,6 +103,7 @@ registerRouteHook((to) => {
 const watchUpdateCollectPlayList = () => {
   obverser.on('updateCollectPlayList', (data: any) => {
     let { subscribed } = data;
+    // add album to favorites
     if (subscribed) {
       let songListDetail = data.songListDetail;
       myMenuOptions.value[1].children?.unshift({

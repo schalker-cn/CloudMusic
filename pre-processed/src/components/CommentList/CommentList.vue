@@ -39,6 +39,7 @@ const handleLikedClick = (item: any, index: number) => {
 };
 </script>
 <template>
+  <!-- comment block -->
   <replied-comment-modal ref="commentModalRef" :comment-placeholder="commentPlaceholder" title="Reply"
     :update-comment-list="handleUpdateCommentList" :type="type" :resource-id="resourceId"
     :comment-id="currentClickedComment?.commentId" />

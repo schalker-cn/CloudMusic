@@ -46,6 +46,7 @@
 .breadcrumb-leave-active {
   position: absolute;
 }
+/* pop up from bottom */
 .slide-enter-active,
 .slide-leave-active {
   transition: all cubic-bezier(0.165, 0.84, 0.44, 1) 0.6s;

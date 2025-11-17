@@ -22,3 +22,4 @@ export * from './playlist';
 export * from './songs';
 export * from './search';
 export * from './login';
+export * from './user';

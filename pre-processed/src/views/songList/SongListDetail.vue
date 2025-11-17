@@ -239,6 +239,7 @@ const updateCommentLiked = (data: { liked: boolean, index: number }, isHot: bool
 };
 const handleUpdateMusicListLike = (like: boolean, index: number) => {
   let target = songList.value[index];
+  // update metadata
   if (target.isSearch) {
     rawSongList.value[target.index].like = like;
   }

@@ -300,6 +300,7 @@ const handleFullscreenchange = () => {
                 <n-divider v-if="similarPlaylist.length" />
                 <n-spin :show="fetchSimiPlayListLoading" size="small">
                   <div v-show="fetchSimiPlayListLoading" class="w-80 h-32" />
+                  <!-- similar song recommendation -->
                   <div v-for="item in similarPlaylist" v-show="!fetchSimiPlayListLoading" :key="item.id"
                     class="flex items-center p-2 hover:bg-neutral-50 dark:hover:bg-neutral-50/20 cursor-pointer"
                     @click="handleSimiPlayListItem(item.id.toString())">
@@ -331,6 +332,7 @@ const handleFullscreenchange = () => {
     :bottom="90" :right="400">
     <n-icon :component="BackToTop" />
   </n-back-top>
+  <!-- submit comment -->
   <replied-comment-modal ref="commentModalRef" comment-placeholder="Write your comment here"
     :title="'Song: ' + mainStore.currentPlaySong.name" :update-comment-list="updateCommentList" :t="1" :type="0"
     :resource-id="mainStore.currentPlaySong.id" />
@@ -380,7 +382,7 @@ const handleFullscreenchange = () => {
 :deep(.n-back-top-placeholder) {
   z-index: 8888 !important;
 }
-
+/* pop up from bottom or hide transform effect */
 .bottom-slide-transform-leave-active {
   transition: height .2s cubic-bezier(0.4, 0, 0.2, 1);
 }

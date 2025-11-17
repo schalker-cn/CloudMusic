@@ -4,8 +4,9 @@ import { Moon, SunnySharp } from '@vicons/ionicons5';
 import { ArrowForwardIosRound } from '@vicons/material';
 import { UserProfile } from '@vicons/carbon';
 import { ExitToAppRound } from '@vicons/material';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { onClickOutside } from '@vueuse/core';
+import { getLoginStatus, getUserDetail, getUserInfo, signIn } from '@/service';
 import type { AnyObject } from 'env';
 import { useRouter } from 'vue-router';
 
@@ -14,6 +15,14 @@ const router = useRouter();
 const popoverContainerRef = ref();
 const userDetail = ref<AnyObject>();
 const showUserPopover = ref(false);
+const signBtnLoading = ref(false);
+
+// listen to login status change
+watch(() => mainStore.isLogin, (val) => {
+  if (val) {
+    getUserProfile();
+  }
+});
 
 onClickOutside(popoverContainerRef, (event: MouseEvent) => {
   let target = event.target as HTMLElement;
@@ -21,7 +30,49 @@ onClickOutside(popoverContainerRef, (event: MouseEvent) => {
     showUserPopover.value = false;
   }
 });
-const handleInfoEditClick = () => {
+const getUserProfile = () => {
+  if (mainStore.userProfile?.userId) {
+    getUserDetailInfo(mainStore.userProfile.profile.userId);
+  } else {
+    getUserInfo().then(res => {
+      getUserDetailInfo(res.data.account?.id);
+    });
+  }
+};
+const getUserDetailInfo = (uid: string) => {
+  getUserDetail(uid).then((res) => {
+    if (res?.data?.code === 200) {
+      mainStore.userProfile = res.data;
+      localStorage.userProfile = JSON.stringify(res.data);
+      userDetail.value = res.data;
+    }
+  });
+};
+const checkLoginStatus = () => {
+  getLoginStatus().then(res => {
+    if (res.data?.data?.code === 200) {
+      if (!res.data.data.account) {
+        window.$message.warning('login status expired, please login again!');
+        mainStore.userProfile = {};
+        localStorage.clear();
+        mainStore.isLogin = false;
+      }
+    }
+  });
+};
+const handleInfoEditClick = () => {  
+  showUserPopover.value = false;
+  router.push('/userInfoEdit');
+};
+const handleSignInClick = () => {
+  signBtnLoading.value = true;
+  signIn().then(() => {
+    if (userDetail.value) {
+      signBtnLoading.value = false;
+      userDetail.value.pcSign = true;
+      window.$message.success('签到成功!');
+    }
+  });
   console.log("edit button clicked.")
 };
 const handleThemeSwitchUpdateChange = () => {
@@ -29,6 +80,10 @@ const handleThemeSwitchUpdateChange = () => {
 };
 const BackToDiscovery = () => {
   router.push('/discovery');
+}
+if (mainStore.isLogin) {
+  getUserProfile();
+  checkLoginStatus();
 }
 </script>
 <template>
@@ -38,6 +93,7 @@ const BackToDiscovery = () => {
       <layout-header-search />
     </div>
     <div class="flex items-center">
+      <!-- entry to user data -->
       <div v-if="mainStore.isLogin">
         <div v-if="mainStore.userProfile" class="flex items-center mr-2">
           <n-avatar :img-props="{ crossorigin: 'anonymous' }" round :size="30"
@@ -72,6 +128,7 @@ const BackToDiscovery = () => {
               </div>
               <div
                 class="mt-3 hover:bg-neutral-200/20 border-0 border-b border-gray-200  dark:border-gray-200/20 border-solid">
+                <!-- user data edit -->
                 <div class="flex justify-between items-center py-2 px-4 cursor-pointer" @click="handleInfoEditClick">
                   <div class="flex items-center text-base">
                     <n-icon :size="20" :component="UserProfile" />
@@ -84,6 +141,7 @@ const BackToDiscovery = () => {
                 class="hover:bg-neutral-200/20 border-0 border-b border-gray-200  dark:border-gray-200/20 border-solid">
                 <n-popconfirm>
                   <template #trigger>
+                    <!-- set up personal data -->
                     <div class="flex justify-between items-center py-2 px-4 cursor-pointer">
                       <div class="flex items-center text-base">
                         <n-icon :size="20" :component="ExitToAppRound" />
@@ -98,6 +156,7 @@ const BackToDiscovery = () => {
             </div>
           </n-popover>
         </div>
+        <!-- loading user detail data -->
         <div v-else class="flex items-center mr-2">
           <n-skeleton width="30px" height="30px" round />
           <n-skeleton text style="width:100px;margin-left: 8px;" />

@@ -168,6 +168,7 @@ onUnmounted(() => {
         class="absolute top-10 rounded-sm shadow-lg dark:shadow-black/60 origin-top-left searchWrapContainer"
         :style="containerStyle">
         <n-scrollbar style="max-height:500px">
+          <!-- search history -->
           <div v-show="mainStore.searchHistory.length && !mainStore.searchKeyword.length" class="p-4 pb-0">
             <div class="flex justify-between items-center opacity-70">
               <div>
@@ -192,6 +193,7 @@ onUnmounted(() => {
               </n-space>
             </div>
           </div>
+          <!-- top songs -->
           <div v-show="!mainStore.searchKeyword.length">
             <p class="pl-4 mt-4 opacity-70">
               Trending Songs

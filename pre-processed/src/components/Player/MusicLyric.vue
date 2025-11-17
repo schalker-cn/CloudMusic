@@ -7,8 +7,8 @@ import { useMainStore } from '@/stores/main';
 import { ref } from 'vue';
 import { parseLyric, parseRangeLyric, type LyricItem, parseBaseLyric, type RangeLyricItem } from '@/utils/lyric';
 import { useElementHover } from '@vueuse/core';
-let timeId: any;
-let clearTriggerScrollTimer: any;
+let timeId: any; // scroll debounce timer
+let clearTriggerScrollTimer: any; // switch triggerScroll timer
 let triggerScroll = true;
 let triggerPlayLyric = true;
 let selectLyricLineIndex = 0;
@@ -62,6 +62,7 @@ const lyricData = computed(() => {
   } else {
     let lyric = parseLyric(mainStore.currentPlaySong?.lyric, mainStore.currentPlaySong?.yrcLyric);
     if (tlyricData) {
+      // filter [] in lyrics
       lyric.filter((item) => !/^\[[^\d\]]+\]$/.test(item.content) && item.index != undefined).forEach((item, index) => {
         if (tlyricData[index]) {
           item.translateContent = tlyricData[index].content;
@@ -99,6 +100,7 @@ const currentLyricStyle = computed(() => {
   };
 });
 function handlePlayLyric(time: number, listenScroll = false) {
+  // if the user is scrolling lyrics, do not auto scroll
   if (selectLyricLine.value) return;
   if (!triggerPlayLyric) return;
   triggerLyricChange(time, listenScroll);
@@ -115,6 +117,7 @@ const triggerLyricChange = (time: number, listenScroll = false) => {
   if (mainStore.currentPlaySong.isNotLyric) return;
   if (!lyricData.value.length) return;
 
+  //match last lyric
   if (time > lyricData.value[lyricData.value.length - 1].time) {
     let currentLyric = lyricData.value[lyricData.value.length - 1];
     currentPlayLine.value = lyricData.value.length - 1;
@@ -169,6 +172,7 @@ const handlePlayIconClick = () => {
   obverser.emit('selectLyricPlay', time / 1000);
 };
 const handleWheel = (event: WheelEvent) => {
+  // disabled default scroll 
   event.preventDefault();
   let deltaY = event.deltaY;
   triggerScroll = true;
@@ -231,7 +235,7 @@ const findLyricByScrollTop = (scrollTop: number) => {
       left = mid + 1;
     }
   }
-
+  // if cannot match the item precisely, return the closest one
   const lastItem = lyricChildrenValueList[lyricChildrenValueList.length - 1];
   return scrollTop >= lastItem.offsetTop ? { index: lastItem.index, time: lastItem.time, middleTop: lastItem.middleTop } : null;
 };
@@ -386,10 +390,11 @@ onMounted(() => {
         </div>
       </div>
       <div v-else class="text-center opacity-40">
-        暂无歌词...
+        currently no lyric...
       </div>
       <div :style="{ height: gapHeight + 'px' }" />
     </n-scrollbar>
+    <!-- lyric scroll selector  -->
     <div v-if="showSelectLyric" class="selectLyricContainer"
       :style="{ top: selectLyricLine.middleTop + 'px', height: lyricItemHeight + 'px' }">
       <div class="flex items-center">

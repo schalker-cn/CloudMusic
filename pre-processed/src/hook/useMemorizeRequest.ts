@@ -28,6 +28,7 @@ export const useMemorizeRequest = (
     if (!cacheResponseMap.has(key)) {
       return request();
     } else {
+      // if cache is expired, request again
       if (Date.now() - cacheTimeMap.get(key) > cacheTime) {
         return request();
       } 

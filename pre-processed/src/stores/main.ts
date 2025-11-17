@@ -101,11 +101,13 @@ export const useMainStore = defineStore({
     async initPlayList(
       data: any[], index = 0, playListId: string,message?:string
     ) {
+      // if the song has no url, fetch the url first
       if (!data[index]?.url) {
         console.log('init step: song ' + index + ' has no url');
         const res = await this.setMusicData({ data, id: data[index]?.id, index: index });
         if (!res.success) return;
       }
+      // filter out songs with no url
       this.playList = data;
       this.initPlayListPrevAndNextIndex();
       localStorage.rawPlayList = JSON.stringify(cloneDeep(this.playList));
@@ -139,11 +141,13 @@ export const useMainStore = defineStore({
     },
     async changePlayIndex(index: number) {
       let target = this.playList[index];
+      // no audio source,skip this song
       console.log('process song with id: ' + target.id + ", the fee is: " + target.fee);
       if (target['fee'] === 0) {
         return window.$message.warning('No audio source for this song');
       }
-      
+
+      // if no url, fetch url first
       if (target && !target.url) {
         console.log('no url for ' + target.id);
         const res = await this.setMusicData({ data: this.playList, id: target.id, index, });
@@ -218,6 +222,7 @@ export const useMainStore = defineStore({
         );
         const insertIndex = this.playList.findIndex((item: any) => item.id === value.id);
         localStorage.playList = JSON.stringify(this.playList);
+        // change origin data
         localStorage.rawPlayList = JSON.stringify(cloneDeep(this.playList));
         this.changePlayIndex(insertIndex, value);
         this.initPlayListPrevAndNextIndex();
@@ -240,6 +245,7 @@ export const useMainStore = defineStore({
       const result: AnyObject = {};
       showMessage && window.$message.loading('fetching song data..', { duration: 0 });
       try {
+        // check if the music is available
         const checkRes = await checkMusic(id) as any;
         console.log('check music result: ' + checkRes.data.code + ' , id: ' + id);
         if (!checkRes.musicSuccess && !checkRes?.data?.success) {
