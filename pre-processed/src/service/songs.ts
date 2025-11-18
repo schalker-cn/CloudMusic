@@ -5,7 +5,6 @@ import { USA_SONG_MOCK } from '@/mocks/songMock';
 import { CHN_SONG_MOCK } from '@/mocks/songMock';
 import { SONG_CHECK_MOCK } from '@/mocks/songMock';
 import { LYRIC_MOCK } from '@/mocks/lyricMock';
-import placeholder from '@/assets/img/placeholder.png';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 export function getRecommendSong() {
     const modifiedData = {
@@ -16,7 +15,7 @@ export function getRecommendSong() {
         ...song,
         al: {
           ...song.al,
-          picUrl: placeholder
+          picUrl: "https://dummyimage.com/1080x1080/0606fc/0606fc&text=1"
         }
       }))
     }
@@ -31,8 +30,8 @@ export function getTopSong(type: 0 | 7 | 96 | 8 | 16 = 0) {
         ...song,
         album: {
           ...song.album,
-          picUrl: placeholder,
-          blurPicUrl: placeholder
+          picUrl: "https://dummyimage.com/1080x1080/0606fc/0606fc&text=1",
+          blurPicUrl: "https://dummyimage.com/1080x1080/0606fc/0606fc&text=1"
         }
       }))
     };

@@ -3,21 +3,20 @@ import { PLAYLIST_DETAIL_MOCK } from '@/mocks/playlistMock';
 import { PLAYLIST_TRACK_MOCK } from '@/mocks/playlistMock';
 import { COMMENT_MOCK } from '@/mocks/commentMock';
 import { SIMILAR_PLAYLIST_MOCK } from '@/mocks/playlistMock';
-import placeholder from '@/assets/img/placeholder.png';
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 export function getPersonalized() {
   const modifiedData = {
     ...DAILY_PLAYLIST_MOCK,
     result: DAILY_PLAYLIST_MOCK.result.map(playlist => ({
       ...playlist,
-      picUrl: placeholder
+      picUrl: "https://dummyimage.com/1080x1080/0606fc/0606fc&text=1"
     }))
   };
   return Promise.resolve(modifiedData);
 }
 export function getPlaylistDetail(id: string) {
   const matched = PLAYLIST_DETAIL_MOCK.playlist.find(item => item.id.toString() == id);
-  matched.tracks.forEach(item => item.al.picUrl = placeholder);
+  matched.tracks.forEach(item => item.al.picUrl = "https://dummyimage.com/1080x1080/0606fc/0606fc&text=1");
   const mockResponse: AxiosResponse = {
     data: {
       code: PLAYLIST_DETAIL_MOCK.code,
@@ -43,7 +42,7 @@ export function getPlaylistAllDetail(data:{
   offset?: number,
 }) {
   const matched = PLAYLIST_TRACK_MOCK.track.find(item => item.id.toString() == data.id);
-  matched.songs.forEach(item => item.al.picUrl = placeholder);
+  matched.songs.forEach(item => item.al.picUrl = "https://dummyimage.com/1080x1080/0606fc/0606fc&text=1");
   const mockResponse: AxiosResponse = {
     data: {
       code: PLAYLIST_TRACK_MOCK.code,
@@ -89,7 +88,7 @@ export function getPlaylistComment(data:{
 export function getSimilarPlaylist(id: string) {
   const updatedPlaylists = SIMILAR_PLAYLIST_MOCK.playlists.map(playlist => ({
     ...playlist,
-    coverImgUrl: placeholder
+    coverImgUrl: "https://dummyimage.com/1080x1080/0606fc/0606fc&text=1"
   }));
 
   const response = {

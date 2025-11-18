@@ -14,7 +14,6 @@ import { userCheckLogin } from '@/hook/useCheckLogin';
 import { useMemorizeRequest } from '@/hook/useMemorizeRequest';
 import { cloneDeep } from 'lodash';
 import { markSearchKeyword } from '@/utils/markSearhKeyword';
-import placeholder from '@/assets/img/placeholder.png';
 
 let backTopEle: HTMLElement;
 let songListIndexMap = new Map();
@@ -250,7 +249,7 @@ const handleUpdateMusicListLike = (like: boolean, index: number) => {
   <div class="p-8 pb-2">
     <n-spin :show="isLoading">
       <div v-if="songListDetail" class="flex justify-between">
-        <load-img ref="imageRef" :has-hover-scale="false" class-name="w-52 h-52" :src="placeholder" />
+        <load-img ref="imageRef" :has-hover-scale="false" class-name="w-52 h-52" :src="'https://dummyimage.com/1080x1080/0606fc/0606fc&text=1'" />
         <div class="flex-1 ml-8">
           <div class="flex items-center">
             <n-tag type="primary">
@@ -265,7 +264,7 @@ const handleUpdateMusicListLike = (like: boolean, index: number) => {
           </div>
           <div class="mt-3 text-sm flex-items-center">
             <n-avatar :img-props="{ crossorigin: 'anonymous' }" round :size="30"
-              :src="placeholder" />
+              :src="'https://dummyimage.com/1080x1080/0606fc/0606fc&text=1'" />
             <span class="pl-4 text-primary">{{ songListDetail.creator.nickname }}</span>
             <div class="ml-3 text-gray-600">
               <span>created on </span>

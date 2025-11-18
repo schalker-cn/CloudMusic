@@ -9,7 +9,6 @@ import { useRoute, useRouter } from 'vue-router';
 import useThemeStyle from '@/hook/useThemeStyle';
 import { useNanoid } from '@/hook/useNanoid';
 import { markSearchKeyword } from '@/utils/markSearhKeyword';
-import placeholder from '@/assets/img/placeholder.png';
 
 let immediateCall = false;
 let backTopEle: HTMLElement;
@@ -149,7 +148,7 @@ watch([playListPageParams, songListPageParams], () => {
           <div v-for="(item, index) in playListSearchResult.playlists" :key="item.id"
             :class="'flex items-center py-4 px-8 cursor-pointer ' + stripedClass(index)"
             @click="router.push(`/songList/${item.id}`)">
-            <load-img loading-height="64px" class-name="w-16 h-16 rounded-md" :src="placeholder" />
+            <load-img loading-height="64px" class-name="w-16 h-16 rounded-md" :src="'https://dummyimage.com/1080x1080/0606fc/0606fc&text=1'" />
             <n-ellipsis :tooltip="false" class="pl-2" style="width:400px">
               <p v-html="item.nameRichText" />
             </n-ellipsis>
