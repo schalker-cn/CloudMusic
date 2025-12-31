@@ -140,10 +140,6 @@ const updateCommentLiked = (data: { liked: number, index: number }, isHot: boole
 const handleUpdateShow = (value: boolean) => {
   showBackTop.value = value;
 };
-const handleContextMenu = (ev: MouseEvent) => {
-  ev.preventDefault();
-  return false;
-};
 const handleMvTagClick = () => {
   if (mainStore.playing) {
     mainStore.changePlaying(false);
@@ -239,7 +235,7 @@ const handleFullscreenchange = () => {
           </div>
           <div class="ml-4 cursor-pointer">
             <n-icon size="35" :component="fullScreen ? FullscreenExitOutlined : FullscreenOutlined"
-              class="ml-4 cursor-pointer" @click="toggleFullScreen" />
+              class="ml-4 cursor-pointer"/>
           </div>
           <div class="ml-4"><change-theme></change-theme></div>
         </div>
@@ -258,7 +254,7 @@ const handleFullscreenchange = () => {
           </div>
         </transition>
       </div>
-      <div ref="scrollContainerRef" class="px-10 pt-5 detail-content" @scroll="handleScroll">
+      <div ref="scrollContainerRef" class="px-10 pt-5 detail-content">
         <div class="flex ">
           <rotate-cd />
           <div class="max:ml-10 2xl:ml-3">
@@ -302,8 +298,7 @@ const handleFullscreenchange = () => {
                   <div v-show="fetchSimiPlayListLoading" class="w-80 h-32" />
                   <!-- similar song recommendation -->
                   <div v-for="item in similarPlaylist" v-show="!fetchSimiPlayListLoading" :key="item.id"
-                    class="flex items-center p-2 hover:bg-neutral-50 dark:hover:bg-neutral-50/20 cursor-pointer"
-                    @click="handleSimiPlayListItem(item.id.toString())">
+                    class="flex items-center p-2 hover:bg-neutral-50 dark:hover:bg-neutral-50/20 cursor-pointer">
                     <img crossorigin="anonymous" width="45" height="45" class="rounded-md" :src="item.coverImgUrl" />
                     <div class="ml-4">
                       <p class="w-60 text-sm text-left truncate">
@@ -325,7 +320,7 @@ const handleFullscreenchange = () => {
     </div>
   </transition>
   <transition name="bottom-slide-transform">
-    <canvas v-show="mainStore.showMusicDetail" ref="myCanvas" class="background" @contextmenu="handleContextMenu" />
+    <canvas v-show="mainStore.showMusicDetail" ref="myCanvas" class="background"/>
   </transition>
 
   <n-back-top style="z-index: 9999;" :show="showBackTop" :on-update:show="handleUpdateShow" :listen-to="target"
@@ -341,13 +336,6 @@ const handleFullscreenchange = () => {
       style="z-index:9999;bottom: 90px;right:400px" round type="primary" @click="commentModalRef?.show()">
       <n-icon :component="Edit" />
       Comment
-    </n-button>
-  </transition>
-  <transition name="slide">
-    <n-button v-show="showBackTop && mainStore.showMusicDetail" type="primary" class="fixed w-44"
-      style="z-index:9999;bottom: 90px;right:0;left:0;margin:auto" round @click="commentModalRef?.show()">
-      <n-icon :component="Edit" />
-      Post my comment
     </n-button>
   </transition>
 </template>

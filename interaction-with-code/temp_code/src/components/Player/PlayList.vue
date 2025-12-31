@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import useThemeStyle from '@/hook/useThemeStyle';
-import useValidateVipSong from '@/hook/useValidateVipSong';
 import { useMainStore } from '@/stores/main';
 import { formateSongsAuthor } from '@/utils';
 import { VolumeMuteFilled, VolumeUpFilled } from '@vicons/material';
@@ -13,7 +12,6 @@ export interface PlayListExpose {
 const active = ref(false);
 const mainStore = useMainStore();
 const router = useRouter();
-let isLoad = false;
 const { stripedClass, themeVars, tagColor } = useThemeStyle();
 
 defineExpose({
@@ -21,14 +19,6 @@ defineExpose({
     active.value = true;
   }
 });
-const handleDoubleClick = async (index: number, item: any) => {
-  const value = useValidateVipSong(mainStore.playList[index]);
-  if (value) return;
-  if (isLoad) return;
-  isLoad = true;
-  await mainStore.changePlayIndex(index, item);
-  isLoad = false;
-};
 const handleRestClick = () => {
   mainStore.resetPlayList();
 };
@@ -61,8 +51,7 @@ const handleGoHemeClick = () => {
           <DynamicScrollerItem :item="item" :active="active" :size-dependencies="[
             item.message,
           ]" :data-index="index">
-            <div :class="'flex justify-between text-sm item ' + stripedClass(index)"
-              @dblclick="handleDoubleClick(index, item)">
+            <div :class="'flex justify-between text-sm item ' + stripedClass(index)">
               <div class="flex overflow-hidden flex-1 items-center pr-2">
                 <n-icon v-if="+mainStore.currentPlayIndex === index" style="padding-right:5px" :color="mainStore.playing
                   ? themeVars.primaryColor

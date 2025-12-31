@@ -8,7 +8,6 @@ import {
 import { useAsyncState, useElementHover } from '@vueuse/core';
 import { computed, ref } from 'vue';
 import { ArrowBackIosSharp, ArrowForwardIosRound } from '@vicons/material';
-import { useDbClickPlay } from '@/hook/useDbClickPlay';
 import { nanoid } from 'nanoid';
 import { mapSongs } from '@/utils/arr-map';
 import { useMainStore } from '@/stores/main';
@@ -35,7 +34,6 @@ const showArrowClass = computed(() => isHovered.value
   ? 'opacity-50'
   : 'opacity-0');
 useMemoryScrollTop('.rightMain>.n-layout-scroll-container');
-const handleDBClick = useDbClickPlay();
 const handleArrowClick = (type: 'next' | 'prev') => {
   let index = currentIndex.value;
 
@@ -56,12 +54,7 @@ fetch('https://musicapi-git-main-pathyus-projects.vercel.app/homepage/block/page
 
 <template>
   <div class="p-6">
-    <div v-if="isLoading" class="flex items-center">
-      <n-skeleton width="25%" height="170px" :sharp="false" />
-      <n-skeleton width="50%" height="250px" :sharp="false" />
-      <n-skeleton width="25%" height="170px" :sharp="false" />
-    </div>
-    <div v-else ref="hoverRef" class="relative cursor-pointer">
+    <div ref="hoverRef" class="relative cursor-pointer">
       <n-carousel effect="card" dot-type="line" draggable :autoplay="!isHovered" :current-index="currentIndex"
         prev-slide-style="transform: translateX(-150%) translateZ(-450px);opacity:1"
         next-slide-style="transform: translateX(50%) translateZ(-450px);opacity:1" style="height: 250px"
@@ -89,25 +82,14 @@ fetch('https://musicapi-git-main-pathyus-projects.vercel.app/homepage/block/page
     <p class="pb-4 text-xl">
       Recommend Playlists
     </p>
-    <SongListSkeleton v-if="SongsListIsLoading" />
-    <SongList v-else :songs="SongsList" />
+    <SongList :songs="SongsList" />
     <p class="py-4 text-xl">
       Recommend Songs
     </p>
-    <n-grid v-if="recommendSongListIsLoading" cols="3" x-gap="20" :y-gap="20">
-      <n-grid-item v-for="(, index) in recommendSongList" :key="index">
-        <div class="flex justify-between h-16">
-          <n-skeleton height="64px" width="64px" :sharp="false" />
-          <div class="flex-1 ml-2">
-            <n-skeleton text class="mt-2" :repeat="2" :sharp="false" />
-          </div>
-        </div>
-      </n-grid-item>
-    </n-grid>
-    <n-grid v-else x-gap="20" :y-gap="20" cols="2 s:2 m:3 l:3 xl:3 2xl:4" responsive="screen">
+    <n-grid x-gap="20" :y-gap="20" cols="2 s:2 m:3 l:3 xl:3 2xl:4" responsive="screen">
       <n-grid-item v-for="(item, index) in recommendSongList" :key="item.id" class="hover:bg-zinc-300/40
          dark:hover:bg-gray-700/30 rounded-md 
-         transition-colors cursor-pointer" @dblclick="handleDBClick(recommendSongList, onlyId, item, index)">
+         transition-colors cursor-pointer">
         <div class="flex justify-between h-16">
           <div class="relative">
             <load-img loading-height="64px" class-name="w-16 h-16 rounded-md" :src="item.al.picUrl"

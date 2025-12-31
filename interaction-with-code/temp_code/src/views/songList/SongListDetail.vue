@@ -8,9 +8,7 @@ import LoadImg from '@/components/Base/LoadImg.vue';
 import { StarOutline, Star, ShareSocialOutline, Search } from '@vicons/ionicons5';
 import { Edit } from '@vicons/carbon';
 import { useMainStore } from '@/stores/main';
-import type { SelectSongListTagModalExpose } from '@/components/SongsList/SelectSongListTagModal.vue';
 import { useThemeVars } from 'naive-ui';
-import { userCheckLogin } from '@/hook/useCheckLogin';
 import { useMemorizeRequest } from '@/hook/useMemorizeRequest';
 import { cloneDeep } from 'lodash';
 import { markSearchKeyword } from '@/utils/markSearhKeyword';
@@ -33,10 +31,7 @@ const pageParams = reactive({
   pageSize: 50
 });
 
-const imageRef = ref();
 const themeVars = useThemeVars();
-const selectSongListTagRef = ref<SelectSongListTagModalExpose>();
-const btnLoading = ref(false);
 const commentBtnLoading = ref(false);
 const subscribeBtnLoading = ref(false);
 const searchKeyword = ref('');
@@ -182,67 +177,10 @@ const toSongListEdit = () => {
     });
   }
 };
-const handleSubscribeClick = (subscribed: boolean) => {
-  if (!mainStore.isLogin) {
-    return window.$message.error('please log in first');
-  }
-  return undefined;
-};
-const handleCompleteClick = (selectTagList: any[]) => {
-  let detail = songListDetail.value as AnyObject;
-  let tags = selectTagList.map((item: { name: any; }) => item.name);
-  if (tags.length === 0) {
-    return window.$message.warning('请选择标签');
-  }
-  let params = {
-    id: detail.id,
-    tags: tags.join(';')
-  };
-  btnLoading.value = true;
-};
 const handleShareClick = () => {
   navigator.clipboard.writeText(window.location.href).then(() => {
     window.$message.success('Share link copied to clipboard!');
   });
-};
-const handleCommentClick = () => {
-  userCheckLogin(() => {
-    if (!commentValue.value) {
-      return window.$message.error('Comment cannot be empty!');
-    }
-    let params = {
-      t: 1,
-      content: commentValue.value,
-      id: +songListId.value,
-      type: 2
-    };
-  });
-};
-const updateCommentList = (value: any) => {
-  songListComment.value.total += 1;
-  songListComment.value.comments.unshift(value);
-};
-const updateCommentLiked = (data: { liked: boolean, index: number }, isHot: boolean) => {
-  let { index, liked } = data;
-  if (isHot) {
-    songListComment.value.hotComments[index].liked = liked;
-    liked
-      ? songListComment.value.hotComments[index].likedCount += 1
-      : songListComment.value.hotComments[index].likedCount -= 1;
-  } else {
-    songListComment.value.comments[index].liked = liked;
-    liked
-      ? songListComment.value.comments[index].likedCount += 1
-      : songListComment.value.comments[index].likedCount -= 1;
-  }
-};
-const handleUpdateMusicListLike = (like: boolean, index: number) => {
-  let target = songList.value[index];
-  // update metadata
-  if (target.isSearch) {
-    rawSongList.value[target.index].like = like;
-  }
-  songList.value[index].like = like;
 };
 </script>
 <template>
@@ -274,8 +212,7 @@ const handleUpdateMusicListLike = (like: boolean, index: number) => {
           <div class="mt-3">
             <n-space>
               <play-all-button :song-list="rawSongList" :song-list-id="songListId" />
-              <n-button size="medium" round :disabled="starButtonDisabled" :loading="subscribeBtnLoading"
-                @click="handleSubscribeClick(songListDetail!.subscribed)">
+              <n-button size="medium" round :disabled="starButtonDisabled" :loading="subscribeBtnLoading">
                 <template #icon>
                   <n-icon :component="songListDetail.subscribed ? Star : StarOutline" />
                 </template>
@@ -296,8 +233,6 @@ const handleUpdateMusicListLike = (like: boolean, index: number) => {
               <span>tags</span>
               <span class="px-1">:</span>
               <span class="cursor-pointer text-primary"> {{ songListDetail.tags.join(' / ') }} </span>
-              <span v-if="isMySongList && !songListDetail.tags.length" class="cursor-pointer text-primary"
-                @click="() => selectSongListTagRef?.show()"> add tag</span>
             </div>
             <div class="flex">
               <div>
@@ -348,31 +283,20 @@ const handleUpdateMusicListLike = (like: boolean, index: number) => {
 
         <div v-show="tabsValue === 'musicList'" class="mt-5">
           <music-list :song-list="songList" :raw-song-list="rawSongList" :loading="requestLoading"
-            :play-list-id="songListId" @update-music-list-like="handleUpdateMusicListLike" />
+            :play-list-id="songListId"/>
         </div>
         <div v-show="tabsValue === 'comment'" class="mt-8">
           <div>
             <n-input v-model:value="commentValue" type="textarea" :maxlength="140" :show-count="true" />
             <div class="flex justify-end mt-5">
-              <n-button round :loading="commentBtnLoading" @click="handleCommentClick">
+              <n-button round :loading="commentBtnLoading">
                 Post
               </n-button>
             </div>
             <n-spin :show="isCommentLoading">
-              <comment-list :type="2" :resource-id="+songListId" title="Top Comments" :list="songListComment.hotComments || []"
-                @update-comment-list="updateCommentList"
-                @update-comment-liked="(data: any) => updateCommentLiked(data, true)" />
               <comment-list :resource-id="+songListId" :type="2" :comment-total-num="songListComment.total" title="Newest Comments"
-                :list="songListComment.comments || []" @update-comment-list="updateCommentList"
-                @update-comment-liked="(data: any) => updateCommentLiked(data, false)" />
+                :list="songListComment.comments || []"/>
             </n-spin>
-            <p v-if="!songListComment.comments?.length" class="text-center opacity-50">
-              be the first to comment!
-            </p>
-            <div v-if="pageParams.pageCount > 1" class="flex justify-end mt-6">
-              <n-pagination v-model:page="pageParams.page" v-model:page-size="pageParams.pageSize"
-                :page-count="pageParams.pageCount" show-size-picker :page-sizes="[10, 20, 30, 40, 50]" />
-            </div>
           </div>
         </div>
       </div>

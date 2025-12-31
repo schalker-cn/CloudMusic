@@ -12,7 +12,6 @@ import { userHistory } from '../hook/useHistoryRoutePath';
 
 const backIconRef = ref();
 const forwardIconRef = ref();
-const target = ref();
 const showPopover = ref(false);
 const inputRef = ref();
 const searchWrapContainerRef = ref();
@@ -60,16 +59,6 @@ const historyListStyle = computed<CSSProperties>(() => {
       : '100%', overflow: 'hidden'
   };
 });
-const handleArrowClick = (type: 'back' | 'forward') => {
-  if (type === 'back' && backPath.value) {
-    history.back();
-    mainStore.setShowMusicDetail(false);
-  }
-  if (type === 'forward' && forwardPath.value) {
-    history.forward();
-    mainStore.setShowMusicDetail(false);
-  }
-};
 const handleCheckAllClick = () => {
   if (defaultHeight.value === '100%') return;
   spread.value = !spread.value;
@@ -110,20 +99,11 @@ const toSearchResult = (val?: string) => {
   });
 
 };
-const handleKeyDown = (e: KeyboardEvent) => {
-  if (showPopover.value && e.code === 'Enter') {
-    toSearchResult();
-  }
-};
 const handleBodyClick = (ev: MouseEvent) => {
   if (!ev.composedPath().includes(inputRef.value) && !ev.composedPath().includes(searchWrapContainerRef.value)) {
     showPopover.value = false;
     spread.value = false;
   }
-};
-const handleClearClick = (e: MouseEvent, index: number) => {
-  e.stopPropagation();
-  mainStore.removeSearchHistory(index);
 };
 watch(showPopover, async (val) => {
   if (val && defaultHeight.value === '100%') {
@@ -137,20 +117,18 @@ watch(() => mainStore.searchHistory, async () => {
   defaultHeight.value = historyListRef!.value!.children[0]!.clientHeight + 'px';
 });
 onMounted(() => {
-  document.body.addEventListener('keydown', handleKeyDown);
   document.body.addEventListener('click', handleBodyClick);
 });
 
 onUnmounted(() => {
-  document.body.removeEventListener('keydown', handleKeyDown);
 });
 </script>
 <template>
   <div class="flex items-center ml-8">
-    <div ref="backIconRef" class="text-base" @click="handleArrowClick('back')">
+    <div ref="backIconRef" class="text-base">
       <n-icon :class="[arrowIconClass(backPath)]" :component="ArrowBackIosSharp" />
     </div>
-    <div ref="forwardIconRef" class="ml-2 text-base" @click="handleArrowClick('forward')">
+    <div ref="forwardIconRef" class="ml-2 text-base">
       <n-icon :class="[arrowIconClass(forwardPath)]" :component="ArrowForwardIosRound" />
     </div>
   </div>
@@ -173,12 +151,7 @@ onUnmounted(() => {
             <div class="flex justify-between items-center opacity-70">
               <div>
                 <span class="pr-2">Search History</span>
-                <n-popconfirm :on-positive-click="() => mainStore.clearSearchHistory()" positive-text="Yes">
-                  <template #trigger>
-                    <n-icon class="cursor-pointer" :component="Delete" />
-                  </template>
-                  Are you sure to delete all history?
-                </n-popconfirm>
+                <n-icon class="cursor-pointer" :component="Delete" />
               </div>
               <n-button v-if="parseInt(defaultHeight) > 62" text @click="handleCheckAllClick">
                 {{ spread ? 'eclipse' : 'show all' }}
@@ -186,8 +159,7 @@ onUnmounted(() => {
             </div>
             <div ref="historyListRef" class="mt-2 transition-height" :style="historyListStyle">
               <n-space>
-                <n-tag v-for="(item, index) in mainStore.searchHistory" :key="item" closable size="small" round
-                  @click="toSearchResult(item)" @close="(e: MouseEvent) => handleClearClick(e, index)">
+                <n-tag v-for="(item, index) in mainStore.searchHistory" :key="item" closable size="small" round>
                   {{ item }}
                 </n-tag>
               </n-space>
@@ -201,8 +173,7 @@ onUnmounted(() => {
             <n-spin :show="hotSearchLoading">
               <div v-show="hotSearchLoading" class="h-60" />
               <div v-for="(item, index) in hotSearch" :key="item.searchWord"
-                class="flex items-center p-5 hover:bg-gray-100 dark:hover:bg-gray-100/20 cursor-pointer"
-                @click="toSearchResult(item.searchWord)">
+                class="flex items-center p-5 hover:bg-gray-100 dark:hover:bg-gray-100/20 cursor-pointer">
                 <span class="text-base"
                   :style="{ color: index >= 0 && index <= 2 ? themeVars.primaryColor : themeVars.textColor1 }">
                   {{ index + 1 }}

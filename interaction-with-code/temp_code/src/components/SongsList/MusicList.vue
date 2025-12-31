@@ -1,5 +1,4 @@
 <script lang="tsx">
-import { useDbClickPlay } from '@/hook/useDbClickPlay';
 import { useMainStore } from '@/stores/main';
 import { formateSongsAuthor } from '@/utils';
 import { VolumeMuteFilled, VolumeUpFilled } from '@vicons/material';
@@ -148,7 +147,6 @@ export default defineComponent({
         'updateMusicListLike', like, index
       );
     };
-    const handleClick = useDbClickPlay();
     return () => {
       return <div >
         <n-data-table
@@ -160,17 +158,7 @@ export default defineComponent({
           max-height={650}
           loading={props.loading}
           row-props={(row: any, index: number) => {
-            let rawIndex = row.isSearch ? index : row.rawIndex;
-            return {
-              ondblclick: () => {
-                let findIndex = mainStore.playList.findIndex(item => item.id === row.id)
-                handleClick(
-                  props.rawSongList.length
-                    ? props.rawSongList
-                    : props.songList, props.playListId, row, findIndex !== -1 ? findIndex : rawIndex
-                )
-              }
-            };
+            return {};
           }}
         />
       </div>;

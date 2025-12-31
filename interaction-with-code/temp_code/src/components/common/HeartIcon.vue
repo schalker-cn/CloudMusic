@@ -22,11 +22,6 @@ const triggerLike = () => {
   }
   return window.$message.success('liked this song');
 };
-const handleClick = () => {
-  if (!props.triggerClick) {
-    triggerLike();
-  }
-};
 defineExpose({ triggerLike });
 
 </script>
@@ -36,7 +31,6 @@ defineExpose({ triggerLike });
     :size="size"
     :color="like ? themeVars.primaryColor : themeVars.textColor2"
     class="cursor-pointer"
-    @click="handleClick"
   >
     <Transition name="scale" mode="out-in">
       <Heart v-if="like" />

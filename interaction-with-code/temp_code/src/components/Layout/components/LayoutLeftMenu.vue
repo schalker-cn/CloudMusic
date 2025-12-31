@@ -34,7 +34,6 @@ const menuOptions = [
 ];
 
 const route = useRoute();
-const router = useRouter();
 const loadingBar = useLoadingBar();
 
 let collapsed = ref(false);
@@ -54,9 +53,6 @@ const changeMenuOption = (myCreatePlayList: any[] = [], collectPlayList: any[] =
     myMenuOptions.value = [...menuOptions];
   }
 };
-const handlePlayListItemClick = (item: any) => {
-  router.push(`/songList/${item.id}`);
-};
 watch(() => route.path, (newVal) => {
   activeKey.value = newVal;
   if (route.meta.hidden) {
@@ -65,25 +61,10 @@ watch(() => route.path, (newVal) => {
     hiddenLeftMenu.value = false;
   }
 });
-watch(() => mainStore.userProfile, (val) => {
-  let userId = mainStore.userProfile?.profile?.userId;
-  if (val && userId) {
-    fetchUserPlaylist(userId);
-    fetchMyLikeMusicList(userId);
-  } else {
-    changeMenuOption();
-  }
-});
+
 if (!mainStore.isLogin) {
   changeMenuOption();
 }
-
-const fetchUserPlaylist = (userId: number) => {
-  window.$message.loading('loading playlist...');
-};
-const fetchMyLikeMusicList = (userId: number) => {
-
-};
 registerRouteHook((to) => {
   scrollContainer?.scrollTo({
     behavior: 'smooth',
@@ -100,43 +81,8 @@ registerRouteHook((to) => {
 }, () => {
   loadingBar.finish();
 });
-const watchUpdateCollectPlayList = () => {
-  obverser.on('updateCollectPlayList', (data: any) => {
-    let { subscribed } = data;
-    // add album to favorites
-    if (subscribed) {
-      let songListDetail = data.songListDetail;
-      myMenuOptions.value[1].children?.unshift({
-        label: () => <span onClick={() => handlePlayListItemClick(songListDetail)}>{songListDetail.name}</span>,
-        key: songListDetail.name,
-        icon: () => <NIcon size={20} component={QueueMusicFilled}></NIcon>,
-        id: songListDetail.id
-      });
-    } else {
-      let id = data.id;
-      let index = myMenuOptions.value[1].children?.findIndex((item: any) => item.id === +id);
-      if (index) {
-        myMenuOptions.value[1].children?.splice(index, 1);
-      }
-    }
-  });
-};
-const watchUpdateMyCreatePlayList = () => {
-  obverser.on('updateMyCreatePlayList', (data: any) => {
-    myMenuOptions.value[0].children?.splice(
-      1, 0, {
-      label: () => <span onClick={() => handlePlayListItemClick(data)}>{data.name}</span>,
-      key: data.name,
-      icon: () => <NIcon size={20} component={QueueMusicFilled}></NIcon>,
-      id: data.id
-    }
-    );
-  });
-};
 onMounted(() => {
   scrollContainer = document.querySelector('.rightMain>.n-layout-scroll-container');
-  watchUpdateCollectPlayList();
-  watchUpdateMyCreatePlayList();
 });
 </script>
 <template>
